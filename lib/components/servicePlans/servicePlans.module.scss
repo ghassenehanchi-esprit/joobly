@@ -1,0 +1,50 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.service-plans {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: left;
+  margin-top: 24px;
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+
+    &__label {
+      color: #1D2427;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+
+      span {
+        color: $required;
+      }
+    }
+
+    &__subLabel {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 160%;
+      color: $grey-medium;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .service-plans {
+    &__wrapper {
+    flex-direction: column;
+      gap: 16px;
+    }
+  }
+}

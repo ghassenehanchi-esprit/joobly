@@ -1,0 +1,58 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.text-editor-component {
+  width: 100%;
+  border-radius:8px;
+
+  :global .ck.ck-editor__editable_inline{
+  border-radius: 0px 0px 8px 8px !important;
+  border: 1px solid #F3F3F3;
+  background: #FFF;
+    padding: 0 24px;
+    height: 207px;
+    &:focus {
+      border: unset !important;
+    }
+}
+ :global .ck.ck-toolbar {
+   border-radius: 8px 8px 0px 0px !important;
+   background: #F6F8F9;
+   border: unset;
+   &:focus {
+     border: unset !important;
+   }
+ }
+  :global .ck-powered-by-balloon{
+    display: none !important;
+  }
+  :global .ck.ck-editor__editable.ck-focused{
+    border: unset !important;
+    outline: 1px solid #F3F3F3 !important;
+    box-shadow: unset !important;
+  }
+  .text-editor-labels {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+
+    .text-editor-label {
+      color: #1D2427;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+
+      span {
+        color: $required;
+      }
+    }
+    .text-editor-sub-label{
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 160%;
+      color: $grey-medium;
+    }
+  }
+
+}

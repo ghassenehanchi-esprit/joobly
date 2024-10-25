@@ -1,0 +1,80 @@
+@import "@/lib/styles/mixins.scss";
+@import "@/lib/styles/variables.scss";
+
+.payment-container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: left;
+	margin-top: 24px;
+	&__labels {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 16px;
+
+		&__label {
+			color: #1d2427;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 600;
+
+			span {
+				color: $required;
+			}
+		}
+
+		&__subLabel {
+			display: flex;
+			align-items: center;
+			margin-bottom: 1rem ;
+			gap: 0.4rem;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: 160%;
+			color: $grey-medium;
+		}
+	}
+	.payment-container__wrapper {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		gap: 24px;
+		.payment-container-total-price {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			padding: 24px;
+			&__title {
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: 180%;
+			}
+			&__wrapper {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				&__label {
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: 180%;
+					color: $grey-medium;
+				}
+				&__price {
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: 180%;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.payment-container__wrapper {
+		flex-direction: column;
+	}
+}

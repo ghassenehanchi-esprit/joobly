@@ -1,0 +1,17 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.header-background {
+  background: url('/images/header-bg.svg') $secondary-color no-repeat;
+  height: 261px;
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  @include flex-col-center;
+
+  .page-desc {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 40px;
+  }
+}

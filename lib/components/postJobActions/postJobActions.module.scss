@@ -1,0 +1,21 @@
+@import "@/lib/styles/mixins.scss";
+@import "@/lib/styles/variables.scss";
+
+.post-job-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+
+		p {
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: normal;
+		}
+	}
+}

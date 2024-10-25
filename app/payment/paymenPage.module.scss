@@ -1,0 +1,24 @@
+.payment-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  padding: 42px 0;
+  &__wrapper{
+    max-width: 1180px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .payment-page {
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .payment-page {
+    padding: 24px 16px;
+  }
+}

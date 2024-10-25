@@ -1,0 +1,1 @@
+export const selectJobDetails=(state:any)=>state.job.jobDetails

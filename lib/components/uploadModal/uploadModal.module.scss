@@ -1,0 +1,49 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.upload-modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width:810px;
+  width:100%;
+  background: #F6F8F9;
+  border-radius: 25px;
+  border: 1px solid #FFF;
+  padding: 50px;
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+
+&__title{
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  width: 100%;
+}
+  &__subtitle{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color:$grey-medium ;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+  &__form{
+    @include flex-col-center;
+    margin-top: 50px;
+    gap: 24px;
+    .login-modal-form-icon{
+      color: $grey-medium;
+      margin-right: 16px;
+    }
+    &__buttons{
+      @include flex-row-center;
+      gap: 16px;
+    }
+  }
+}

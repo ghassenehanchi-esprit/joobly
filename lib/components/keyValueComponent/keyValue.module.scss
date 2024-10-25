@@ -1,0 +1,28 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+.key-value-container{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  margin-bottom: 66px;
+  gap: 32px;
+  .key-value-wrapper{
+    max-width: 186px;
+    width: 100%;
+    .key{
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      color:$grey-medium ;
+      margin-bottom: 6px;
+    }
+    .value{
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%
+    }
+  }
+}

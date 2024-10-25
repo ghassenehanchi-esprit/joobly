@@ -1,0 +1,116 @@
+@import "@/lib/styles/mixins.scss";
+@import "@/lib/styles/variables.scss";
+
+.header {
+	zoom: 0.9;
+	background: $light;
+	.header-top {
+		height: 107px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.search-post-group {
+			display: flex;
+			gap: 50px;
+			align-items: center;
+			.search-group {
+				display: flex;
+				align-items: center;
+			}
+			.header-search {
+				width: 188px;
+				height: 32px;
+				&::placeholder {
+					color: $base-black-50;
+				}
+			}
+			.header-logo {
+				cursor: pointer;
+			}
+			.header-post-post {
+				color: $base-black-50;
+				position: relative;
+				&::before {
+					content: "";
+					height: 32px;
+					width: 32px;
+					position: absolute;
+					left: -25px;
+					background-image: url("/images/icons/listing.svg");
+					background-repeat: no-repeat;
+				}
+			}
+			.header-post-home {
+				color: $base-black-50;
+				position: relative;
+				&::before {
+					content: "";
+					height: 32px;
+					width: 32px;
+					position: absolute;
+					left: -25px;
+					background-image: url("/images/icons/home.svg");
+					background-repeat: no-repeat;
+				}
+			}
+			.header-post-find {
+				color: $base-black-50;
+				position: relative;
+				&::before {
+					content: "";
+					height: 32px;
+					width: 32px;
+					position: absolute;
+					left: -25px;
+					background-image: url("/images/icons/findJob.svg");
+					background-repeat: no-repeat;
+				}
+			}
+			.header-post-packages {
+				color: $base-black-50;
+				position: relative;
+			}
+		}
+		.post-btn-group {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+
+			.add-icon {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 20px;
+				margin: auto;
+			}
+			.header-post-resume {
+				@include btn-header-outline;
+				span {
+					margin-left: 35px;
+				}
+			}
+		}
+	}
+}
+
+.package-image {
+	filter: invert(52%) sepia(2%) saturate(6%) hue-rotate(222deg) brightness(96%) contrast(92%);
+}
+
+@media screen and (max-width: 800px) {
+	.header-top {
+		flex-direction: column;
+		margin: 0 auto;
+		padding: 16px 0;
+		gap: 16px;
+		height: fit-content !important;
+		.post-btn-group {
+			flex-direction: column;
+			button {
+				max-width: 100% !important;
+				width: 100%;
+			}
+		}
+	}
+}

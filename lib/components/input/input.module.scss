@@ -1,0 +1,65 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.custom-input-container {
+  width: 100%;
+
+  .custom-input-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+
+    .custom-input-right-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  .custom-input {
+    border-radius: 12px;
+    background: $input-bg;
+    width: 100%;
+    height: 56px;
+    :global .Mui-focused fieldset {
+      border:unset;
+    }
+    fieldset {
+      border-width: 0;
+    }
+
+  }
+  .textArea{
+    height: 140px;
+  }
+  .custom-input-auth {
+    border-radius: 8px;
+    border: 1px solid #D8DAE5;
+    background: #FFF;
+    width: 100%;
+    height: 56px;
+    :global .Mui-focused fieldset {
+      border:unset;
+    }
+    fieldset {
+      border-width: 0;
+    }
+
+  }
+  .custom-input-label {
+    color: #1D2427;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+
+    span {
+      color: $required;
+    }
+  }
+
+  .custom-input-help-icon {
+    color: $grey-light-help-icon;
+  }
+
+}

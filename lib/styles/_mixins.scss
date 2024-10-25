@@ -1,0 +1,156 @@
+@import "./variables";
+
+@mixin flex-row-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-col-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+@mixin flex-col-between {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@mixin page-title {
+	font-size: 40px;
+	font-weight: 700;
+	line-height: 56.96px;
+	color: #1d2124;
+}
+
+@mixin base-btn {
+	@include flex-row-center;
+	color: $light;
+	cursor: pointer;
+	border-radius: 12px;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 23px;
+
+	&:active,
+	&:focus {
+		outline: none;
+	}
+}
+
+@mixin btn-secondary-search {
+	@include base-btn;
+	background: $secondary-color;
+	height: 46px;
+	width: 185px;
+	color: $dark;
+	gap: 8px;
+	transition: 200ms ease;
+
+	&:hover {
+		background-color: $primary-dark;
+		color: $light;
+	}
+}
+
+@mixin btn-grey-outlined {
+	@include base-btn;
+	height: 46px;
+	width: 185px;
+	gap: 8px;
+	border: 1px solid $grey-button-border;
+	color: $gery-button-tex;
+	transition: 200ms ease;
+
+	&:hover {
+		border: 1px solid $primary-color;
+		color: $primary-color;
+	}
+}
+@mixin btn-green-outlined {
+	@include base-btn;
+	height: 46px;
+	width: 185px;
+	gap: 8px;
+	border: 1px solid $primary-color;
+	color: black;
+	transition: 200ms ease;
+
+	&:hover {
+		border: 1px solid rgba(0, 156, 119, 0.3);
+	}
+	&.green-text {
+		color: $primary-color;
+	}
+}
+@mixin btn-plans-white {
+	@include base-btn;
+	height: 46px;
+	width: 185px;
+	gap: 8px;
+	border: 1.5px solid #add1fe;
+	background: #fff;
+	color: black;
+	transition: 200ms ease;
+	&.green-text {
+		color: $primary-color;
+	}
+}
+
+@mixin btn-primary {
+	@include base-btn;
+	background: $primary-color;
+	color: $light;
+	height: 56px;
+	width: 164px;
+
+	&:hover {
+		background-color: $primary-dark;
+	}
+}
+
+@mixin btn-main-grey {
+	@include base-btn;
+	color: $grey-medium;
+	background: $grey-light;
+	border: 1px solid $grey-light;
+	height: 46px;
+	width: 185px;
+
+	&:hover {
+		background-color: $light;
+		border: 1px solid $primary-dark;
+		color: $dark;
+	}
+}
+
+@mixin btn-header-outline {
+	@include base-btn;
+	color: $dark;
+	background: $light;
+	border: 1px solid $secondary-color;
+	height: 62px;
+	width: 227px;
+	border-radius: 18px;
+	font-weight: 600;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+@mixin btn-google-login {
+	border-radius: 8px;
+	border: 1px solid #d8dae5;
+	width: 100%;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24px;
+	height: 56px;
+	@include flex-row-center();
+	gap: 16px;
+}

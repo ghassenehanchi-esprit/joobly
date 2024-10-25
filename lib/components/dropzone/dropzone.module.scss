@@ -1,0 +1,37 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.dropzone-container {
+  width: 100%;
+  &__label {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    color: $grey-medium;
+    margin-bottom: 12px;
+  }
+
+  .dropzone {
+    border-radius: 8px;
+    border: 1px dashed #D8DAE5;
+    background: #FFF;
+    padding: 24px 0;
+   @include flex-col-center;
+  h1{
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px;
+      margin-top: 8px;
+    }
+    p{
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0.1px;
+    }
+  }
+}

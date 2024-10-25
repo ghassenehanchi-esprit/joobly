@@ -1,0 +1,26 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.plan-permissions {
+  @include flex-col-center;
+  gap: 20px;
+  align-items: flex-start;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    &__text{
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 180%;
+      &.no-perm{
+        color: $grey-medium;
+      }
+      &.gold-plan{
+        color: white;
+      }
+    }
+  }
+}

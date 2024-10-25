@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './mixins';
+@import './variables';
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  text-size-adjust: none;
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  height:100%;
+  padding: 0;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  outline: none;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+[hidden] {
+  display: none;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+// styles 
+.page-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56.96px;
+  color: #1D2124;
+}
+
+p {
+  font-size: 16px;
+}
+.btn-main-grey {
+  @include btn-main-grey;
+}
+.btn-primary {
+  @include btn-primary;
+}
+.btn-secondary-search {
+  @include btn-secondary-search;
+}
+.btn-grey-outlined {
+  @include btn-grey-outlined;
+}
+.btn-green-outlined {
+  @include btn-green-outlined;
+}
+.btn-plans-white {
+  @include btn-plans-white;
+}
+.btn-google-login-button {
+  @include btn-google-login;
+}
+.container {
+  margin: auto;
+  height: 100%;
+}
+
+.text-chip-container {
+  @include flex-row-center;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+.ck-powered-by-balloon{
+  display: none !important;
+}
+
+.error-message{
+  color:$required;
+  margin-top: 8px;
+}
+
+@media screen and (max-width: 800px){
+  .page-title {
+    font-size: 30px;
+  }
+  .btn-secondary-search, .btn-main-grey {
+    font-size: 15px;
+  }
+  .error-message{
+    color:$required;
+    margin-top: 0!important;
+  }
+}

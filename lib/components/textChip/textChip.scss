@@ -1,0 +1,12 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.text-chip {
+    padding: 8px 14px;
+    background-color: #F9F9F9;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
+    color: $grey-medium;
+    border-radius: 12px;
+}

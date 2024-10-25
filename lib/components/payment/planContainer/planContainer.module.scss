@@ -1,0 +1,62 @@
+@import "@/lib/styles/mixins.scss";
+@import "@/lib/styles/variables.scss";
+
+.plan-container {
+	@include flex-col-between;
+	align-items: flex-start;
+	padding: 24px;
+
+	&__title {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 16px;
+
+		&__text {
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: 180%;
+			&.gold-plan {
+				color: white;
+			}
+		}
+	}
+
+	&__sub-title {
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 180%;
+		color: $grey-medium;
+		margin-bottom: 24px;
+	}
+
+	&__plan-per-month {
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 180%;
+		margin-bottom: 24px;
+		&.gold-plan {
+			color: white;
+		}
+	}
+
+	&__plan-description {
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 150%;
+		margin-bottom: 24px;
+		&.gold-plan {
+			color: white;
+		}
+	}
+	&__submit {
+		display: flex;
+		align-items: end;
+		width: 100%;
+		margin-top: 2rem;
+	}
+}

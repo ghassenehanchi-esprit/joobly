@@ -1,0 +1,55 @@
+@import '@/lib/styles/mixins.scss';
+@import '@/lib/styles/variables.scss';
+
+.contact-page{
+  @include flex-row-center();
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  padding: 70px 270px 270px 270px;
+  &__context{
+    @include flex-col-center();
+    gap: 5px;
+    h1{
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 130%;
+      text-align: left;
+      width: 100%;
+    }
+  }
+  &__form{
+    width: 100%;
+    form{
+      width: 100%;
+      @include flex-col-center();
+      gap: 16px;
+
+    }
+
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .contact-page{
+    padding: 40px 200px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .contact-page{
+    padding: 40px 100px;
+  }
+}
+@media screen and (max-width: 990px) {
+  .contact-page{
+    padding: 40px 80px;
+    flex-direction: column;
+    &__context{
+      h1, p{
+        text-align: center;
+      }
+    }
+  }
+}
+

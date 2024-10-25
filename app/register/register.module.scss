@@ -1,0 +1,115 @@
+@import "@/lib/styles/mixins.scss";
+@import "@/lib/styles/variables.scss";
+
+.login-page {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	padding-top: 63px;
+	padding-bottom: 104px;
+	margin-top: 100px;
+	margin-bottom: 100px;
+
+	.login-modal {
+		border-radius: 25px;
+		padding: 50px;
+		border: 1.081px solid #fff;
+		background: $input-bg;
+		backdrop-filter: blur(3.783907890319824px);
+
+		.login--modal-header {
+			@include flex-col-center;
+			gap: 18px;
+			margin-bottom: 36px;
+
+			h1 {
+				font-size: 25px;
+				font-style: normal;
+				font-weight: 700;
+				line-height: 40px;
+			}
+
+			p {
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 24px;
+				color: $grey-medium;
+			}
+		}
+		.login-modal-email-login {
+			@include flex-row-center;
+			gap: 18px;
+			margin: 25px 0;
+			p {
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 24px;
+				color: $grey-medium;
+				max-width: 137px;
+				width: 100%;
+			}
+		}
+		.login-modal-form {
+			@include flex-col-center;
+			gap: 25px;
+			.login-modal-form-icon {
+				color: $grey-medium;
+				margin-right: 16px;
+			}
+			.login-modal-form-remember-me {
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+				align-items: center;
+				.login-modal-form-remember-checkbox {
+					span {
+						font-size: 16px !important;
+						font-style: normal !important;
+						font-weight: 400 !important;
+						line-height: 24px !important;
+					}
+				}
+				.login-modal-form-forgot-password {
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 400;
+					line-height: 24px;
+					color: $primary-color;
+				}
+			}
+			.login-modal-form-create-account {
+				display: flex;
+				justify-content: left;
+				width: 100%;
+				p {
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 400;
+					line-height: 24px;
+					span {
+						color: $primary-color;
+					}
+				}
+			}
+		}
+		.login-modal-footer {
+			@include flex-row-center;
+			margin-top: 60px;
+			color: $grey-medium;
+			p {
+				font-size: 14px;
+				font-style: normal;
+				font-weight: 700;
+				line-height: 20px;
+			}
+			.login-modal-footer-copy-icon {
+				width: 18px;
+				height: 18px;
+			}
+		}
+	}
+}
