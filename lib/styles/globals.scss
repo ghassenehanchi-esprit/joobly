@@ -133,3 +133,11 @@ p {
     margin-top: 0!important;
   }
 }
+
+
+.header-background-line {
+  background: url('/images/header-bg.svg') $secondary-color no-repeat;
+  height: 55px;
+  max-height: 55px;
+  width: 100%;
+}

@@ -5,9 +5,6 @@ import { Provider } from "react-redux";
 import store from "@/lib/store";
 import Footer from "@/app/footer";
 import { usePathname } from "next/navigation";
-import { useLayoutEffect } from "react";
-import { redirect } from "next/navigation";
-import TopHeader from "@/lib/components/header/header";
 
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 

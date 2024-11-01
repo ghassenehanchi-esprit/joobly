@@ -8,11 +8,17 @@ import './footer.scss';
 const Footer = () => {
   const pathname = usePathname();
 
+  function getCurrentYear() {
+    const currentYear = new Date().getFullYear();
+    return currentYear;
+    
+  }
+
   return pathname !== '/main' ? (
     <footer>
       <div className="container">
         <p className="copyright">
-          © 2023 <b>Joobly.cz</b>. All rights reserved
+          © {getCurrentYear()} <b>Joobly.cz</b>. All rights reserved
         </p>
         <div className="nav-links">
           <Link href="/" className="nav-link">
