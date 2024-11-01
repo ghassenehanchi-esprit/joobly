@@ -5,7 +5,7 @@
 	zoom: 0.9;
 	background: $light;
 	.header-top {
-		height: 107px;
+		min-height: 107px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -14,10 +14,12 @@
 			display: flex;
 			gap: 50px;
 			align-items: center;
+		
 			.search-group {
 				display: flex;
 				align-items: center;
 			}
+		
 			.header-search {
 				width: 188px;
 				height: 32px;
@@ -25,53 +27,45 @@
 					color: $base-black-50;
 				}
 			}
+		
 			.header-logo {
 				cursor: pointer;
 			}
-			.header-post-post {
-				color: $base-black-50;
-				position: relative;
-				&::before {
-					content: "";
-					height: 32px;
-					width: 32px;
-					position: absolute;
-					left: -25px;
-					background-image: url("/images/icons/listing.svg");
-					background-repeat: no-repeat;
-				}
-			}
-			.header-post-home {
-				color: $base-black-50;
-				position: relative;
-				&::before {
-					content: "";
-					height: 32px;
-					width: 32px;
-					position: absolute;
-					left: -25px;
-					background-image: url("/images/icons/home.svg");
-					background-repeat: no-repeat;
-				}
-			}
-			.header-post-find {
-				color: $base-black-50;
-				position: relative;
-				&::before {
-					content: "";
-					height: 32px;
-					width: 32px;
-					position: absolute;
-					left: -25px;
-					background-image: url("/images/icons/findJob.svg");
-					background-repeat: no-repeat;
-				}
-			}
+		
+			.header-post-post,
+			.header-post-home,
+			.header-post-find,
 			.header-post-packages {
 				color: $base-black-50;
 				position: relative;
+				&::before {
+					content: "";
+					height: 32px;
+					width: 32px;
+					position: absolute;
+					left: -25px;
+					background-repeat: no-repeat;
+				}
+			}
+		
+			.header-post-post::before {
+				background-image: url("/images/icons/listing.svg");
+			}
+			.header-post-home::before {
+				background-image: url("/images/icons/home.svg");
+			}
+			.header-post-find::before {
+				background-image: url("/images/icons/findJob.svg");
+			}
+		
+			
+			@media (max-width: 960px) {
+				& > .mobile-hidden {
+					display: none;
+				}
 			}
 		}
+
 		.post-btn-group {
 			display: flex;
 			align-items: center;

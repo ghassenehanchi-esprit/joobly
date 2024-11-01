@@ -22,16 +22,16 @@ const TopHeader = () => {
 						</Link>
 						{/*<input type="text" className='header-search' placeholder='Company, Job Title...' />*/}
 					</div>
-					<Link href='/' className='header-post-home'>
+					<Link href='/' className='header-post-home mobile-hidden'>
 						Home
 					</Link>
-					<Link href='/jobs' className='header-post-find'>
+					<Link href='/jobs' className='header-post-find mobile-hidden'>
 						Find a job
 					</Link>
-					<Link href='/post-job-info' className='header-post-post'>
+					<Link href='/post-job-info' className='header-post-post mobile-hidden'>
 						Post a job
 					</Link>
-					<Link href='/packages' className=' flex items-center gap-1 text-[#b8b9b9] ml-[-2rem]'>
+					<Link href='/packages' className=' flex items-center gap-1 text-[#b8b9b9] ml-[-2rem] mobile-hidden'>
 						<Image
 							className='package-image'
 							src={"/images/icons/package-icon.svg"}
