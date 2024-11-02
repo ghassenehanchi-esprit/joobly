@@ -2,11 +2,14 @@
 @import "@/lib/styles/variables.scss";
 
 .header {
-	position: sticky;
+	position: sticky; 
+	width: 100%;
 	top: 0;
+	left: 0;
 	z-index: 1000;
 	zoom: 0.9;
 	background: $light;
+
 	.header-top {
 		min-height: 107px;
 		display: flex;
@@ -76,16 +79,39 @@
 
 
 
-.burger-menu-button {
-	width: 32px;
-	height: 32px;
-	color: $primary-dark;
+.menu-button {
+	position: relative;
+	width: 30px;
+	height: 24px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 
+.menu-line {
+	position: absolute;
+	width: 100%;
+	height: 4px;
+	background-color: #006c53;
+	border-radius: 6px;
+	transition: background-color 0.2s ease;
+}
 
+.menu-line:first-child {
+	top: 0;
+}
+
+.menu-line:nth-child(2) {
+	top: 8px;
+}
+
+.menu-line:last-child {
+	top: 16px;
 }
 
 @media screen and (min-width: 1024px) {
-	.burger-menu-button {
+	.menu-button {
 		display: none;
 	}
 }
