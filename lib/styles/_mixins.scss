@@ -59,10 +59,11 @@
 @mixin btn-grey-outlined {
 	@include base-btn;
 	height: 46px;
-	width: 185px;
+	min-width: 185px;
+	width: 100%;
 	gap: 8px;
 	border: 1px solid $grey-button-border;
-	color: $gery-button-tex;
+	color: $grey-button-tex;
 	transition: 200ms ease;
 
 	&:hover {
@@ -73,7 +74,8 @@
 @mixin btn-green-outlined {
 	@include base-btn;
 	height: 46px;
-	width: 185px;
+	min-width: 185px;
+	width: 100%;
 	gap: 8px;
 	border: 1px solid $primary-color;
 	color: black;
