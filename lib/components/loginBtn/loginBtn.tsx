@@ -3,6 +3,7 @@ import Link from "next/link";
 import Button from "../button/button";
 import UserMenu from "./userMenu";
 import { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 
 const LoginBtn = () => {
 	const [user, setUser] = useState(null);
@@ -30,6 +31,7 @@ const LoginBtn = () => {
 						style={{ maxWidth: "227px", height: "62px", borderRadius: "18px", gap: "10px" }}
 						className='btn btn-green-outlined'
 					>
+						<FaRegUser className="-ml-2"/>
 						Log in
 					</Button>
 				</Link>
