@@ -2,6 +2,9 @@
 @import "@/lib/styles/variables.scss";
 
 .header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
 	zoom: 0.9;
 	background: $light;
 	.header-top {
@@ -9,12 +12,9 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 0 16px;
 
-		.search-post-group {
-			display: flex;
-			gap: 50px;
-			align-items: center;
-		
+		.search-post-group {		
 			.search-group {
 				display: flex;
 				align-items: center;
@@ -30,36 +30,11 @@
 		
 			.header-logo {
 				cursor: pointer;
-			}
-		
-			.header-post-post,
-			.header-post-home,
-			.header-post-find,
-			.header-post-packages {
-				color: $base-black-50;
-				position: relative;
-				&::before {
-					content: "";
-					height: 32px;
-					width: 32px;
-					position: absolute;
-					left: -25px;
-					background-repeat: no-repeat;
-				}
-			}
-		
-			.header-post-post::before {
-				background-image: url("/images/icons/listing.svg");
-			}
-			.header-post-home::before {
-				background-image: url("/images/icons/home.svg");
-			}
-			.header-post-find::before {
-				background-image: url("/images/icons/findJob.svg");
+				margin-left: -12px;
 			}
 		
 			
-			@media (max-width: 960px) {
+			@media (max-width: 1024px) {
 				& > .mobile-hidden {
 					display: none;
 				}
@@ -84,6 +59,12 @@
 					margin-left: 35px;
 				}
 			}
+
+			@media (max-width: 1024px) {
+				& > a {
+					display: none;
+				}
+			}
 		}
 	}
 }
@@ -92,19 +73,44 @@
 	filter: invert(52%) sepia(2%) saturate(6%) hue-rotate(222deg) brightness(96%) contrast(92%);
 }
 
-@media screen and (max-width: 800px) {
-	.header-top {
-		flex-direction: column;
-		margin: 0 auto;
-		padding: 16px 0;
-		gap: 16px;
-		height: fit-content !important;
-		.post-btn-group {
-			flex-direction: column;
-			button {
-				max-width: 100% !important;
-				width: 100%;
-			}
-		}
+
+
+
+.burger-menu-button {
+	width: 32px;
+	height: 32px;
+	color: $primary-dark;
+
+
+}
+
+@media screen and (min-width: 1024px) {
+	.burger-menu-button {
+		display: none;
 	}
 }
+
+
+@media screen and (min-width: 1025px) {
+	.burger-menu-button {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.header-top {
+		margin: 0 40px;
+	}	
+
+	
+}
+
+@media screen and (min-width: 1400px) {
+	.header-top {
+		margin: 0 60px;
+	}	
+}
+
+
+
+

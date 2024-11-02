@@ -4,12 +4,13 @@ import Button from "../button/button";
 import Link from "next/link";
 import Image from "next/image";
 import LoginBtn from "../loginBtn/loginBtn";
+import { TiThMenu } from "react-icons/ti";
 
 const TopHeader = () => {
 	return (
 		<div className='header'>
-			<div className='header-top container'>
-				<div className='search-post-group'>
+			<div className='header-top'>
+				<div className='search-post-group flex gap-2 -ml-3 xl:gap-12 items-center'>
 					<div className='search-group'>
 						<Link href={"/"}>
 							<Image
@@ -22,25 +23,50 @@ const TopHeader = () => {
 						</Link>
 						{/*<input type="text" className='header-search' placeholder='Company, Job Title...' />*/}
 					</div>
-					<Link href='/' className='header-post-home mobile-hidden'>
-						Home
-					</Link>
-					<Link href='/jobs' className='header-post-find mobile-hidden'>
-						Find a job
-					</Link>
-					<Link href='/post-job-info' className='header-post-post mobile-hidden'>
-						Post a job
-					</Link>
-					<Link href='/packages' className=' flex items-center gap-1 text-[#b8b9b9] ml-[-2rem] mobile-hidden'>
-						<Image
-							className='package-image'
-							src={"/images/icons/package-icon.svg"}
-							width={26}
-							height={26}
-							alt='packages'
-						/>
-						Packages
-					</Link>
+					{/*hrader nav links*/}
+					<div className="text-sm xl:text-base hidden lg:flex gap-2 xl:gap-12 text-baseBlack50 ">
+						<Link href='/' className='flex items-center gap-1'>
+								<Image
+								className='w-5 h-5 package-image'
+								src={"/images/icons/home.svg"}
+								width={26}
+								height={26}
+								alt='packages'
+								/>
+								<span className="text-nowrap">Home</span>
+						</Link>
+						<Link href='/jobs' className='flex items-center gap-1'>
+								<Image
+								className='w-5 h-5 package-image'
+								src={"images/icons/findJob.svg"}
+								width={26}
+								height={26}
+								alt='packages'
+								/>
+								<span className="text-nowrap">Find a job</span>
+						</Link>
+						<Link href='/post-job-info' className='flex items-center gap-1'>
+								<Image
+								className='w-5 h-5 package-image'
+								src={"/images/icons/listing.svg"}
+								width={26}
+								height={26}
+								alt='packages'
+								/>
+								<span className="text-nowrap">Post a job</span>
+						</Link>
+						<Link href='/packages' className='flex items-center gap-1'>
+								<Image
+									className='w-5 h-5 package-image'
+									src={"/images/icons/package-icon.svg"}
+									width={26}
+									height={26}
+									alt='packages'
+								/>
+								<span className="text-nowrap">Packages</span>
+						</Link>
+					</div>
+					
 				</div>
 				<div className='post-btn-group'>
 					<Link href={"/contact"}>
@@ -64,6 +90,7 @@ const TopHeader = () => {
 					</Link>
 					<LoginBtn />
 				</div>
+				<TiThMenu className="burger-menu-button"/>
 			</div>
 		</div>
 	);
