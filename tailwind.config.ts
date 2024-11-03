@@ -8,6 +8,17 @@ const config: Config = {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
+			screens: {
+				xs: "320px",
+				sm: "375px",
+				sml: "500px",
+				md: "667px",
+				mdl: "768px",
+				lg: "960px",
+				lgl: "1024px",
+				xl: "1280px",
+				"2x1": "1400px",
+			  },
 			colors: {
 				primary: {
 					DEFAULT: "#009c77",
