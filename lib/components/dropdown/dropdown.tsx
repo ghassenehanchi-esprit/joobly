@@ -6,8 +6,9 @@ import {DropdownProps} from '@/lib/types/componentTypes';
 import styles from './dropdown.module.scss';
 import arrowIcon from '@/public/images/icons/dropdown-arrow.svg';
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import {ClickAwayListener} from "@mui/base";
+
+import { IoIosCloseCircle } from "react-icons/io";
 
 
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
@@ -24,18 +25,20 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
     <ClickAwayListener onClickAway={()=>setOpen(false)}>
     <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
       <div className={styles['header']} onClick={toggleDropdown} >
-                <span>
+                <span className='min-w-max'>
                     {icon && <picture>
                       <img
                         src={icon}
                         alt="button"
-                        className={'location'}
+                        className={'location h-4 w-4 '}
                       />
                     </picture>}
                   {/*  @ts-ignore */}
                   {selectedItem ? items && items?.find(item => item.id == selectedItem)?.label : headerTitle}
                 </span>
-        <Image src={arrowIcon} alt="arrow" className={`${styles['icon']} ${isOpen && styles["open"]}`}/>
+        <div className='w-full p-1'>
+          <Image src={arrowIcon} alt="arrow" className={`${styles['icon']} ${isOpen && styles["open"]}`}/>
+        </div>
         <IconButton
           onClick={() => {
             queryPushing && queryPushing("")
@@ -43,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
             setOpen(false);
           }}
         >
-          <CloseIcon/>
+          <IoIosCloseCircle />
         </IconButton>
       </div>
       <div className={`${styles['body']} ${isOpen && styles['open']}`}>

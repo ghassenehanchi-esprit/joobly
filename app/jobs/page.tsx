@@ -100,14 +100,16 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 						<p className={styles["results-count"]}>
 							{jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
 						</p>
-						<div className={styles["results-sort"]}>
-							<p className='font-sans'>Sort by:</p>
-							<Dropdown
-								items={SORTBY.map((item) => ({ id: item.id.toString(), label: item.label }))}
-								headerTitle='Newest'
-								className='dropdown-sort'
-								defaultSelected={0}
-							/>
+						<div className="mx-2 mdl:mx-0">
+							<div className={`${styles["results-sort"]} flex flex-col`}>
+								<p className='font-sans'>Sort by:</p>
+								<Dropdown
+									items={SORTBY.map((item) => ({ id: item.id.toString(), label: item.label }))}
+									headerTitle='Newest'
+									className='dropdown-sort'
+									defaultSelected={0}
+								/>
+							</div>
 						</div>
 					</div>
 

@@ -233,3 +233,13 @@
 		}
 	}
 }
+
+
+@media screen and (max-width: 768px) {
+	.results {
+		margin-top: 100px;
+		padding: 0 20px;
+		display: flex;
+		flex-direction: column-reverse;
+	}
+}
