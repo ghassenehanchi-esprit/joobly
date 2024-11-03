@@ -110,15 +110,10 @@
 	top: 16px;
 }
 
-@media screen and (min-width: 1024px) {
-	.menu-button {
-		display: none;
-	}
-}
 
 
 @media screen and (min-width: 1025px) {
-	.burger-menu-button {
+	.menu-button {
 		display: none;
 	}
 }

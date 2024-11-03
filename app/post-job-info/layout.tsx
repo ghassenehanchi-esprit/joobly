@@ -4,6 +4,7 @@ import '@/lib/styles/globals.scss'
 import Header from "@/app/header";
 import Footer from "@/app/footer";
 import PostJobInfo from "@/app/post-job-info/page";
+import TopHeader from '@/lib/components/header/header';
 
 
 const mainFont = Source_Sans_3({subsets: ['latin']})
@@ -20,7 +21,8 @@ export default function PostJobInfoLayout({
 }) {
   return (
     <>
-      <Header topHeaderTitle="" bottomHeaderTitle="Post a job"/>
+      <TopHeader/>
+      {/*<Header topHeaderTitle="" bottomHeaderTitle="Post a job"/>*/}
       {children}
     </>
   )
