@@ -115,3 +115,17 @@
 		}
 	}
 }
+
+
+@media screen and (max-width: 768px) {
+		.packages_page {
+			padding: 43px 30px;
+		}
+}
+
+@media screen and (max-width: 500px) {
+	.packages_page {
+		padding: 33px 20px;
+	}
+}
+
