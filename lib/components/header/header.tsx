@@ -54,7 +54,7 @@ const TopHeader = () => {
 						{/*<input type="text" className='header-search' placeholder='Company, Job Title...' />*/}
 					</div>
 					{/*hеader nav links*/}
-					<div className="text-sm xl:text-base hidden lg:flex gap-2 xl:gap-12 text-baseBlack50 ">
+					<div className="text-sm xl:text-base hidden md:flex gap-6 lg:gap-2 xl:gap-12 text-baseBlack50 ">
 						<Link href='/' className='flex items-center gap-1'>
 								<Image
 								className='w-5 h-5 package-image'
@@ -139,7 +139,7 @@ const TopHeader = () => {
 			{/* Mobile Menu */}
 			<motion.div
 				onClick={toggleMenu}
-				className="mobile-menu fixed top-20 left-0 z-50 bg-white w-full h-screen p-6"
+				className="mobile-menu fixed top-20 left-0 z-50 bg-white w-full h-full p-6"
 				initial="closed"
 				animate={isMenuOpen ? "open" : "closed"}
 				variants={menuVariants}
