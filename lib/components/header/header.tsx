@@ -123,7 +123,7 @@ const TopHeader = () => {
 					<LoginBtn />
 				</div>
 				{/*menu button animated*/}
-				<div className="menu-button " onClick={toggleMenu}>
+				<div className="menu-button" onClick={toggleMenu}>
 					<motion.span
 						animate={isMenuOpen ? lineVariants.open : lineVariants.closeTop}
 						className="menu-line rounded-xl"

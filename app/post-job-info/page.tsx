@@ -30,7 +30,7 @@ const PostJobInfo = () => {
       <div className={styles["post-job-info__bottom"]}>
         <Image src={chart} width={610} alt=""/>
         <div>
-          <h1>Automatically index jobs  </h1>
+          <h1>Automatically index jobs </h1>
           <h4>Jobs already online? Save time and have them
             listed automatically.</h4>
           <PostJobActions data={POST_JOB_ACTIONS} image={checkMark} color="black"/>
