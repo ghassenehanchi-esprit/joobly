@@ -7,9 +7,11 @@ import Image from "next/image";
 import LoginBtn from "../loginBtn/loginBtn";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const TopHeader = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const pathname = usePathname();
 
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -54,8 +56,8 @@ const TopHeader = () => {
 						{/*<input type="text" className='header-search' placeholder='Company, Job Title...' />*/}
 					</div>
 					{/*hеader nav links*/}
-					<div className="text-sm xl:text-base hidden md:flex gap-6 lg:gap-2 xl:gap-12 text-baseBlack50 ">
-						<Link href='/' className='flex items-center gap-1'>
+					<div className="text-sm xl:text-base hidden md:flex gap-6 lg:gap-2 xl:gap-12 text-baseBlack50">
+						<Link href='/' className={`flex items-center gap-1 ${pathname === '/' && 'text-black'}`}>
 								<Image
 								className='w-5 h-5 package-image'
 								src={"/images/icons/home.svg"}
@@ -65,7 +67,7 @@ const TopHeader = () => {
 								/>
 								<span className="text-nowrap">Home</span>
 						</Link>
-						<Link href='/jobs' className='flex items-center gap-1'>
+						<Link href='/jobs' className={`flex items-center gap-1 ${pathname === '/jobs' && 'text-black'}`}>
 								<Image
 								className='w-5 h-5 package-image'
 								src={"images/icons/findJob.svg"}
@@ -75,7 +77,7 @@ const TopHeader = () => {
 								/>
 								<span className="text-nowrap">Find a job</span>
 						</Link>
-						<Link href='/post-job-info' className='flex items-center gap-1'>
+						<Link href='/post-job-info' className={`flex items-center gap-1 ${pathname === '/post-job-info' && 'text-black'}`}>
 								<Image
 								className='w-5 h-5 package-image'
 								src={"/images/icons/listing.svg"}
@@ -85,7 +87,7 @@ const TopHeader = () => {
 								/>
 								<span className="text-nowrap">Post a job</span>
 						</Link>
-						<Link href='/packages' className='flex items-center gap-1'>
+						<Link href='/packages' className={`flex items-center gap-1 ${pathname === '/packages' && 'text-black'}`}>
 								<Image
 									className='w-5 h-5 package-image'
 									src={"/images/icons/package-icon.svg"}
@@ -149,7 +151,7 @@ const TopHeader = () => {
 					<Link 
 					href='/' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -163,7 +165,7 @@ const TopHeader = () => {
 					<Link 
 					href='/jobs' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/jobs' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -177,7 +179,7 @@ const TopHeader = () => {
 					<Link 
 					href='/post-job-info' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/post-job-info' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -191,7 +193,7 @@ const TopHeader = () => {
 					<Link 
 					href='/packages' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/packages' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -203,30 +205,30 @@ const TopHeader = () => {
 						<span>Packages</span>
 					</Link>
 					<Link 
-					href='/packages' 
+					href='/contact' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
 						src={"/images/icons/contact.svg"}
 						width={26}
 						height={26}
-						alt='packages'
+						alt='contact us'
 						/>
 						<span>Contact us</span>
 					</Link>
 					<Link 
-					href='/packages' 
+					href='/post-resume' 
 					onClick={toggleMenu}
-					className="flex items-center gap-1"
+					className={`flex items-center gap-1 md:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
 						src={"/images/icons/add.svg"}
 						width={26}
 						height={26}
-						alt='packages'
+						alt='post resume'
 						/>
 						<span>Post resume</span>
 					</Link>
