@@ -6,14 +6,12 @@ type Props = {};
 const Success = (props: Props) => {
 	const router = useRouter();
 
-	{/*}
 	useEffect(() => {
 		setTimeout(() => {
 			router.push("/");
 		}, 3500);
 	}, [router]);
 
-	*/}
 
 	return (
 		<div className='flex flex-col items-center justify-center h-[85%] bg-[#009c77]'>
