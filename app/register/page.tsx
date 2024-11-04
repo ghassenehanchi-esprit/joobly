@@ -62,7 +62,7 @@ const Register = () => {
 					</Button>
 					<div className={styles["login-modal-email-login"]}>
 						<Divider>
-						<p>or Sign in with Email</p>
+						<p>or Register in with Email</p>
 						</Divider>
 					</div>
 					<div className={styles["login-modal-form"]}>
