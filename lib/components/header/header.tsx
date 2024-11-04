@@ -207,7 +207,7 @@ const TopHeader = () => {
 					<Link 
 					href='/contact' 
 					onClick={toggleMenu}
-					className={`flex items-center gap-1 mdl:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
+					className={`flex items-center gap-1 lg:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -221,7 +221,7 @@ const TopHeader = () => {
 					<Link 
 					href='/post-resume' 
 					onClick={toggleMenu}
-					className={`flex items-center gap-1 mdl:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
+					className={`flex items-center gap-1 lg:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'

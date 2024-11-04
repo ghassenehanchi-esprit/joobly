@@ -4,13 +4,12 @@ import styles from "./login.module.scss";
 import Button from "@/lib/components/button/button";
 import Image from "next/image";
 import google from "@/public/images/icons/googleIcon.svg";
-import Divider from "@/lib/components/devider/divider";
 import Input from "@/lib/components/input/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 import { emailValidationRegexp } from "@/lib/constant/constants";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -48,20 +47,23 @@ const Login = () => {
 
 	return (
 		<section className={styles["login-page"]}>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form 
+			onSubmit={handleSubmit(onSubmit)}
+			className="mx-auto"
+			>
 				<div className={styles["login-modal"]}>
 					<div className={styles["login--modal-header"]}>
 						<h1>Hi, Welcome to Prague Morning Jobs</h1>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+						<p>Find your dream job in Prague Morning! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
 					</div>
 					<Button className={"btn-google-login-button"}>
 						<Image src={google} alt='' width={25} height={25} />
 						Sign in with Google
 					</Button>
 					<div className={styles["login-modal-email-login"]}>
-						<Divider />
-						<p>or Sign in with Email</p>
-						<Divider />
+					<Divider>
+					<p className="mx-auto">or Sign in with Email</p>
+					</Divider>	
 					</div>
 					<div className={styles["login-modal-form"]}>
 						<Input
