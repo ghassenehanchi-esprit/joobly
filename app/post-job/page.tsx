@@ -267,13 +267,13 @@ const PostJob = () => {
 						<div className={styles["post-job-page-buttons-right-side"]}>
 							<Button
 								onClick={cancelClick}
-								style={{ maxWidth: "164px", height: "56px" }}
+								style={{ minWidth: "164px", height: "56px" }}
 								className={`btn-green-outlined`}
 							>
 								Cancel
 							</Button>
 							<Button
-								style={{ width: "100%" }}
+								style={{ minWidth: "100px" }}
 								onClick={handleSubmit(onSubmitFinal)}
 								className={"btn-primary"}
 							>

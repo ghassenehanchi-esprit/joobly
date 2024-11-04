@@ -86,3 +86,10 @@
 		}
 	}
 }
+
+@media screen and (max-width: 374px) {
+	.post-job-page-buttons-right-side {
+		display: flex;
+		flex-direction: column;
+	}
+}
