@@ -29,7 +29,7 @@ const ServicePlans = ({ setServicePlan, servicePlan }: ServicePlansPropsTypes) =
 					Choose the service that suits your needs
 				</label>
 			</div>
-			<div className={styles["service-plans__wrapper"]}>
+			<div className={'flex flex-col gap-4 lg:flex-row mdl:gap-10'}>
 				{plans.map(({ logo, data, planPrice, title, isActive }, index) => (
 					<PlanContainer
 						onClick={() =>

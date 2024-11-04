@@ -18,58 +18,58 @@ const PlanContainer = ({
 	isActive,
 }: PlanContainerPropsTypes) => {
 	return (
-		<Paper
-			style={{
-				background: title === "Gold" ? "#1D2427" : "#F6F8F9",
-				height: "55rem",
-				width: "30%",
-				border: isActive ? " 2px solid #009C77" : "unset",
-			}}
-		>
-			<section className={styles["plan-container"]}>
-				<div className={styles["plan-container__title"]}>
-					<Image width={48} height={48} src={logo} alt='' />
-					<h1
-						className={`${styles["plan-container__title__text"]} ${
-							title === "Gold" && styles["gold-plan"]
+			<section className={`p-6 w-full 
+			${title === "Gold" ? 'bg-black' : 'bg-inputBg'} rounded-xl border-2 border-white 
+			flex flex-col justify-between
+			${isActive && 'border-[#009c77]'}
+			`}
+			>
+				<div>
+					<div className={"flex gap-2 items-center"}>
+						<Image width={48} height={48} src={logo} alt='logo' />
+						<h1
+							className={`${'text-lg font-semibold'} ${
+								title === "Gold" && "text-white"
+							}`}
+						>
+							{title}
+						</h1>
+					</div>
+					<p className={"text-gray-400 mt-4"}>
+						{title === "Bronze" ? "Perfect plan to get started" : "Paid plan with features"}
+					</p>
+					<p
+						className={`${'text-md mt-4'} ${
+							title === "Gold" && "text-white"
 						}`}
 					>
-						{title}
-					</h1>
-				</div>
-				<p className={styles["plan-container__sub-title"]}>
-					{title === "Bronze" ? "Perfect plan to get started" : "Paid plan with features"}
-				</p>
-				<p
-					className={`${styles["plan-container__plan-per-month"]} ${
-						title === "Gold" && styles["gold-plan"]
-					}`}
-				>
-					{planPrice} CZK /month
-				</p>
-				<p
-					className={`${styles["plan-container__plan-description"]}  ${
-						title === "Gold" && styles["gold-plan"]
-					}`}
-				>
-					{title === "Bronze"
-						? "The free plan gives you access to some of the great features of Gostart."
-						: null}
-				</p>
-				<PlanPermissions title={title} data={data} />
-				<div className={styles["plan-container__submit"]}>
-					<Button
-						onClick={onClick}
-						style={{ width: "100%", height: "56px" }}
-						className={
-							title === "Gold" ? `btn-plans-white green-text` : `btn-green-outlined green-text`
-						}
+						{planPrice} CZK /month
+					</p>
+					<p
+						className={`${'text-sm mt-2 text-gray-500'}  ${
+							title === "Gold" && styles["text-black"]
+						}`}
 					>
-						Select
-					</Button>
+						{title === "Bronze"
+							? "The free plan gives you access to some of the great features of Gostart."
+							: null}
+					</p>
+					<PlanPermissions title={title} data={data} />
+				</div>
+				<div>
+					<div className="mt-6 flex items-center justify-center">
+						<Button
+							onClick={onClick}
+							style={{ width: "100%", height: "56px" }}
+							className={
+								title === "Gold" ? `btn-plans-white green-text` : `btn-green-outlined green-text`
+							}
+						>
+							Select
+						</Button>
+					</div>
 				</div>
 			</section>
-		</Paper>
 	);
 };
 

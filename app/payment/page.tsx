@@ -17,12 +17,12 @@ const Payment = () => {
 	return (
 		<section className={styles["payment-page"]}>
 			<div className={styles["payment-page__wrapper"]}>
-				{/* <PaymentPlanCheckbox
+				 <PaymentPlanCheckbox
 					monthly={monthly}
 					yearly={yearly}
 					setMonthly={setMonthly}
 					setYearly={setYearly}
-				/> */}
+				/>
 				<ServicePlans servicePlan={servicePlan} setServicePlan={setServicePlan} />
 				{!!servicePlan && <PaymentContainer {...servicePlan} />}
 			</div>

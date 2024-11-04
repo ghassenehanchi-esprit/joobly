@@ -12,12 +12,14 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
+    padding-left: 8px;
 
     &__label {
       color: #1D2427;
       font-size: 18px;
       font-style: normal;
       font-weight: 600;
+     
 
       span {
         color: $required;
@@ -36,7 +38,7 @@
   &__wrapper {
     display: flex;
     justify-content: center;
-    gap: 32px;
+    gap: px;
   }
 }
 
