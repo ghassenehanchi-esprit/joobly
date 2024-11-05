@@ -101,7 +101,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 							{jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
 						</p>
 						<div className="mx-2 mdl:mx-0">
-							<div className={`${styles["results-sort"]} flex flex-col`}>
+							<div className={`${styles["results-sort"]} flex flex-col lg:flex-row items-center`}>
 								<p className='font-sans'>Sort by:</p>
 								<Dropdown
 									items={SORTBY.map((item) => ({ id: item.id.toString(), label: item.label }))}
