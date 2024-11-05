@@ -22,19 +22,16 @@ const Footer = () => {
         </p>
         <div className="nav-links">
           <Link href="/" className="nav-link">
-            About
+            Home
           </Link>
-          <Link href="/" className="nav-link">
-            Privacy
+          <Link href="/jobs" className="nav-link">
+            Find a job
           </Link>
-          <Link href="/" className="nav-link">
-            Terms
+          <Link href="/Post-job-info" className="nav-link">
+            Post a job
           </Link>
-          <Link href="/" className="nav-link">
-            Blog
-          </Link>
-          <Link href="/" className="nav-link">
-            Partners
+          <Link href="/packages" className="nav-link">
+            Packages
           </Link>
           <Link href="/contact" className="nav-link">
             Contact
