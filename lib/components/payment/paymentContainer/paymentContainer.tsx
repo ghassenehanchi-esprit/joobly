@@ -1,7 +1,9 @@
 import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
-import Image from "next/image";
 import styles from "./paymentContainer.module.scss";
+
+import { FaCcStripe } from "react-icons/fa";
+import { FaStripe } from "react-icons/fa";
 
 const PaymentContainer = (props: ServicePlanType) => {
 	const handleSubmit = async () => {
@@ -29,8 +31,10 @@ const PaymentContainer = (props: ServicePlanType) => {
 					Checkout<span>*</span>
 				</label>
 				<label className={styles["payment-container__labels__subLabel"]}>
-					Go to secure payment page powered by{" "}
-					<Image src={"/images/logos/stripe.svg"} alt='stripe' width={70} height={70} />
+					<div className="flex items-center gap-1 text-sm sm:text-base">
+						Go to secure payment page powered by
+						<FaStripe  className="w-9 h-9 text-[#009c77]"/>
+					</div>
 				</label>
 				<Button style={{ width: "100%" }} className={"btn-primary"} onClick={handleSubmit}>
 					Go to Pay
