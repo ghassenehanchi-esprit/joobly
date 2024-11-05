@@ -25,7 +25,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
     <ClickAwayListener onClickAway={()=>setOpen(false)}>
     <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
       <div className={styles['header']} onClick={toggleDropdown} >
-                <span className='min-w-max'>
+                <span className='min-w-max ml-2'>
                     {icon && <picture>
                       <img
                         src={icon}
