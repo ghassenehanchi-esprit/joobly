@@ -6,6 +6,8 @@ import store from "@/lib/store";
 import Footer from "@/app/footer";
 import { usePathname } from "next/navigation";
 
+import { SessionProvider } from "next-auth/react";
+
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -14,8 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang='en'>
 			<body className={mainFont.className}>
-				<Provider store={store}>{children}</Provider>
-				{pathname !== "/" && <Footer />}
+				<SessionProvider>
+					<Provider store={store}>{children}</Provider>
+					{pathname !== "/" && <Footer />}
+				</SessionProvider>
 			</body>
 		</html>
 	);

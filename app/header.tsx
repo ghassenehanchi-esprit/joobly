@@ -4,6 +4,8 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import TopHeader from '@/lib/components/header/header';
 import HeaderBackground from '@/lib/components/headerBackground/headerBackground';
+import { SessionProvider } from "next-auth/react";
+
 interface HeaderProps{
   topHeaderTitle?:string,
   bottomHeaderTitle?:string
@@ -16,8 +18,10 @@ const Header:React.FC<HeaderProps> = ({topHeaderTitle, bottomHeaderTitle,needBac
     return (
         pathname !== '/main' ?
             <>
-                <TopHeader />
-              {needBackgroundHeader && <HeaderBackground extraBottomHeader={extraBottomHeader} topHeaderTitle={topHeaderTitle} bottomHeaderTitle={bottomHeaderTitle}/> }
+             <SessionProvider>
+                  <TopHeader />
+                  {needBackgroundHeader && <HeaderBackground extraBottomHeader={extraBottomHeader} topHeaderTitle={topHeaderTitle} bottomHeaderTitle={bottomHeaderTitle}/> }
+              </SessionProvider>
             </>
         : null
         
