@@ -18,7 +18,6 @@ const JobDetails = async ({ params}:JobDetailsPropsTypes) => {
   const jobDetails = await getItem(params.jobId)
   return (
  <DetailsContainer data={jobDetails}/>
-
   );
 };
 

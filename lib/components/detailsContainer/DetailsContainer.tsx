@@ -2,7 +2,6 @@
 import React from "react";
 import Paper from "@/lib/components/paper/Paper";
 import styles from "./deatilsContainer.module.scss";
-import detailsBg from "@/public/images/detailsBg.svg";
 import addArchive from "@/public/images/icons/archive-add.svg";
 import shareButton from "@/public/images/icons/shareButton.svg";
 import Image from "next/image";
@@ -63,9 +62,6 @@ const DetailsContainer = ({ data }: any) => {
 				<section className={styles["job-details-page"]}>
 					<section className={styles["job-details-wrapper"]}>
 						<Paper className='details-component-paper'>
-							<div className={styles["job-banner"]}>
-								<Image alt='' src={detailsBg} layout='fill' className={styles["job-details-bg"]} />
-							</div>
 							<section className={styles["job-details-page-info"]}>
 								<div className={styles["job-details-page-actions"]}>
 									<Image alt='' src={addArchive} width={44} height={44} />

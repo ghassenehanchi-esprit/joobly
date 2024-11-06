@@ -14,8 +14,7 @@ export const metadata: Metadata = {
 export default function JobLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
-			<Header />
-
+			<Header needBackgroundHeader={false}/>
 			{children}
 		</>
 	);
