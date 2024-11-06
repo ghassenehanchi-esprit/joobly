@@ -13,6 +13,9 @@ import {parseFullName} from "parse-full-name";
 
 import { signOut, useSession } from 'next-auth/react';
 
+import { FaUser } from "react-icons/fa";
+import { RiDoorOpenFill } from "react-icons/ri";
+
 
 const TopHeader = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -110,7 +113,6 @@ const TopHeader = () => {
 								<span className="text-nowrap">Packages</span>
 						</Link>
 					</div>
-					
 				</div>
 				<div className='post-btn-group'>
 					<Link href={"/contact"}>
@@ -132,13 +134,20 @@ const TopHeader = () => {
 							Post your resume
 						</Button>
 					</Link>
-					{session ? (
-						<div>
-							user
-						</div>
-					) : (
-						<LoginBtn />
-					)}
+					<div className="hidden lgl:flex">
+						{session ? (
+							<div className="flex gap-4 items-center">
+								<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
+									<FaUser className="text-black w-7 h-7 cursor-pointer"/>
+								</div>
+								<div className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
+									<RiDoorOpenFill className="text-black w-10 h-10 cursor-pointer"/>
+								</div>
+							</div>
+						) : (
+							<LoginBtn />
+						)}
+					</div>
 				</div>
 				{/*menu button animated*/}
 				<div className="menu-button" onClick={toggleMenu}>
@@ -225,7 +234,7 @@ const TopHeader = () => {
 					<Link 
 					href='/contact' 
 					onClick={toggleMenu}
-					className={`flex items-center gap-1 lg:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
+					className={`flex items-center gap-1 lgl:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -239,7 +248,7 @@ const TopHeader = () => {
 					<Link 
 					href='/post-resume' 
 					onClick={toggleMenu}
-					className={`flex items-center gap-1 lg:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
+					className={`flex items-center gap-1 lgl:hidden ${pathname === '/contact' && 'text-[#006c53]'}`}
 					>
 						<Image
 						className='w-5 h-5 package-image'
@@ -251,10 +260,15 @@ const TopHeader = () => {
 						<span>Post resume</span>
 					</Link>
 				</nav>
-				<div className="mt-6">
+				<div className="mt-6 lgl:hidden">
 					{session ? (
-						<div>
-							user
+						<div className="flex gap-4 items-center">
+							<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
+								<FaUser className="text-black w-7 h-7 cursor-pointer"/>
+							</div>
+							<div className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
+								<RiDoorOpenFill className="text-black w-10 h-10 cursor-pointer"/>
+							</div>
 						</div>
 					) : (
 						<LoginBtn />
