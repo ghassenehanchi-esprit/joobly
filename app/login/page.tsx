@@ -13,9 +13,11 @@ import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 import { emailValidationRegexp } from "@/lib/constant/constants";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { signIn } from "@/lib/features/authSlice/authSlice";
 import { AppDispatch } from "@/lib/store";
 import { useAppSelector } from "@/lib/hooks";
+
+import {signIn, useSession } from "next-auth/react";
+import { redirect } from 'next/navigation'
 
 interface Inputs {
 	email: string;
@@ -24,6 +26,7 @@ interface Inputs {
 
 const Login = () => {
 	const [errorMessage, setErrorMessage] = useState<string>();
+	const session = useSession();
 	const {
 		handleSubmit,
 		control,
@@ -35,15 +38,16 @@ const Login = () => {
 	const loading = useAppSelector((state) => state.user.loading);
 
 	const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-		const userBody: Inputs = {
-			email: values.email,
-			password: values.password,
-		};
-
-		dispatch(signIn(userBody))
-			.unwrap()
-			.then(() => push("/"));
+		const login = await signIn('credentials', {redirect: false, email: values.email, password: values.password, callbackUrl: '/'});
+		if (login) {
+			push('/');
+		}
 	};
+
+
+	if (session.status === "authenticated") {
+        return redirect('/');
+    }
 
 	return (
 		<section className={styles["login-page"]}>

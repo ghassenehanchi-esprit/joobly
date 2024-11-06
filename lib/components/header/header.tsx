@@ -9,8 +9,20 @@ import LoginBtn from "../loginBtn/loginBtn";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+import {parseFullName} from "parse-full-name";
+
+import { signOut, useSession } from 'next-auth/react';
+
+
 const TopHeader = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	
+	const session = useSession();
+	console.log(session);
+
+	const name = session?.user?.name || '';
+	const {first:firstName} = parseFullName(name);
+
 	const pathname = usePathname();
 
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -120,7 +132,13 @@ const TopHeader = () => {
 							Post your resume
 						</Button>
 					</Link>
-					<LoginBtn />
+					{session ? (
+						<div>
+							user
+						</div>
+					) : (
+						<LoginBtn />
+					)}
 				</div>
 				{/*menu button animated*/}
 				<div className="menu-button" onClick={toggleMenu}>
@@ -234,7 +252,13 @@ const TopHeader = () => {
 					</Link>
 				</nav>
 				<div className="mt-6">
-					<LoginBtn />
+					{session ? (
+						<div>
+							user
+						</div>
+					) : (
+						<LoginBtn />
+					)}
 				</div>
 			</motion.div>
 		</div>

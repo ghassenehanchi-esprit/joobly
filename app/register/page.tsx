@@ -14,9 +14,10 @@ import { Checkbox,  Divider,  FormControlLabel } from "@mui/material";
 import { emailValidationRegexp } from "@/lib/constant/constants";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { signUp } from "@/lib/features/authSlice/authSlice";
 import { AppDispatch } from "@/lib/store";
 import { useAppSelector } from "@/lib/hooks";
+import { createUser } from "@/actions/user.actions";
+
 
 interface Inputs {
 	username: string;
@@ -32,7 +33,7 @@ const Register = () => {
 		resetField,
 		formState: { errors },
 	} = useForm<Inputs>();
-	const { push } = useRouter();
+	const router = useRouter();
 
 	const dispatch: AppDispatch = useDispatch();
 	const loading = useAppSelector((state) => state.user.loading);
@@ -43,11 +44,15 @@ const Register = () => {
 			email: values.email,
 			password: values.password,
 		};
-		dispatch(signUp(userBody))
-			.unwrap()
-			.then(() => push("/login"));
-	};
+		const newUser = await createUser(userBody);
 
+		if (newUser) {
+			router.push("/");
+		} else {
+			router.push("/not-found")
+		}
+		
+	};
 	return (
 		<section className={styles["login-page"]}>
 			<form onSubmit={handleSubmit(onSubmit)}>
