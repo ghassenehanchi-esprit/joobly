@@ -59,8 +59,8 @@ const DetailsContainer = ({ data }: any) => {
 	return (
 		<>
 			{isClient && (
-				<section className={styles["job-details-page"]}>
-					<section className={styles["job-details-wrapper"]}>
+				<div className={styles["job-details-page"]}>
+					<div className={styles["job-details-wrapper"]}>
 						<Paper className='details-component-paper'>
 							<section className={styles["job-details-page-info"]}>
 								<div className={styles["job-details-page-actions"]}>
@@ -123,7 +123,7 @@ const DetailsContainer = ({ data }: any) => {
 								</section>
 							</Paper>
 						)}
-					</section>
+					</div>
 					<div className={styles["job-details-bottom-buttons"]}>
 						<Button
 							onClick={() => back()}
@@ -133,7 +133,7 @@ const DetailsContainer = ({ data }: any) => {
 							Back
 						</Button>
 					</div>
-				</section>
+				</div>
 			)}
 		</>
 	);
