@@ -6,6 +6,7 @@ import styles from "./jobsListPage.module.scss";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
 import { uniqueArray } from "@/lib/utils/uniqueArray/uniqueArray";
+import HeaderBackground from "@/lib/components/headerBackground/headerBackground";
 
 export const dynamic = "force-dynamic";
 
@@ -82,6 +83,8 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	const defaultSalary = salaries.find((item) => item.label === searchParams?.salary);
 
 	return (
+	<>
+		<HeaderBackground/>
 		<section className={styles["page-jobs"]}>
 			<div className={`container ${styles["page-container"]}`}>
 				<Topbar
@@ -134,6 +137,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 				</div>
 			</div>
 		</section>
+		</>
 	);
 };
 
