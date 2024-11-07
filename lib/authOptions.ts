@@ -16,24 +16,24 @@ export const authOptions = {
       name: 'Credentials',
       id: 'credentials',
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: { email: string, password: string } | undefined, req) {
-        if (!credentials) return null;
-        const email = credentials.email;
-        const password = credentials.password;
-        
-        await dbConnect().catch(error => { error: "Connection Failed...!" });
+      async authorize(credentials, req) {
+        await dbConnect().catch(error => { error: "Connection Failed...!"});
+        console.log(credentials);
+        const email = credentials?.email as string;
+        const password = credentials?.password as string;
+
         mongoose.connect(process.env.MONGODB_URL as string);
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
         const passwordOk = user && await compare(password, user.password);
-      
+
         if (passwordOk) {
           return user;
         }
-      
-        return null;
+
+        return null
       }
     })
   ],
