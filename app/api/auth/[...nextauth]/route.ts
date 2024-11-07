@@ -1,14 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import dbConnect from "@/database/dbConnect";
-import client from "@/database/dbClient";
 import { User } from "@/models/User";
 import { compare } from "bcryptjs";
 
 export const authOptions = {
-  adapter: MongoDBAdapter(client),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
