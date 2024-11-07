@@ -64,7 +64,9 @@ const Register = () => {
 					</div>
 					<Button 
 					onClick={() => signIn('google', {callbackUrl: '/'})}
-					className={"btn-google-login-button"}>
+					className={"btn-google-login-button"}
+					type="button"
+					>
 						<Image src={google} alt='' width={25} height={25} />
 						Sign in with Google
 					</Button>
