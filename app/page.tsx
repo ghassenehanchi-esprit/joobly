@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 const Home = () => {
 	return (
 		<section className={styles["page-main"]}>
-			<TopHeader />
 			<div className={styles["sections"]}>
 				<div className={styles["offers"]}>
 					<div className={styles["section-content"]}>

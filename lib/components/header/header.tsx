@@ -21,10 +21,9 @@ const TopHeader = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	
 	const session = useSession();
-	console.log(session);
-
-	const name = session?.user?.name || '';
-	const {first:firstName} = parseFullName(name);
+	const status = session.status;
+	//const name = session?.user?.name || '';
+	//const {first:firstName} = parseFullName(name);
 
 	const pathname = usePathname();
 
@@ -135,7 +134,7 @@ const TopHeader = () => {
 						</Button>
 					</Link>
 					<div className="hidden lgl:flex">
-						{session.status === 'authenticated' ? (
+						{status === 'authenticated' ? (
 							<div className="flex gap-4 items-center">
 								<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 									<FaUser className="text-black w-7 h-7 cursor-pointer"/>
@@ -263,7 +262,7 @@ const TopHeader = () => {
 					</Link>
 				</nav>
 				<div className="mt-6 lgl:hidden">
-					{session.status === 'authenticated' ? (
+					{status === 'authenticated' ? (
 						<div className="flex gap-4 items-center">
 							<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 								<FaUser className="text-black w-7 h-7 cursor-pointer"/>

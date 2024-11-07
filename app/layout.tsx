@@ -7,6 +7,7 @@ import Footer from "@/app/footer";
 import { usePathname } from "next/navigation";
 
 import { SessionProvider } from "next-auth/react";
+import Header from "./header";
 
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<body className={mainFont.className}>
 				<SessionProvider>
+					{pathname === "/" && <Header needBackgroundHeader={false}/>}
 					<Provider store={store}>{children}</Provider>
 					{pathname !== "/" && <Footer />}
 				</SessionProvider>
