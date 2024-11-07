@@ -44,8 +44,10 @@ export const authOptions = {
       })
     ],
   };
-  
-  export async function isAdmin() {
+
+  {
+    /*
+      export async function isAdmin() {
     const session = await getServerSession(authOptions);
     const userEmail = session?.user?.email;
     if (!userEmail) {
@@ -57,6 +59,10 @@ export const authOptions = {
     }
     return userInfo.admin;
   }
+    */
+  }
+  
+
   
   
   const handler = NextAuth(authOptions);
