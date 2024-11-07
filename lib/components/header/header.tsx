@@ -135,12 +135,14 @@ const TopHeader = () => {
 						</Button>
 					</Link>
 					<div className="hidden lgl:flex">
-						{session ? (
+						{session.status === 'authenticated' ? (
 							<div className="flex gap-4 items-center">
 								<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 									<FaUser className="text-black w-7 h-7 cursor-pointer"/>
 								</div>
-								<div className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
+								<div 
+								onClick={() => signOut()}
+								className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
 									<RiDoorOpenFill className="text-black w-10 h-10 cursor-pointer"/>
 								</div>
 							</div>
@@ -261,12 +263,14 @@ const TopHeader = () => {
 					</Link>
 				</nav>
 				<div className="mt-6 lgl:hidden">
-					{session ? (
+					{session.status === 'authenticated' ? (
 						<div className="flex gap-4 items-center">
 							<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 								<FaUser className="text-black w-7 h-7 cursor-pointer"/>
 							</div>
-							<div className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
+							<div 
+							onClick={() => signOut()}
+							className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
 								<RiDoorOpenFill className="text-black w-10 h-10 cursor-pointer"/>
 							</div>
 						</div>
