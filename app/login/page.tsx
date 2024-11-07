@@ -60,7 +60,9 @@ const Login = () => {
 						<h1>Hi, Welcome to Prague Morning Jobs</h1>
 						<p>Find your dream job in Prague Morning! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
 					</div>
-					<Button className={"btn-google-login-button"}>
+					<Button
+					onClick={() => signIn('google', {callbackUrl: '/'})}
+					className={"btn-google-login-button"}>
 						<Image src={google} alt='' width={25} height={25} />
 						Sign in with Google
 					</Button>
