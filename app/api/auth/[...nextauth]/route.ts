@@ -5,7 +5,7 @@ import dbConnect from "@/database/dbConnect";
 import { User } from "@/models/User";
 import { compare } from "bcryptjs";
 
-export const authOptions = {
+const authHandler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -30,7 +30,7 @@ export const authOptions = {
       },
     }),
   ],
-};
+});
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+
+export { authHandler as GET, authHandler as POST };
