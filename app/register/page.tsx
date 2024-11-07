@@ -48,7 +48,7 @@ const Register = () => {
 		const newUser = await createUser(userBody);
 
 		if (newUser) {
-			router.push("/");
+			router.push("/register-success");
 		} else {
 			router.push("/not-found")
 		}
