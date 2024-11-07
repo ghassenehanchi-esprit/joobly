@@ -15,8 +15,8 @@ const Success = (props: Props) => {
 
 	return (
 		<div className='flex flex-col items-center justify-center h-[85%] bg-[#c5f06d]'>
-			<h1 className='text-4xl font-bold text-white'>Success!</h1>
-			<p className='text-lg text-white'>Your payment has been processed.</p>
+			<h1 className='text-4xl font-bold text-white'>Register Success!</h1>
+			<p className='text-lg text-white'>Now you can log in.</p>
 		</div>
 	);
 };
