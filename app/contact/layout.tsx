@@ -15,7 +15,7 @@ export default function JobLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
               <TopHeader />
-              <div className='header-background-line'></div>
+              <div className='header-background-line hidden lg:block'></div>
 			{children}
 		</>
 	);
