@@ -60,7 +60,7 @@ const Register = () => {
 				<div className={styles["login-modal"]}>
 					<div className={styles["login--modal-header"]}>
 						<h1>Hi, Welcome to Prague Morning Jobs</h1>
-						<p>Find your dream job in Prague Morning! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
+						<p>Find your dream job in Joobly! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
 					</div>
 					<Button 
 					onClick={() => signIn('google', {callbackUrl: '/'})}
