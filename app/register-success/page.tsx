@@ -8,7 +8,7 @@ const Success = (props: Props) => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			router.push("/");
+			router.push("/login");
 		}, 3500);
 	}, [router]);
 
