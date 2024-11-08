@@ -1,7 +1,5 @@
 import React, { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
-import Dropdown from "@/lib/components/dropdown/dropdown";
-import { SORTBY } from "@/lib/constant/constants";
 import styles from "./jobsListPage.module.scss";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
@@ -74,6 +72,8 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		salary: searchParams?.salary || "",
 	});
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
+	console.log(options);
+	
 
 	const { locations, specializations, workTypes, salaries } = await processOptions(options);
 
@@ -84,9 +84,9 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 
 	return (
 	<>
-		<HeaderBackground/>
-		<section className={styles["page-jobs"]}>
-			<div className={`container ${styles["page-container"]}`}>
+		<HeaderBackground />
+		<section className="mt-16 mb-20 px-4">
+			<div className="container mx-auto flex flex-col md:flex-row">
 				<Topbar
 					defaultJobSearchValue={searchParams?.jobTitle}
 					defaultLocation={defaultLocation?.id}
@@ -98,38 +98,30 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					workType={workTypes}
 					salary={salaries}
 				/>
-				<div className={styles["content"]}>
-					<div className={styles["results"]}>
-						<p className={styles["results-count"]}>
+				<div className="px-0 md:px-2 mdl:px-6">
+					<div className="flex items-center justify-between mb-6 py-2 h-14">
+						<p className="text-xl text-gray-600">
 							{jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
 						</p>
-						<div className="mx-2 mdl:mx-0">
-							<div className={`${styles["results-sort"]} flex flex-col lg:flex-row items-center`}>
-								<p className='font-sans'>Sort by:</p>
-								<Dropdown
-									items={SORTBY.map((item) => ({ id: item.id.toString(), label: item.label }))}
-									headerTitle='Newest'
-									className='dropdown-sort'
-									defaultSelected={0}
-								/>
-							</div>
-						</div>
 					</div>
 
-					<div className={styles["results-data"]}>
+					<div className="space-y-4">
 						<Suspense fallback={<div>Loading...</div>}>
-							{jobs.jobs
-								? jobs.jobs?.map((result: any) => <JobItem data={result} key={result._id} />)
-								: null}
+							{jobs.jobs?.map((result) => (
+								<JobItem data={result} key={result._id} />
+							))}
 						</Suspense>
 					</div>
 
-					<div className={styles["join-us"]}>
-						<h5>Join our Job group on Facebook</h5>
-						<a
-							href='https://www.facebook.com/groups/jobsinpragueforeigners---'
-							target={"_blank"}
-							className={styles["join-link"]}
+					<div className="relative mt-16 h-[361px] bg-cover bg-center rounded-lg flex flex-col items-center justify-center text-center"
+						style={{ backgroundImage: "url('/images/green-bg-search.svg')" }}
+					>
+						<h5 className="text-4xl font-bold tracking-wider text-light">
+							Join our Job group on Facebook
+						</h5>
+						<a href="https://www.facebook.com/groups/jobsinpragueforeigners---"
+							target="_blank"
+							className="mt-5 px-8 py-4 bg-dark text-light font-bold text-xl rounded-lg hover:opacity-80"
 						>
 							Join Here
 						</a>

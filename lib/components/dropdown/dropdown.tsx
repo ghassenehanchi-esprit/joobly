@@ -8,7 +8,7 @@ import arrowIcon from '@/public/images/icons/dropdown-arrow.svg';
 import IconButton from "@mui/material/IconButton";
 import {ClickAwayListener} from "@mui/base";
 
-import { IoIosCloseCircle } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 
 
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
             setOpen(false);
           }}
         >
-          <IoIosCloseCircle />
+          <IoIosClose />
         </IconButton>
       </div>
       <div className={`${styles['body']} ${isOpen && styles['open']}`}>
