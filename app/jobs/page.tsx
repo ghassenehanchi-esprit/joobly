@@ -86,7 +86,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	<>
 		<HeaderBackground />
 		<section className="mt-16 mb-20 px-4">
-			<div className="container mx-auto flex flex-col md:flex-row">
+			<div className="container mx-auto flex flex-col lg:flex-row">
 				<Topbar
 					defaultJobSearchValue={searchParams?.jobTitle}
 					defaultLocation={defaultLocation?.id}
