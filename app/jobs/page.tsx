@@ -107,7 +107,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 
 					<div className="space-y-4">
 						<Suspense fallback={<div>Loading...</div>}>
-							{jobs.jobs?.map((result) => (
+							{jobs.jobs?.map((result: any) => (
 								<JobItem data={result} key={result._id} />
 							))}
 						</Suspense>
