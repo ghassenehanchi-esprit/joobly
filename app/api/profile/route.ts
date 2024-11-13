@@ -2,6 +2,8 @@ import {User} from '@/models/User';
 import generateRandomString from "@/lib/utils/generateRandomString";
 import mongoose from "mongoose";
 import { hash } from "bcryptjs";
+import { authOptions } from '@/lib/authOptions';
+import { getServerSession } from 'next-auth';
 
 export async function POST(req: Request) {
     try {
@@ -30,4 +32,17 @@ export async function POST(req: Request) {
     } catch (error) {
         console.log('Error', error);
     }
+}
+
+
+export async function GET() {
+  mongoose.connect(process.env.MONGODB_URL as string);
+  const session = await getServerSession(authOptions);
+  const email = session?.user?.email;
+  if (!email) {
+      return Response.json({});
+  }
+  return Response.json(
+      await User.findOne({email})
+  )
 }

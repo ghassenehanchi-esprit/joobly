@@ -11,15 +11,13 @@ export async function createUser(userBody: RegisterProps) {
     try {
         await mongoose.connect(process.env.MONGODB_URI as string);
         const {
-            username, email, password
+            name, email, password
         } = userBody;
         const notHashedPassword = password as string;
         const hashedPassword = await hash(notHashedPassword, 12);
-        console.log(username);
-        console.log(email);
-        console.log(hashedPassword);
-        const user = await User.create({username, email, password: hashedPassword});
-        console.log(user);
+
+        const user = await User.create({name, email, password: hashedPassword});
+
         return true;
     } catch (error) {
         console.log("shit")

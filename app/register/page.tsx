@@ -21,7 +21,7 @@ import { signIn } from "next-auth/react";
 
 
 interface Inputs {
-	username: string;
+	name: string;
 	email: string;
 	password: string;
 }
@@ -41,7 +41,7 @@ const Register = () => {
 
 	const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
 		const userBody: Inputs = {
-			username: values.username,
+			name: values.name,
 			email: values.email,
 			password: values.password,
 		};
@@ -81,7 +81,7 @@ const Register = () => {
 							startIcon={<Person className={styles["login-modal-form-icon"]} />}
 							authInput
 							errors={errors}
-							name={"username"}
+							name={"name"}
 							label='Name'
 							isRequired
 							placeholder='John Doe'
