@@ -9,12 +9,13 @@ import LoginBtn from "../loginBtn/loginBtn";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-import {parseFullName} from "parse-full-name";
 
 import { signOut, useSession } from 'next-auth/react';
 
 import { FaUser } from "react-icons/fa";
 import { RiDoorOpenFill } from "react-icons/ri";
+import { useProfile } from "@/lib/hooks/useProfile";
+import { UserProfileTypes } from "@/models/User";
 
 
 
@@ -25,27 +26,29 @@ const TopHeader = () => {
 	
 	const session = useSession();
 	const status = session.status;
-	const userData = session.data?.user as UserTypes;
-	let userName = userData?.name || userData?.email;
-    if (userName && userName.includes(" ")) {
-        userName = userName.split(' ')[0];
-    }
-
 
 	const pathname = usePathname();
+
+	const profile = useProfile();
+	const profileEmail = (profile.data as UserProfileTypes)?.email;
+
+	const userData = session.data?.user as UserTypes;
 	const gmailCredentials = userData?.email.indexOf("gmail");
+	
 
 	useEffect(() => {
 		if (gmailCredentials) {
-		  fetch('/api/profile', {
-			method: 'POST',
-			headers: {'Content-type': 'application/json'},
-			body: JSON.stringify({
-				email: userData.email,
-				name: userData.name,
-				image: userData.image,
-			}),
-		});
+			if (!profileEmail) {
+				fetch('/api/profile', {
+					method: 'POST',
+					headers: {'Content-type': 'application/json'},
+					body: JSON.stringify({
+						email: userData.email,
+						name: userData.name,
+						image: userData.image,
+					}),
+				});
+			}
 		}
 	  },[gmailCredentials]);
 

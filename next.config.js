@@ -7,6 +7,10 @@ const nextConfig = {
 				hostname: "flagcdn.com",
 				port: "",
 			},
+			{
+				protocol: 'https',
+				hostname: '*.googleusercontent.com'
+			},
 		],
 	},
 };

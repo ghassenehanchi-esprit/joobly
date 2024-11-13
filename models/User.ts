@@ -1,13 +1,27 @@
 import {model, models, Schema} from "mongoose";
 
+export type UserProfileTypes = {
+  _id?: FormDataEntryValue;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  image: string;
+  admin: string;
+  emailVerified: boolean;
+  jobPostings: number;
+  createdAt?: Date;
+};
+
 const UserSchema = new Schema({
-  username: {type: String},
+  name: {type: String},
   email: {type: String, required: true, unique: true},
   password: {type: String},
+  phone: {type: String},
   image: {type: String},
   admin: {type: Boolean, default: false},
   emailVerified: { type: Boolean, default: false },
   jobPostings: {type: Number, default: 0}
 }, {timestamps: true});
 
-export const User = models?.User || model('User', UserSchema);
+export const User = models?.User || model<UserProfileTypes>('User', UserSchema);
