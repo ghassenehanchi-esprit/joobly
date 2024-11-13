@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   image: {type: String},
   admin: {type: Boolean, default: false},
   emailVerified: { type: Boolean, default: false },
+  jobPostings: {type: Number, default: 0}
 }, {timestamps: true});
 
 export const User = models?.User || model('User', UserSchema);

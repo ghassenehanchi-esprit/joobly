@@ -136,9 +136,12 @@ const TopHeader = () => {
 					<div className="hidden lgl:flex">
 						{status === 'authenticated' ? (
 							<div className="flex gap-4 items-center">
-								<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
+								<Link 
+								href={'/dashboard'}
+								className="border-2 border-[#006c53] py-[15px] 
+								px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 									<FaUser className="text-black w-7 h-7 cursor-pointer"/>
-								</div>
+								</Link>
 								<div 
 								onClick={() => signOut()}
 								className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
@@ -264,9 +267,12 @@ const TopHeader = () => {
 				<div className="mt-6 lgl:hidden">
 					{status === 'authenticated' ? (
 						<div className="flex gap-4 items-center">
-							<div className="border-2 border-[#006c53] py-[15px] px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
+							<Link 
+							href={'/dashboard'}
+							className="border-2 border-[#006c53] py-[15px] 
+							px-6 rounded-2xl hover:border-[#83cfbe] duration-300">
 								<FaUser className="text-black w-7 h-7 cursor-pointer"/>
-							</div>
+							</Link>
 							<div 
 							onClick={() => signOut()}
 							className="border-2 border-[#006c53] py-2 px-4 rounded-2xl hover:border-[#83cfbe] duration-300">
