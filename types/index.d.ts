@@ -5,3 +5,9 @@ declare interface RegisterProps {
     image?: string;
     admin?: boolean,
 }
+
+declare interface UserTypes {
+	name: string;
+	email: string;
+	image: string;
+}
