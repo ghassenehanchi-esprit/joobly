@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./header.scss";
 import Button from "../button/button";
 import Link from "next/link";
@@ -17,15 +17,37 @@ import { FaUser } from "react-icons/fa";
 import { RiDoorOpenFill } from "react-icons/ri";
 
 
+
+
+
 const TopHeader = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	
 	const session = useSession();
 	const status = session.status;
-	//const name = session?.user?.name || '';
-	//const {first:firstName} = parseFullName(name);
+	const userData = session.data?.user as UserTypes;
+	let userName = userData?.name || userData?.email;
+    if (userName && userName.includes(" ")) {
+        userName = userName.split(' ')[0];
+    }
+
 
 	const pathname = usePathname();
+	const gmailCredentials = userData?.email.indexOf("gmail");
+
+	useEffect(() => {
+		if (gmailCredentials) {
+		  fetch('/api/profile', {
+			method: 'POST',
+			headers: {'Content-type': 'application/json'},
+			body: JSON.stringify({
+				email: userData.email,
+				name: userData.name,
+				image: userData.image,
+			}),
+		});
+		}
+	  },[gmailCredentials]);
 
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

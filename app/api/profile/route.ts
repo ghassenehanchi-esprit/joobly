@@ -1,0 +1,33 @@
+import {User} from '@/models/User';
+import generateRandomString from "@/lib/utils/generateRandomString";
+import mongoose from "mongoose";
+import { hash } from "bcryptjs";
+
+export async function POST(req: Request) {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI as string);
+        const body = await req.json();
+        const { email } = body;
+
+        if (email) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+              // User exist
+              return Response.json({ error: 'User with this email already exists' }, { status: 400 });
+            }
+      
+            // User not exist
+            const { name, password, image } = body;
+            const generatedPassword = generateRandomString(32);
+            const hashedPassword = await hash(generatedPassword, 12);
+      
+            const newUser = await User.create({ name, email, password: hashedPassword, image });
+            return Response.json(newUser);
+          } else {
+            return Response.json({ error: 'Email is required' }, { status: 400 });
+          }
+
+    } catch (error) {
+        console.log('Error', error);
+    }
+}
