@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
-import styles from "./jobsListPage.module.scss";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
 import { uniqueArray } from "@/lib/utils/uniqueArray/uniqueArray";

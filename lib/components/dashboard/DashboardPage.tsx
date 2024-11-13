@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import {redirect} from "next/navigation";
 import toast from "react-hot-toast";
@@ -48,8 +48,26 @@ const DashboardPage = () => {
           <h4>{email}</h4>
         </div>
       </div>
-      <div>
-        posts
+      <div className="px-0 md:px-2 mdl:px-6">
+          <div className="flex items-center justify-between mb-6 py-2 h-14">
+						<p className="text-xl text-gray-600">
+              10 available posts
+						</p>
+					</div>
+
+          <div className="space-y-4">
+              <div className="w-full flex flex-col gap-6 justify-between bg-light rounded-lg mb-4 shadow-lg p-6 xl:flex-row lg:gap-8">
+                    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds
+                    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+              </div>
+            {/*
+              <Suspense fallback={<div>Loading...</div>}>
+                {jobs.jobs?.map((result: any) => (
+                  <JobItem data={result} key={result._id} />
+                ))}
+              </Suspense>           
+            */}
+					</div>
       </div>
     </div>
   )
