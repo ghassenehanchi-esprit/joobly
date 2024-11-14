@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import styles from "@/app/jobs/jobsListPage.module.scss";
 import Button from "@/lib/components/button/button";
 import { JobData } from "@/lib/types/componentTypes";
 import locationIcon from "@/public/images/icons/location-grey.svg";
