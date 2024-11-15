@@ -2,6 +2,7 @@
 import {User} from "@/models/User";
 import mongoose from "mongoose";
 import { hash } from "bcryptjs";
+import { RegisterProps } from "@/types";
 
 
 
