@@ -3,6 +3,7 @@ import { Source_Sans_3 } from "next/font/google";
 import "@/lib/styles/globals.scss";
 import Header from "../header";
 
+import { Toaster } from 'react-hot-toast';
 
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
+		 <Toaster/>
               <Header needBackgroundHeader={true} topHeaderTitle='' bottomHeaderTitle='Welcome!'/>
 			{children}
 		</>

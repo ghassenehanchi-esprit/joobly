@@ -18,8 +18,6 @@ const JobItem = ({ data }: JobItem) => {
 	const { push } = useRouter();
 	const isClient = useClient();
 
-	console.log(isClient);
-
 	return (
 		<>
 			{isClient ? (
