@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
 
 export async function GET() {
-  mongoose.connect(process.env.MONGODB_URL as string);
+  mongoose.connect(process.env.MONGODB_URI as string);
   const session = await getServerSession(authOptions);
   const email = session?.user?.email;
   if (!email) {

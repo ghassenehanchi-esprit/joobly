@@ -41,6 +41,8 @@ const Login = () => {
 		const login = await signIn('credentials', {redirect: false, email: values.email, password: values.password, callbackUrl: '/'});
 		if (login) {
 			push('/');
+		} else {
+			push('/error');
 		}
 	};
 
