@@ -29,7 +29,7 @@ export const authOptions = {
         const user = await User.findOne({ email });
         const passwordOk = user && await compare(password, user.password);
       
-        if (passwordOk) {
+        if (user && passwordOk) {
           return user;
         }
       
