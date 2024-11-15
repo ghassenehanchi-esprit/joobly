@@ -19,7 +19,7 @@ const DashboardPage = () => {
     
     const {status} = session;
     const profile = useProfile();
-    console.log(status);
+    console.log(profile);
 
 
       const { email, image, name, jobPostPoints } = (profile.data as UserProfileTypes);
