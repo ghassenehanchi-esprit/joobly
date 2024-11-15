@@ -19,10 +19,37 @@ const DashboardPage = () => {
     
     const {status} = session;
     const profile = useProfile();
+    console.log(status);
 
-    const email = (profile.data as UserProfileTypes)?.email;
-    const image = (profile.data as UserProfileTypes)?.image;
-    const name = (profile.data as UserProfileTypes)?.name;
+
+      const { email, image, name, jobPostPoints } = (profile.data as UserProfileTypes);
+      console.log(jobPostPoints);
+
+      function HandleCheckJobPostPoints() {
+        if (jobPostPoints <= 0) {
+          toast((t) => (
+            <span className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+              <span className="font-medium">
+                You don&apos;t have enough points to post a job.
+              </span>
+              <button onClick={() => toast.dismiss(t.id)}>
+                <Link 
+                className="bg-[#006c53] text-white px-4 py-2 border 
+                hover:bg-white hover:text-[#006c53] border-[#006c53] 
+                rounded-xl duration-300"
+                href={'/packages'}
+                >
+                  Buy more
+                </Link>
+              </button>
+            </span>
+          ));
+         
+        } else {
+          push('/post-job');
+        }
+      }
+    
     
 
     if (profile.loading) {
@@ -33,9 +60,12 @@ const DashboardPage = () => {
         );
     }
 
-    if (status === "unauthenticated") {
+     if (status !== "authenticated") {
         return redirect('/');
-    }
+    } 
+
+ 
+
   return (
     <div className="container mx-auto flex flex-col lg:flex-row">
       <div className="bg-light rounded-lg shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px] h-[520px]">
@@ -45,29 +75,31 @@ const DashboardPage = () => {
           )}
         {!image && (
           <div className="w-24 h-24 border-2 border-[#006c53] rounded-xl flex items-center justify-center">
-            <FaUser className="text-[#006c53] w-18 h-18"/>
+            <FaUser className="text-[#006c53] w-16 h-16"/>
           </div>
         )}
         </div>
         <div className="flex flex-col text-gray-500">
-          <h3>{name}</h3>
-          <h4>{email}</h4>
+        <div>name: {" "}<span>{name}</span></div>
+        <div>email: {" "}<span>{email}</span></div>
+          
         </div>
       </div>
       <div className="px-0 md:px-2 mdl:px-6">
-          <div className="flex items-center justify-between mb-6 py-2 h-14">
-						<p className="text-xl text-gray-600">
-              10 available posts
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 py-2 h-14 mt-4 lg:mt-0">
+						<p className=" text-gray-600 text-sm md:text-xl">
+              {jobPostPoints > 0 ? jobPostPoints : "no"} available job postings
 						</p>
-            <Link 
-            href={'/'}
+            <Button
+            onClick={() => HandleCheckJobPostPoints()}
             className="bg-gray-200 text-gray-500 font-bold text-lg border-2  hover:bg-white hover:border-[#006c53] hover:text-black text px-4 py-1 rounded-2xl flex items-center duration-200"
             >
                 Create job post
-            </Link>
+            </Button>
 					</div>
 
           <div className="space-y-4 w-full">
+            {/*your job posts*/}
               <div className="w-full flex flex-col gap-6 justify-between bg-light rounded-lg mb-4 shadow-lg p-6 xl:flex-row lg:gap-8">
                 <div className="flex flex-col gap-6">
                   <h3 className="text-lg font-bold text-gray-800">Developer</h3>

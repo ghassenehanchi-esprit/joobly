@@ -26,6 +26,7 @@ const TopHeader = () => {
 	
 	const session = useSession();
 	const status = session.status;
+	console.log(status);
 
 	const pathname = usePathname();
 

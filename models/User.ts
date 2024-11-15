@@ -9,7 +9,7 @@ export type UserProfileTypes = {
   image: string;
   admin: string;
   emailVerified: boolean;
-  jobPostings: number;
+  jobPostPoints: number;
   createdAt?: Date;
 };
 
@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   image: {type: String},
   admin: {type: Boolean, default: false},
   emailVerified: { type: Boolean, default: false },
-  jobPostings: {type: Number, default: 0}
+  jobPostPoints: {type: Number, default: 0}
 }, {timestamps: true});
 
 export const User = models?.User || model<UserProfileTypes>('User', UserSchema);
