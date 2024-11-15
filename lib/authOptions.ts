@@ -25,7 +25,7 @@ export const authOptions = {
         const password = credentials.password;
       
         await dbConnect().catch(error => { error: "Connection Failed...!" });
-        mongoose.connect(process.env.MONGODB_URL as string);
+        mongoose.connect(process.env.MONGODB_URI as string);
         const user = await User.findOne({ email });
         const passwordOk = user && await compare(password, user.password);
       
