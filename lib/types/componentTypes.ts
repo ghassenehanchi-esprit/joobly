@@ -83,9 +83,12 @@ export type ServicePlanType = {
 export interface JobsPagePropsTypes {
 	params?: { value: string | number };
 	searchParams?: {
-		location: string | undefined;
 		jobTitle: string | undefined;
+		contractType: string | undefined;
 		workType: string | undefined;
+		language: string | undefined;
+		location: string | undefined;
+		experienceLevel: string | undefined;
 		salary: string | undefined;
 	};
 }
