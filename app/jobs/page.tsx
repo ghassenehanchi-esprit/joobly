@@ -65,8 +65,11 @@ async function getOptions() {
 
 const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	const params = new URLSearchParams({
-		location: searchParams?.location || "",
 		jobTitle: searchParams?.jobTitle || "",
+		location: searchParams?.location || "",
+		language: searchParams?.language || "",
+		contractType: searchParams?.contractType || "",
+		experienceLevel: searchParams?.experienceLevel || "",
 		workType: searchParams?.workType || "",
 		salary: searchParams?.salary || "",
 	});

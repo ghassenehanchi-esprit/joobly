@@ -458,7 +458,7 @@ export const COUNTRIES: CountryType[] = [
 	{ code: "ZW", label: "Zimbabwe", phone: "263" },
 ];
 
-export const WORK_TYPES = ["Any", "Onsite", "Offsite"];
+export const WORK_TYPES = ["Full-Time", "Part-Time", "Shift work"];
 export const INTERESTED_IN = ["Other", "Find Job", "Post job"];
 export const HEAR_ABOUT = ["Other", "Facebook", "Google"];
 export const WORK_TIMES = ["Any", "Full-Time(5 days)", "Half-Time(5 days)"];
