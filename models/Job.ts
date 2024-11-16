@@ -16,7 +16,6 @@ export type JobTypes = {
     advertisedDate: string;
     postedDate: string;
     closeDate: string
-    workType: string;
     education: string;
     companyDetails: {
         ceoCompany: string;
@@ -28,20 +27,20 @@ export type JobTypes = {
   };
 
 const JobSchema = new Schema({
-  id: { type: Number },
-  jobTitle: { type: String, required: true },
-  description: { type: String, required: true },
-  jobUrl: { type: String, required: true },
-  location: { type: String, required: true },
-  salary: { type: String },
-  currency: { type: String },
-  salaryDetail: { type: String },
-  postedDate: { type: String },
-  workType: { type: String },
-  education: { type: String },
-  worType: { type: String },
-  advertisedDate: { type: String },
-  closeDate: { type: String },
+  jobTitle: { type: String, required: true }, //1
+  description: { type: String, required: true },//1
+  jobUrl: { type: String, required: true }, //1
+  location: { type: String },//1
+  language: { type: String },//1
+  contractType: { type: String },//1
+  workingHours: { type: String },
+  salary: { type: String },//1
+  currency: { type: String },//1
+  salaryDetail: { type: String },//1
+  advertisedDate: { type: String },//1
+  postedDate: { type: String }, //1
+  closeDate: { type: String },//1
+  education: { type: String },//1
   companyDetails: {
     ceoCompany: { type: String },
     founded: { type: String },
