@@ -6,7 +6,9 @@ import Input from "@/lib/components/input/input";
 import FormSelect from "@/lib/components/select/select";
 import {
 	COMPANY_SIZE,
-	COUNTRIES,
+	//COUNTRIES,
+	LANGUAGES,
+	CITIES,
 	CURRENCY,
 	EDUCATION,
 	SALARY_DETAILS,
@@ -133,14 +135,22 @@ const PostJob = () => {
 						/>
 					</div>
 					<div className={styles["post-job-page-input-wrapper"]}>
-						<Input
+						<FormSelect
 							control={control}
-							errors={errors}
 							name={"location"}
-							label='Job location'
-							isRequired
-							placeholder='City or state'
+							label={"Job location"}
+							defaultValue={jobDetails?.location || "Prague"}
+							options={CITIES}
 						/>
+						<FormSelect
+							control={control}
+							name={"language"}
+							label={"Job language"}
+							defaultValue={jobDetails?.location || "English"}
+							options={LANGUAGES}
+						/>
+
+						{/*
 						<FormSelect
 							control={control}
 							countrySelect
@@ -156,18 +166,20 @@ const PostJob = () => {
 							}
 							options={COUNTRIES}
 						/>
+						*/}
+						
 					</div>
 					<div className={styles["post-job-page-input-wrapper"]}>
 						<FormSelect
 							control={control}
-							name={"workType"}
+							name={"contractType"}
 							label={"Contract type"}
 							defaultValue={jobDetails?.workType || "Any"}
 							options={WORK_TYPES}
 						/>
 						<FormSelect
 							control={control}
-							name={"jobTime"}
+							name={"workingHours"}
 							label={"Working hours"}
 							defaultValue={jobDetails?.jobTime || "Any"}
 							options={WORK_TIMES}
@@ -176,7 +188,7 @@ const PostJob = () => {
 							control={control}
 							name={"education"}
 							label={"Education"}
-							defaultValue={jobDetails?.education || "Master"}
+							defaultValue={jobDetails?.education || "Any"}
 							options={EDUCATION}
 						/>
 					</div>
@@ -184,6 +196,7 @@ const PostJob = () => {
 						<Input
 							control={control}
 							type='number'
+							min="0"
 							errors={errors}
 							name={"salary"}
 							label='Salary'

@@ -458,10 +458,10 @@ export const COUNTRIES: CountryType[] = [
 	{ code: "ZW", label: "Zimbabwe", phone: "263" },
 ];
 
-export const WORK_TYPES = ["Full-Time", "Part-Time", "Shift work"];
+export const WORK_TYPES = ["Any", "Permanent", "Freelance", "Temporary", "Internship"];
 export const INTERESTED_IN = ["Other", "Find Job", "Post job"];
 export const HEAR_ABOUT = ["Other", "Facebook", "Google"];
-export const WORK_TIMES = ["Any", "Full-Time(5 days)", "Half-Time(5 days)"];
+export const WORK_TIMES = ["Any", "Full-time", "Part-time", "Shift work"];
 export const CURRENCY: string[] = [
 	"CZK", // Czech Koruna
 	"USD", // US Dollar
@@ -486,13 +486,64 @@ export const CURRENCY: string[] = [
 	"SEK", // Swedish Krona
 ];
 
+export const CITIES = [
+	"Brno",
+	"České Budějovice",
+	"Český Krumlov",
+	"Cheb",
+	"Chomutov",
+	"Děčín",
+	"Frýdek-Místek",
+	"Havířov",
+	"Hradec Králové",
+	"Jablonec nad Nisou",
+	"Jihlava",
+	"Karlovy Vary",
+	"Karviná",
+	"Kladno",
+	"Liberec",
+	"Litoměřice",
+	"Mělník",
+	"Most",
+	"Olomouc",
+	"Opava",
+	"Ostrava",
+	"Pardubice",
+	"Plzeň",
+	"Prague",
+	"Prostějov",
+	"Přerov",
+	"Tábor",
+	"Teplice",
+	"Třebíč",
+	"Trutnov",
+	"Ústí nad Labem",
+	"Zlín",
+  ];
+
+  export const LANGUAGES = [
+	"English",
+	"German",
+	"French",
+	"Italian",
+	"Spanish",
+	"Dutch",
+	"Swedish",
+	"Finnish",
+	"Russian",
+	"Portuguese",
+	"Japanese",
+	"Indian",
+  ];
+
 export const SALARY_DETAILS = ["Year", "Month", "Week"];
-export const EDUCATION = ["High School", "Master", "PhD", "Bachelor", "College", "Coursework"];
+export const EDUCATION = ["Any", "High School", "Master", "PhD", "Bachelor", "College", "Coursework"];
 export const COMPANY_SIZE = [
 	"10,000+ Employees",
 	"5,000+ Employees",
 	"1,000+ Employees",
 	"500+ Employees",
+	"less than 500 Employees"
 ];
 
 export const BACKEND_URL = "https://prague-morning-backend.vercel.app/api";
