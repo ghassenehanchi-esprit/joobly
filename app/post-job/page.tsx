@@ -23,6 +23,7 @@ import { addNewJob, setJobDetails } from "../../lib/features/jobSlice/jobSlice";
 import { useRouter } from "next/navigation";
 import { selectJobDetails } from "../../lib/selectors/selectors";
 import { batch } from "react-redux";
+import { useProfile } from "@/lib/hooks/useProfile";
 
 interface Inputs {
 	jobTitle: string;
@@ -52,6 +53,10 @@ const PostJob = () => {
 	const dispatch = useAppDispatch();
 	const { push } = useRouter();
 	const jobDetails = useAppSelector(selectJobDetails);
+
+	//profile for points check
+	const user = useProfile();
+	
 
 	const {
 		handleSubmit,
@@ -100,11 +105,15 @@ const PostJob = () => {
 	};
 	const onSubmitFinal: SubmitHandler<Inputs> = async (values: Inputs) => {
 		const data = createDataForJob(values);
-		batch(() => {
-			dispatch(setJobDetails(null));
-			dispatch(addNewJob(data));
-		});
-		push("/payment");
+		if (user?.data?.jobPostPoints && user.data.jobPostPoints > 0) {
+			batch(() => {
+				dispatch(setJobDetails(null));
+				dispatch(addNewJob(data));
+				push("/job-creation-success");
+			});
+		} else {
+			push("/packages");
+		}
 	};
 
 	const cancelClick = () => {
@@ -172,16 +181,16 @@ const PostJob = () => {
 					<div className={styles["post-job-page-input-wrapper"]}>
 						<FormSelect
 							control={control}
-							name={"contractType"}
+							name={"workType"}
 							label={"Contract type"}
-							defaultValue={jobDetails?.workType || "Any"}
+							defaultValue={jobDetails?.contractType || "Any"}
 							options={WORK_TYPES}
 						/>
 						<FormSelect
 							control={control}
-							name={"workingHours"}
+							name={"jobTime"}
 							label={"Working hours"}
-							defaultValue={jobDetails?.jobTime || "Any"}
+							defaultValue={jobDetails?.workingHours || "Any"}
 							options={WORK_TIMES}
 						/>
 						<FormSelect
@@ -195,8 +204,7 @@ const PostJob = () => {
 					<div className={styles["post-job-page-input-wrapper"]}>
 						<Input
 							control={control}
-							type='number'
-							min="0"
+
 							errors={errors}
 							name={"salary"}
 							label='Salary'

@@ -12,13 +12,14 @@ import { useRouter } from "next/navigation";
 import { useClient } from "@/lib/hooks/useClient";
 
 const DetailsContainer = ({ data }: any) => {
+	console.log(data);
 	const jobDetails = [
 		{
 			key: "Job Role",
 			value: data?.jobTitle || "N/A",
 		},
 		{
-			key: "Work Type",
+			key: "Contract Type",
 			value: data?.workType || "N/A",
 		},
 		{
@@ -30,7 +31,7 @@ const DetailsContainer = ({ data }: any) => {
 			value: data?.education || "N/A",
 		},
 		{
-			key: "Job Type",
+			key: "Working Hours",
 			value: data?.jobTime || "N/A",
 		},
 		{
