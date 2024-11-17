@@ -8,8 +8,8 @@ export type JobTypes = {
     jobUrl: string;
     location: string;
     language: string;
-    contractType: string;
-    workingHours: string;
+    workType: string;
+    jobTime: string;
     salary: number;
     currency: string;
     salaryDetail: string;
@@ -23,6 +23,8 @@ export type JobTypes = {
         companySize: string;
         companyWebsite: string;
     };
+    views: number;
+    jobPostAuthorId: string;
     createdAt?: Date;
   };
 
@@ -32,8 +34,8 @@ const JobSchema = new Schema({
   jobUrl: { type: String, required: true }, //1
   location: { type: String },//1
   language: { type: String },//1
-  contractType: { type: String },//1
-  workingHours: { type: String },
+  workType: { type: String },//1
+  jobTime: { type: String },
   salary: { type: String },//1
   currency: { type: String },//1
   salaryDetail: { type: String },//1
@@ -47,6 +49,8 @@ const JobSchema = new Schema({
     companySize: { type: String },
     companyWebsite: { type: String },
   },
+  views: { type: String, default: 0}, 
+  jobPostAuthorId: { type: String }, 
 });
 
 

@@ -3,22 +3,24 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 type Props = {};
 
-const RegisterSuccess = (props: Props) => {
+const JobPostSuccess = (props: Props) => {
 	const router = useRouter();
 
 	useEffect(() => {
 		setTimeout(() => {
-			router.push("/login");
+			router.push("/dashboard");
 		}, 3500);
 	}, [router]);
 
 
 	return (
 		<div className='flex flex-col items-center justify-center h-[85%] bg-[#009c77]'>
-			<h1 className='text-4xl font-bold text-white'>Register Success!</h1>
-			<p className='text-lg text-white'>Now you can log in.</p>
+			<h1 className='text-4xl font-bold text-white'>Job Post Created!</h1>
+			<p className='text-lg text-white'>
+                Your vacancy is already being considered by potential employees.
+            </p>
 		</div>
 	);
 };
 
-export default RegisterSuccess;
+export default JobPostSuccess;
