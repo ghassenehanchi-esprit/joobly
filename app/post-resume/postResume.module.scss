@@ -6,7 +6,7 @@
   justify-content: flex-start;
   gap: 19px;
   padding-top: 44px;
-  height: 100vh;
+  min-height: 100vh;
 
   &__item {
     display: flex;
