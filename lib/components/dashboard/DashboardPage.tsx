@@ -9,12 +9,13 @@ import { UserProfileTypes } from "@/models/User";
 import Button from "@/lib/components/button/button";
 
 import { FaUser } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import Link from "next/link";
+import MyJobPostItem from "./MyJobPostItem";
 
 const DashboardPage = () => {
-    const { push } = useRouter();
+    const [jobs, setJobs] = useState<any>([]);
     const session = useSession();
+    const router = useRouter();
     
     
     const {status} = session;
@@ -23,7 +24,10 @@ const DashboardPage = () => {
 
 
       const { email, image, name, jobPostPoints } = (profile.data as UserProfileTypes);
-      console.log(jobPostPoints);
+
+      useEffect(() => {
+
+      }, [])
 
       function HandleCheckJobPostPoints() {
         if (jobPostPoints <= 0) {
@@ -46,7 +50,7 @@ const DashboardPage = () => {
           ));
          
         } else {
-          push('/post-job');
+          router.push('/post-job');
         }
       }
     
@@ -100,33 +104,11 @@ const DashboardPage = () => {
 
           <div className="space-y-4 w-full">
             {/*your job posts*/}
-              <div className="w-full flex flex-col gap-6 justify-between bg-light rounded-lg mb-4 shadow-lg p-6 xl:flex-row lg:gap-8">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-lg font-bold text-gray-800">Developer</h3>
-                   <p className="max-w-[800px]">
-                      It is a long established fact that a reader will be distracted by the readable content 
-                      of a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
-                      more-or-less normal distribution of letters, as opposed to using Content here, content 
-                      here, making it look like readable English. Many desktop publishing packages and web 
-                      page editors now use Lorem Ipsum as their default model text, and a search for lorem 
-                      ipsum will uncover many web sites still in their infancy. Various versions have evolved 
-                      over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                    </p>
-                </div>
-                <div className="flex flex-col items-end justify-end">
-                  <div className="flex gap-2 items-center justify-between">
-                    <Button
-                      //onClick={() => push(`/jobs/${data?._id}`)}
-                      className="bg-gray-200 text-gray-500 font-bold text-lg border-2  hover:bg-white hover:border-[#006c53] hover:text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
-                    >
-                      Detail Information
-                    </Button>
-                    <div>
-                      <MdDelete className="w-12 h-12 text-gray-500 cursor-pointer hover:text-[#006c53] duration-300"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Suspense fallback={<div>Loading...</div>}>
+                {jobs.jobs?.map((result: any) => (
+                  <MyJobPostItem data={result} key={result._id} />
+                ))}
+              </Suspense>        
 					</div>
       </div>
     </div>
@@ -135,17 +117,4 @@ const DashboardPage = () => {
 
 export default DashboardPage;
 
- {/*
-              <Suspense fallback={<div>Loading...</div>}>
-                {jobs.jobs?.map((result: any) => (
-                  <JobItem data={result} key={result._id} />
-                ))}
-              </Suspense>           
-            */}
 
-
-            {
-              /*
-              {item.description.substring(0, 80)}...
-              */
-            }
