@@ -36,7 +36,9 @@ export async function POST(req: Request) {
     }
 }
 
-export async function GET(req) {
+{/*
+  
+  export async function GET(req) {
   await connectToDB();
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
@@ -82,3 +84,6 @@ export async function DELETE(req) {
     return Response.json({ message: "Unauthorized" }, { status: 403 });
   }
 }
+  
+  */}
+
