@@ -3,7 +3,7 @@ import { Job } from "@/models/Job";
 import mongoose from "mongoose";
 
 
-export async function JobPostPreview({ params: { id } }: SearchParamProps) {
+export default async function JobPostPreview({ params: { id } }: SearchParamProps) {
     await mongoose.connect(process.env.MONGODB_URI as string);
     const jobDetails = JSON.parse(JSON.stringify( await Job.findById(id)));
   return (
