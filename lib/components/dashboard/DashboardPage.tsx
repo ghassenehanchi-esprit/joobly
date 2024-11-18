@@ -20,14 +20,25 @@ const DashboardPage = () => {
     
     const {status} = session;
     const profile = useProfile();
-    console.log(profile);
+    console.log(jobs);
 
 
       const { email, image, name, jobPostPoints } = (profile.data as UserProfileTypes);
+      const userId = profile?.data?._id;
 
       useEffect(() => {
-
-      }, [])
+        if (userId) {
+          fetch(`/api/my-jobs/${userId}`)
+          .then((res) => res.json())
+          .then((data) => {
+              setJobs(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching posts:", error);
+            setJobs([]);
+          });
+        }
+      }, [userId])
 
       function HandleCheckJobPostPoints() {
         if (jobPostPoints <= 0) {
@@ -89,7 +100,7 @@ const DashboardPage = () => {
           
         </div>
       </div>
-      <div className="px-0 md:px-2 mdl:px-6">
+      <div className="px-0 md:px-2 mdl:px-6 flex-grow">
           <div className="flex flex-col md:flex-row items-center justify-between mb-6 py-2 h-14 mt-4 lg:mt-0">
 						<p className=" text-gray-600 text-sm md:text-xl">
               {jobPostPoints > 0 ? jobPostPoints : "no"} available job postings
@@ -102,10 +113,10 @@ const DashboardPage = () => {
             </Button>
 					</div>
 
-          <div className="space-y-4 w-full">
+          <div className="space-y-4">
             {/*your job posts*/}
               <Suspense fallback={<div>Loading...</div>}>
-                {jobs.jobs?.map((result: any) => (
+                {jobs?.map((result: any) => (
                   <MyJobPostItem data={result} key={result._id} />
                 ))}
               </Suspense>        
