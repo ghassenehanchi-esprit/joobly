@@ -557,7 +557,7 @@ export const COMPANY_SIZE = [
 	"less than 500 Employees"
 ];
 
-export const BACKEND_URL = "http://localhost:3000/api";
+export const BACKEND_URL: string | undefined = process.env.BACKEND_URL;
 
 // REGEXPS
 export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

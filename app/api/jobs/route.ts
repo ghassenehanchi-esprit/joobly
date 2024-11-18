@@ -36,15 +36,15 @@ export async function POST(req: Request) {
     }
 }
 
-{/*
+
   
-  export async function GET(req) {
-  await connectToDB();
+  export async function GET(req: Request) {
+  await mongoose.connect(process.env.MONGODB_URI as string);
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
 
   if (id) {
-    const job = await Jobs.findById(id);
+    const job = await Job.findById(id);
     if (job) {
       return Response.json(job);
     } else {
@@ -53,16 +53,20 @@ export async function POST(req: Request) {
   }
 
   const query = Object.fromEntries(url.searchParams.entries());
-  const filter = {};
+  const filter: Record<string, any> = {}; 
+
   for (const key in query) {
     if (query[key]) {
       filter[key] = { $regex: new RegExp(`.*${query[key]}.*`, "i") };
     }
   }
 
-  const jobs = await Jobs.find(filter);
+  const jobs = await Job.find(filter);
   return Response.json({ length: jobs.length, jobs });
 }
+
+
+{/*
 
 export async function DELETE(req) {
   await connectToDB();
