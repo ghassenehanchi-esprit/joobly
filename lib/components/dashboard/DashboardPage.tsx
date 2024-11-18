@@ -20,11 +20,12 @@ const DashboardPage = () => {
     
     const {status} = session;
     const profile = useProfile();
-    console.log(jobs);
 
 
       const { email, image, name, jobPostPoints } = (profile.data as UserProfileTypes);
       const userId = profile?.data?._id;
+
+
 
       useEffect(() => {
         if (userId) {
@@ -64,7 +65,9 @@ const DashboardPage = () => {
           router.push('/post-job');
         }
       }
-    
+
+
+
     
 
     if (profile.loading) {
