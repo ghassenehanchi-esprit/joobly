@@ -7,6 +7,7 @@ import upload from "@/public/images/icons/uploadResume.svg"
 import create from "@/public/images/icons/createResume.svg"
 import checkMark from "@/public/images/icons/checkmark.svg"
 import UploadModal from "@/lib/components/uploadModal/uploadModal";
+import { GDPR } from '@/lib/constant/constants';
 const PostResume = () => {
 
   const [open, setOpen] = useState(false);
@@ -27,6 +28,9 @@ const PostResume = () => {
           Upload
         </Button>
       </div>
+      <p className='text-xs text-gray-400 font-semibold text-center max-w-[800px] px-4'>
+      {GDPR}
+      </p>
     </section>
   );
 };

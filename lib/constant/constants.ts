@@ -13,6 +13,17 @@ export const SORTBY = [
 	{ id: 2, label: "Views" },
 ];
 
+export const GDPR = `
+By uploading your CV, you agree to the processing of your personal data 
+      in accordance with the General Data Protection Regulation (GDPR) and 
+      applicable local data protection laws. Your CV and related information 
+      will be stored securely in a protected cloud-based environment and will 
+      only be accessible to authorized personnel for recruitment purposes. 
+      Your data will not be shared with third parties without your explicit 
+      consent and will be retained only for the duration necessary to fulfill 
+      these purposes or as required by law.
+`;
+
 export const JOB_DESCRIPTION =
 	"As a frontend product engineer, writing code and building beautiful user experiences is just one part of your job. You'll also talk to users, get involved with design, and develop your own opinion on what needs to exist in the world. Then you'll move with urgency to make it happen.\n" +
 	"To learn more about how we work, take a look at our Engineering Values.\n" +
