@@ -7,6 +7,17 @@ import { useRouter } from 'next/navigation';
 
 
 const MyJobPostItem = ({data}: any) => {
+
+  async function handleDeleteClick() {
+
+    const res = await fetch('/api/my-jobs?_id=' + data._id, {
+            method: 'DELETE',
+        });
+        if (res.ok) {
+          window.location.reload();
+        }
+  }
+  
   const router = useRouter();
   return (
     <div className="w-full flex flex-col gap-6 justify-between bg-light rounded-lg mb-4 shadow-lg p-6 xl:flex-row lg:gap-8">
@@ -25,7 +36,10 @@ const MyJobPostItem = ({data}: any) => {
           Detail Information
         </Button>
         <div>
-          <MdDelete className="w-12 h-12 text-gray-500 cursor-pointer hover:text-[#006c53] duration-300"/>
+          <MdDelete 
+          onClick={handleDeleteClick}
+          className="w-12 h-12 text-gray-500 cursor-pointer hover:text-[#006c53] duration-300"
+          />
         </div>
       </div>
     </div>
