@@ -50,9 +50,3 @@ const MyJobPostItem = ({data}: any) => {
 export default MyJobPostItem;
 
 
-
-{
-    /*
-    {item.description.substring(0, 80)}...
-    */
-  }

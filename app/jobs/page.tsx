@@ -4,6 +4,7 @@ import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
 import { uniqueArray } from "@/lib/utils/uniqueArray/uniqueArray";
 import HeaderBackground from "@/lib/components/headerBackground/headerBackground";
+import { BACKEND_URL } from "@/lib/constant/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +42,7 @@ async function processOptions(options: JobData[]) {
 }
 
 async function getData(params: any) {
-	const res = await fetch(`https://prague-morning-backend.vercel.app/api/jobs?${params}`, {
+	const res = await fetch(`${BACKEND_URL}/jobs?${params}`, {
 		next: { revalidate: 60 },
 	});
 	if (!res) {
@@ -52,7 +53,7 @@ async function getData(params: any) {
 }
 
 async function getOptions() {
-	const res = await fetch(`https://prague-morning-backend.vercel.app/api/job-options`, {
+	const res = await fetch(`${BACKEND_URL}/job-options`, {
 		next: { revalidate: 60 },
 	});
 
@@ -68,7 +69,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		jobTitle: searchParams?.jobTitle || "",
 		location: searchParams?.location || "",
 		language: searchParams?.language || "",
-		contractType: searchParams?.contractType || "",
+		contractType: searchParams?.workType || "",
 		experienceLevel: searchParams?.experienceLevel || "",
 		workType: searchParams?.workType || "",
 		salary: searchParams?.salary || "",
