@@ -1,9 +1,13 @@
+"use client"
+
 import React from 'react'
 import Button from '../button/button';
 import { MdDelete } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
 
 
 const MyJobPostItem = ({data}: any) => {
+  const router = useRouter();
   return (
     <div className="w-full flex flex-col gap-6 justify-between bg-light rounded-lg mb-4 shadow-lg p-6 xl:flex-row lg:gap-8">
     <div className="flex flex-col gap-6">
@@ -15,7 +19,7 @@ const MyJobPostItem = ({data}: any) => {
     <div className="flex flex-col items-end justify-end">
       <div className="flex gap-2 items-center justify-between">
         <Button
-          //onClick={() => push(`/jobs/${data?._id}`)}
+          onClick={() => router.push(`/dashboard/job-post-preview/${data?._id}`)}
           className="bg-gray-200 text-gray-500 font-bold text-lg border-2  hover:bg-white hover:border-[#006c53] hover:text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
         >
           Detail Information
