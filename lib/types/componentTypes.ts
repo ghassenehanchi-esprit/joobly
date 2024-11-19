@@ -32,24 +32,28 @@ export type JobData = {
 	id?: number;
 	_id?: string;
 	jobTitle: string;
-	description: string;
-	jobUrl: string;
-	location: string;
-	salary?: number | string;
-	currency?: string;
-	salaryDetail?: string;
-	postedDate?: string;
-	workType?: string;
-	education?: string;
-	jobTime?: string;
-	advertisedDate?: string;
-	closeDate?: string;
-	companyDetails?: {
-		ceoCompany?: string;
-		founded?: string;
-		companySize?: string;
-		companyWebsite?: string;
-	};
+    description: string;
+    jobUrl: string;
+    location: string;
+    language: string;
+    workType: string;
+    jobTime: string;
+    salary: number;
+    currency: string;
+    salaryDetail: string;
+    advertisedDate: string;
+    postedDate: string;
+    closeDate: string
+    education: string;
+    companyDetails: {
+        ceoCompany: string;
+        founded: string;
+        companySize: string;
+        companyWebsite: string;
+	},
+	views: number;
+    jobPostAuthorId: string;
+    createdAt?: Date;
 };
 
 export type KayValueDataType = {
@@ -84,11 +88,11 @@ export interface JobsPagePropsTypes {
 	params?: { value: string | number };
 	searchParams?: {
 		jobTitle: string | undefined;
-		contractType: string | undefined;
 		workType: string | undefined;
+		jobTime: string | undefined;
 		language: string | undefined;
 		location: string | undefined;
-		experienceLevel: string | undefined;
+		education: string | undefined;
 		salary: string | undefined;
 	};
 }

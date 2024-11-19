@@ -11,12 +11,18 @@ import { CiSearch } from "react-icons/ci";
 interface TopbarProps {
 	style?: React.CSSProperties;
 	locations: optionItems[];
+	languages: optionItems[];
+	educations: optionItems[];
 	specializations: optionItems[];
 	workType: optionItems[];
+	jobTime: optionItems[];
 	salary: optionItems[];
 	defaultJobTitle?: string;
 	defaultLocation?: string;
+	defaultLanguage?: string;
+	defaultEducation?: string;
 	defaultWorkType?: string;
+	defaultJobTime?: string;
 	defaultSalary?: string;
 	defaultJobSearchValue?: string | number;
 }
@@ -24,12 +30,16 @@ interface TopbarProps {
 const Topbar: React.FC<TopbarProps> = ({
 	style,
 	locations,
-	specializations,
+	languages,
+	educations,
 	workType,
+	jobTime,
 	salary,
-	defaultJobTitle,
 	defaultLocation,
+	defaultLanguage,
 	defaultWorkType,
+	defaultEducation,
+	defaultJobTime,
 	defaultSalary,
 	defaultJobSearchValue,
 }) => {
@@ -69,7 +79,7 @@ const Topbar: React.FC<TopbarProps> = ({
 				key="work-type-dropdown"
 				defaultSelected={defaultWorkType}
 				queryPushing={(label: string) =>
-					router.push(pathname + "?" + createQueryString("contractType", label))
+					router.push(pathname + "?" + createQueryString("workType", label))
 				}
 				items={workType}
 				headerTitle={"Contract Type"}
@@ -78,11 +88,11 @@ const Topbar: React.FC<TopbarProps> = ({
 			{/*  @ts-ignore */}
 			<Dropdown
 				key="work-type-dropdown"
-				defaultSelected={defaultWorkType}
+				defaultSelected={defaultJobTime}
 				queryPushing={(label: string) =>
-					router.push(pathname + "?" + createQueryString("workType", label))
+					router.push(pathname + "?" + createQueryString("jobTime", label))
 				}
-				items={workType}
+				items={jobTime}
 				headerTitle={"Working hours"}
 				icon="/images/icons/findJob.svg"
 			/>
@@ -100,11 +110,11 @@ const Topbar: React.FC<TopbarProps> = ({
 				{/*  @ts-ignore */}
 				<Dropdown
 				key="location-dropdown"
-				defaultSelected={defaultLocation}
+				defaultSelected={defaultLanguage}
 				queryPushing={(label: string) =>
 					router.push(pathname + "?" + createQueryString("language", label))
 				}
-				items={locations}
+				items={languages}
 				headerTitle={"Language"}
 				icon="/images/icons/location.svg"
 			/>
@@ -122,12 +132,12 @@ const Topbar: React.FC<TopbarProps> = ({
 			{/*  @ts-ignore */}
 			<Dropdown
 				key="specialization-dropdown"
-				defaultSelected={defaultJobTitle}
+				defaultSelected={defaultEducation}
 				queryPushing={(label: string) =>
-					router.push(pathname + "?" + createQueryString("experienceLevel", label))
+					router.push(pathname + "?" + createQueryString("education", label))
 				}
-				items={specializations}
-				headerTitle={"Experience Level"}
+				items={educations}
+				headerTitle={"Education"}
 				icon="/images/icons/case.svg"
 			/>
 		</div>
