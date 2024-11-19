@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { JobData } from "@/lib/types/componentTypes";
 import { BACKEND_URL } from "@/lib/constant/constants";
+import { JobTypes } from "@/models/Job";
 
 export interface JobState {
 	jobDetails: JobData | null;
@@ -13,9 +14,9 @@ const initialState: JobState = {
 
 export const addNewJob = createAsyncThunk(
 	"jobs/create-job",
-	async (data: JobData, { rejectWithValue }): Promise<any> => {
+	async (data: JobTypes, { rejectWithValue }): Promise<any> => {
 		try {
-			const response = await fetch(`${BACKEND_URL}/jobs`, {
+			const response = await fetch(`/api/jobs`, {
 				method: "POST",
 				cache: "no-cache",
 				body: JSON.stringify(data),

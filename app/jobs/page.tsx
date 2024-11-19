@@ -85,7 +85,6 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		salary: searchParams?.salary || "",
 	});
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
-	console.log(options);
 	
 
 	const { locations, languages, workTypes, jobTimes, educations, salaries } = await processOptions(options);

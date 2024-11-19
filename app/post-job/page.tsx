@@ -14,6 +14,7 @@ import {
 	SALARY_DETAILS,
 	WORK_TIMES,
 	WORK_TYPES,
+	EXPERIENCELEVEL,
 } from "@/lib/constant/constants";
 import dynamic from "next/dynamic";
 import { Button } from "@mui/base";
@@ -27,20 +28,22 @@ import { useProfile } from "@/lib/hooks/useProfile";
 
 interface Inputs {
 	jobTitle: string;
+	jobUrl: string;
+	description: string;
 	location: string;
-	country: string;
-	workType: string;
-	jobTime: string;
+	language: string;
+	experienceLevel: string;
 	salary: string;
 	currency: string;
 	salaryDetail: string;
-	description: string;
+	jobTime: string;
+	workType: string;
+	education: string;	
 	founded: string;
 	ceoCompany: string;
 	companySize: string;
 	companyWebsite: string;
-	jobUrl: string;
-	education: string;
+	
 }
 const TextEditor = dynamic(() => import("@/lib/components/textEditor/TextEditor"), {
 	ssr: false,
@@ -75,20 +78,20 @@ const PostJob = () => {
 	const location = watch("location");
 	const description = watch("description");
 
-	const country = watch("country");
+	//const country = watch("country");
 	const createDataForJob = (values: Inputs) => {
 		return {
 			jobTitle: title,
 			jobUrl: jobUrl,
 			description: description,
 			location: location,
+			language: values.language,
+			experienceLevel: values.experienceLevel,
 			salary: values.salary,
 			currency: values.currency,
 			salaryDetail: values.salaryDetail,
-			jobRole: title,
 			workType: values.workType,
 			jobTime: values.jobTime,
-			country: values?.country,
 			education: values?.education,
 			companyDetails: {
 				ceoCompany: values.ceoCompany,
@@ -105,9 +108,11 @@ const PostJob = () => {
 	};
 	const onSubmitFinal: SubmitHandler<Inputs> = async (values: Inputs) => {
 		const data = createDataForJob(values);
+		console.log(data);
 		if (user?.data?.jobPostPoints && user.data.jobPostPoints > 0) {
 			batch(() => {
 				dispatch(setJobDetails(null));
+				{/*  @ts-ignore */}
 				dispatch(addNewJob(data));
 				push("/job-creation-success");
 			});
@@ -155,9 +160,17 @@ const PostJob = () => {
 							control={control}
 							name={"language"}
 							label={"Job language"}
-							defaultValue={jobDetails?.location || "English"}
+							defaultValue={jobDetails?.language || "English"}
 							options={LANGUAGES}
 						/>
+						<FormSelect
+							control={control}
+							name={"experienceLevel"}
+							label={"Experience Level"}
+							defaultValue={jobDetails?.experienceLevel || "Entry-level"}
+							options={EXPERIENCELEVEL}
+						/>
+
 
 						{/*
 						<FormSelect

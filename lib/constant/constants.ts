@@ -547,6 +547,13 @@ export const CITIES = [
 	"Indian",
   ];
 
+  export const EXPERIENCELEVEL = [
+	"Entry-level",
+	"Senior",
+	"Executive",
+	"Director"
+  ]
+
 export const SALARY_DETAILS = ["Year", "Month", "Week"];
 export const EDUCATION = ["Any", "High School", "Master", "PhD", "Bachelor", "College", "Coursework"];
 export const COMPANY_SIZE = [
@@ -557,7 +564,7 @@ export const COMPANY_SIZE = [
 	"less than 500 Employees"
 ];
 
-export const BACKEND_URL: string | undefined = process.env.BACKEND_URL;
+export const BACKEND_URL = process.env.BACKEND_URL as string;
 
 // REGEXPS
 export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
