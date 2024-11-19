@@ -20,7 +20,7 @@ interface TopbarProps {
 	defaultLocation?: string;
 	defaultLanguage?: string;
 	defaultEducation?: string;
-	defaultExperienceLevel: string;
+	defaultExperienceLevel: string | undefined;
 	defaultWorkType?: string;
 	defaultJobTime?: string;
 	defaultSalary?: string;

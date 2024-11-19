@@ -127,7 +127,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					experienceLevel={experienceLevels}
 					salary={salaries}
 				/>
-				<div className="px-0 md:px-2 mdl:px-6">
+				<div className="px-0 md:px-2 mdl:px-6 flex-grow">
 					<div className="flex items-center justify-between mb-6 py-2 h-14">
 						<p className="text-xl text-gray-600">
 							{jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found

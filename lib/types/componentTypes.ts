@@ -94,6 +94,7 @@ export interface JobsPagePropsTypes {
 		language: string | undefined;
 		location: string | undefined;
 		education: string | undefined;
+		experienceLevel: string | undefined;
 		salary: string | undefined;
 	};
 }
