@@ -50,7 +50,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
         </IconButton>
       </div>
       <div className={`${styles['body']} ${isOpen && styles['open']}`}>
-        {items.map((item, idx) => (
+        {items?.map((item, idx) => (
           <>
             {/*  @ts-ignore */}
             <div key={idx} className={styles["item"]} onClick={e => handleItemClick(e,item.label)} id={item.id}>

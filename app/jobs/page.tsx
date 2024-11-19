@@ -12,31 +12,41 @@ async function processOptions(options: JobData[]) {
 	const processedOptions = options.reduce(
 		(acc, item) => {
 			if (item.location) {
-				acc.locations.push({ id: item._id!, label: item.location });
+				acc.locations.push({ id: item._id!, label: item.location }); 
 			}
-			if (item.jobTitle) {
-				acc.specializations.push({ id: item._id!, label: item.jobTitle });
+			if (item.language) {
+				acc.languages.push({ id: item._id!, label: item.language });
+			}
+			if (item.education) {
+				acc.educations.push({ id: item._id!, label: item.education });
 			}
 			if (item.workType) {
 				acc.workTypes.push({ id: item._id!, label: item.workType });
 			}
 			if (item.salary) {
-				acc.salaries.push({ id: item._id!, label: item.salary as string });
+				acc.salaries.push({ id: item._id!, label: item.salary });
+			}
+			if (item.jobTime) {
+				acc.jobTimes.push({ id: item._id!, label: item.jobTime });
 			}
 			return acc;
 		},
 		{
 			locations: [] as optionItems[],
-			specializations: [] as optionItems[],
+			languages: [] as optionItems[],
+			educations: [] as optionItems[],
 			workTypes: [] as optionItems[],
+			jobTimes: [] as optionItems[],
 			salaries: [] as optionItems[],
 		},
 	);
 
 	return {
 		locations: uniqueArray(processedOptions.locations),
-		specializations: uniqueArray(processedOptions.specializations),
+		languages: uniqueArray(processedOptions.languages),
+		educations: uniqueArray(processedOptions.educations),
 		workTypes: uniqueArray(processedOptions.workTypes),
+		jobTimes: uniqueArray(processedOptions.jobTimes),
 		salaries: uniqueArray(processedOptions.salaries),
 	};
 }
@@ -69,21 +79,23 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		jobTitle: searchParams?.jobTitle || "",
 		location: searchParams?.location || "",
 		language: searchParams?.language || "",
-		contractType: searchParams?.workType || "",
-		experienceLevel: searchParams?.experienceLevel || "",
 		workType: searchParams?.workType || "",
+		education: searchParams?.education || "",
+		jobTime: searchParams?.jobTime || "",
 		salary: searchParams?.salary || "",
 	});
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
 	console.log(options);
 	
 
-	const { locations, specializations, workTypes, salaries } = await processOptions(options);
+	const { locations, languages, workTypes, jobTimes, educations, salaries } = await processOptions(options);
 
 	const defaultLocation = locations.find((item) => item.label === searchParams?.location);
-	const defaultJobTitle = specializations.find((item) => item.label === searchParams?.jobTitle);
+	const defaultLanguage = languages.find((item) => item.label === searchParams?.language);
 	const defaultWorkType = workTypes.find((item) => item.label === searchParams?.workType);
 	const defaultSalary = salaries.find((item) => item.label === searchParams?.salary);
+	const defaultJobTime = jobTimes.find((item) => item.label === searchParams?.jobTime);
+	const defaultEducation = educations.find((item) => item.label === searchParams?.education)
 
 	return (
 	<>
@@ -93,12 +105,16 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 				<Topbar
 					defaultJobSearchValue={searchParams?.jobTitle}
 					defaultLocation={defaultLocation?.id}
-					defaultJobTitle={defaultJobTitle?.id}
+					defaultLanguage={defaultLanguage?.id}
+					defaultEducation={defaultEducation?.id}
 					defaultWorkType={defaultWorkType?.id}
 					defaultSalary={defaultSalary?.id}
+					defaultJobTime={defaultJobTime?.id}
 					locations={locations}
-					specializations={specializations}
+					languages={languages}
+					educations={educations}
 					workType={workTypes}
+					jobTime={jobTimes}
 					salary={salaries}
 				/>
 				<div className="px-0 md:px-2 mdl:px-6">
