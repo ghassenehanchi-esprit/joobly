@@ -735,7 +735,7 @@ export const POST_PACKAGES_ACTIONS = [
 	"Easy and instant posting process - your jobs available online in just 5 minutes. ",
 	"Job posting credits that you purchase will never expire. Buy now and post whenever you need.",
 	"It is a long established fact that a reader will be distracted. ",
-	"Contrary to popular belief,  Lorem Ipsum is not simply random text. It has roots in a piece.",
+	"The best place for new opportunities for long-term and productive cooperation.",
 ];
 export const PACKAGES = [
 	{
