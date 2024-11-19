@@ -12,7 +12,7 @@ const Footer = () => {
   }
 
   return pathname !== '/main' ? (
-    <footer className="min-h-[101px] py-10 bg-dark text-light">
+    <footer className="min-h-[101px] py-10 px-4 bg-dark text-light">
       <div className="container flex flex-col-reverse items-center gap-10 text-center md:flex-row md:justify-start md:gap-10">
         <p className="text-sm font-normal leading-5">
           © {getCurrentYear()} <b>Joobly.cz</b>. All rights reserved
