@@ -42,6 +42,7 @@ export type JobData = {
     currency: string;
     salaryDetail: string;
     advertisedDate: string;
+	experienceLevel: string;
     postedDate: string;
     closeDate: string
     education: string;

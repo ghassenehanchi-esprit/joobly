@@ -29,6 +29,11 @@ async function processOptions(options: JobData[]) {
 			if (item.jobTime) {
 				acc.jobTimes.push({ id: item._id!, label: item.jobTime });
 			}
+			if (item.experienceLevel) {
+				acc.experienceLevels.push({ id: item._id!, label: item.experienceLevel });
+			}
+
+			
 			return acc;
 		},
 		{
@@ -38,6 +43,7 @@ async function processOptions(options: JobData[]) {
 			workTypes: [] as optionItems[],
 			jobTimes: [] as optionItems[],
 			salaries: [] as optionItems[],
+			experienceLevels: [] as optionItems[],
 		},
 	);
 
@@ -48,6 +54,7 @@ async function processOptions(options: JobData[]) {
 		workTypes: uniqueArray(processedOptions.workTypes),
 		jobTimes: uniqueArray(processedOptions.jobTimes),
 		salaries: uniqueArray(processedOptions.salaries),
+		experienceLevels: uniqueArray(processedOptions.experienceLevels),
 	};
 }
 
@@ -83,18 +90,20 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		education: searchParams?.education || "",
 		jobTime: searchParams?.jobTime || "",
 		salary: searchParams?.salary || "",
+		experienceLevel: searchParams?.experienceLevel || "",
 	});
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
 	
 
-	const { locations, languages, workTypes, jobTimes, educations, salaries } = await processOptions(options);
+	const { locations, languages, workTypes, jobTimes, educations, salaries, experienceLevels } = await processOptions(options);
 
 	const defaultLocation = locations.find((item) => item.label === searchParams?.location);
 	const defaultLanguage = languages.find((item) => item.label === searchParams?.language);
 	const defaultWorkType = workTypes.find((item) => item.label === searchParams?.workType);
 	const defaultSalary = salaries.find((item) => item.label === searchParams?.salary);
 	const defaultJobTime = jobTimes.find((item) => item.label === searchParams?.jobTime);
-	const defaultEducation = educations.find((item) => item.label === searchParams?.education)
+	const defaultEducation = educations.find((item) => item.label === searchParams?.education);
+	const defaultExperienceLevel = experienceLevels.find((item) => item.label === searchParams?.experienceLevel);
 
 	return (
 	<>
@@ -107,6 +116,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					defaultLanguage={defaultLanguage?.id}
 					defaultEducation={defaultEducation?.id}
 					defaultWorkType={defaultWorkType?.id}
+					defaultExperienceLevel={defaultExperienceLevel?.id}
 					defaultSalary={defaultSalary?.id}
 					defaultJobTime={defaultJobTime?.id}
 					locations={locations}
@@ -114,6 +124,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					educations={educations}
 					workType={workTypes}
 					jobTime={jobTimes}
+					experienceLevel={experienceLevels}
 					salary={salaries}
 				/>
 				<div className="px-0 md:px-2 mdl:px-6">

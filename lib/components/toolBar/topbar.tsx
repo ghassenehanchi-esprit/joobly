@@ -2,7 +2,6 @@
 import React, { useCallback } from "react";
 import Image from "next/image";
 import Dropdown from "@/lib/components/dropdown/dropdown";
-import searchIcon from "@/public/images/icons/search-large-lens.svg";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { optionItems } from "@/lib/types/componentTypes";
 
@@ -13,7 +12,7 @@ interface TopbarProps {
 	locations: optionItems[];
 	languages: optionItems[];
 	educations: optionItems[];
-	specializations: optionItems[];
+	experienceLevel: optionItems[];
 	workType: optionItems[];
 	jobTime: optionItems[];
 	salary: optionItems[];
@@ -21,6 +20,7 @@ interface TopbarProps {
 	defaultLocation?: string;
 	defaultLanguage?: string;
 	defaultEducation?: string;
+	defaultExperienceLevel: string;
 	defaultWorkType?: string;
 	defaultJobTime?: string;
 	defaultSalary?: string;
@@ -33,6 +33,7 @@ const Topbar: React.FC<TopbarProps> = ({
 	languages,
 	educations,
 	workType,
+	experienceLevel,
 	jobTime,
 	salary,
 	defaultLocation,
@@ -42,6 +43,7 @@ const Topbar: React.FC<TopbarProps> = ({
 	defaultJobTime,
 	defaultSalary,
 	defaultJobSearchValue,
+	defaultExperienceLevel,
 }) => {
 	const searchParams = useSearchParams();
 	const router = useRouter();
@@ -138,6 +140,17 @@ const Topbar: React.FC<TopbarProps> = ({
 				}
 				items={educations}
 				headerTitle={"Education"}
+				icon="/images/icons/case.svg"
+			/>
+			{/*  @ts-ignore */}
+			<Dropdown
+				key="specialization-dropdown"
+				defaultSelected={defaultExperienceLevel}
+				queryPushing={(label: string) =>
+					router.push(pathname + "?" + createQueryString("experienceLevel", label))
+				}
+				items={experienceLevel}
+				headerTitle={"Experience Level"}
 				icon="/images/icons/case.svg"
 			/>
 		</div>
