@@ -1,8 +1,8 @@
-import React from 'react';
 import DetailsContainer from "@/lib/components/detailsContainer/DetailsContainer";
+import { BACKEND_URL } from "@/lib/constant/constants";
 
 async function getItem(id:string) {
-  const res = await fetch(`https://prague-morning-backend.vercel.app/api/jobs/${id}`)
+  const res = await fetch(`${BACKEND_URL}/jobs/${id}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
