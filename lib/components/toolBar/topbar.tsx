@@ -125,7 +125,7 @@ const Topbar: React.FC<TopbarProps> = ({
 				key="salary-dropdown"
 				defaultSelected={defaultSalary}
 				queryPushing={(label: string) =>
-					router.push(pathname + "?" + createQueryString("salary", label))
+					router.push(pathname + "?" + createQueryString("salaryLabel", label))
 				}
 				items={salary}
 				headerTitle={"Salary"}

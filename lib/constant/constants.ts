@@ -547,7 +547,7 @@ export const CITIES = [
 	"Indian",
   ];
 
-  export const EXPERIENCELEVEL = [
+  export const EXPERIENCE_LEVEL = [
 	"Entry-level",
 	"Senior",
 	"Executive",
@@ -757,3 +757,13 @@ export const PACKAGES = [
 		active: false,
 	},
 ];
+
+
+export const SALARY_RANGES = [
+	{ id: "0-25000", label: "0 - 25000" },
+	{ id: "25000-40000", label: "25000 - 40000" },
+	{ id: "40000-80000", label: "40000 - 80000" },
+	{ id: "80000-120000", label: "80000 - 120000" },
+	{ id: "120000-200000", label: "120000 - 200000" },
+	{ id: "200000-500000", label: "200000 - 500000+" },
+  ];

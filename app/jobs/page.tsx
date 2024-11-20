@@ -4,7 +4,7 @@ import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
 import { uniqueArray } from "@/lib/utils/uniqueArray/uniqueArray";
 import HeaderBackground from "@/lib/components/headerBackground/headerBackground";
-import { BACKEND_URL } from "@/lib/constant/constants";
+import { BACKEND_URL, SALARY_RANGES } from "@/lib/constant/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -23,14 +23,14 @@ async function processOptions(options: JobData[]) {
 			if (item.workType) {
 				acc.workTypes.push({ id: item._id!, label: item.workType });
 			}
-			if (item.salary) {
-				acc.salaries.push({ id: item._id!, label: item.salary });
-			}
 			if (item.jobTime) {
 				acc.jobTimes.push({ id: item._id!, label: item.jobTime });
 			}
 			if (item.experienceLevel) {
 				acc.experienceLevels.push({ id: item._id!, label: item.experienceLevel });
+			}
+			if (item.salaryLabel) {
+				acc.salaryLabels.push({ id: item._id!, label: item.salaryLabel });
 			}
 
 			
@@ -42,7 +42,7 @@ async function processOptions(options: JobData[]) {
 			educations: [] as optionItems[],
 			workTypes: [] as optionItems[],
 			jobTimes: [] as optionItems[],
-			salaries: [] as optionItems[],
+			salaryLabels: [] as optionItems[],
 			experienceLevels: [] as optionItems[],
 		},
 	);
@@ -53,7 +53,7 @@ async function processOptions(options: JobData[]) {
 		educations: uniqueArray(processedOptions.educations),
 		workTypes: uniqueArray(processedOptions.workTypes),
 		jobTimes: uniqueArray(processedOptions.jobTimes),
-		salaries: uniqueArray(processedOptions.salaries),
+		salaryLabels: uniqueArray(processedOptions.salaryLabels),
 		experienceLevels: uniqueArray(processedOptions.experienceLevels),
 	};
 }
@@ -89,18 +89,18 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		workType: searchParams?.workType || "",
 		education: searchParams?.education || "",
 		jobTime: searchParams?.jobTime || "",
-		salary: searchParams?.salary || "",
+		salaryLabel: searchParams?.salaryLabel || "",
 		experienceLevel: searchParams?.experienceLevel || "",
 	});
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
 	
 
-	const { locations, languages, workTypes, jobTimes, educations, salaries, experienceLevels } = await processOptions(options);
+	const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels } = await processOptions(options);
 
 	const defaultLocation = locations.find((item) => item.label === searchParams?.location);
 	const defaultLanguage = languages.find((item) => item.label === searchParams?.language);
 	const defaultWorkType = workTypes.find((item) => item.label === searchParams?.workType);
-	const defaultSalary = salaries.find((item) => item.label === searchParams?.salary);
+	const defaultSalaryLabel = salaryLabels.find((item) => item.label === searchParams?.salaryLabel);
 	const defaultJobTime = jobTimes.find((item) => item.label === searchParams?.jobTime);
 	const defaultEducation = educations.find((item) => item.label === searchParams?.education);
 	const defaultExperienceLevel = experienceLevels.find((item) => item.label === searchParams?.experienceLevel);
@@ -117,7 +117,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					defaultEducation={defaultEducation?.id}
 					defaultWorkType={defaultWorkType?.id}
 					defaultExperienceLevel={defaultExperienceLevel?.id}
-					defaultSalary={defaultSalary?.id}
+					defaultSalary={defaultSalaryLabel?.id}
 					defaultJobTime={defaultJobTime?.id}
 					locations={locations}
 					languages={languages}
@@ -125,7 +125,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					workType={workTypes}
 					jobTime={jobTimes}
 					experienceLevel={experienceLevels}
-					salary={salaries}
+					salary={salaryLabels}
 				/>
 				<div className="px-0 md:px-2 mdl:px-6 flex-grow">
 					<div className="flex items-center justify-between mb-6 py-2 h-14">
