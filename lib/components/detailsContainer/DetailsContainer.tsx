@@ -10,6 +10,7 @@ import Divider from "@/lib/components/devider/divider";
 import KeyValueComponent from "@/lib/components/keyValueComponent/keyValueComponent";
 import { useRouter } from "next/navigation";
 import { useClient } from "@/lib/hooks/useClient";
+import DateConverter from "../dateConverter/DateConverter";
 
 const DetailsContainer = ({ data }: any) => {
 	console.log(data);
@@ -24,7 +25,11 @@ const DetailsContainer = ({ data }: any) => {
 		},
 		{
 			key: "Salary",
-			value: data?.salary ? `$ ${data?.salary} ${data?.currency} (${data?.salaryDetail})` : "N/A",
+			value: data?.salary ? `${data?.salary} ${data?.currency} (${data?.salaryDetail})` : "N/A",
+		},
+		{
+			key: "Experience Level",
+			value: data?.experienceLevel || "N/A",
 		},
 		{
 			key: "Education",
@@ -71,6 +76,7 @@ const DetailsContainer = ({ data }: any) => {
 								<div className={styles["job-general-details"]}>
 									<div>
 										<p className={styles["job-general-job-title"]}>{data?.jobTitle}</p>
+										{/*
 										<a
 											target='_blank'
 											href={data?.jobUrl}
@@ -78,6 +84,8 @@ const DetailsContainer = ({ data }: any) => {
 										>
 											{data?.jobUrl}
 										</a>
+										*/}
+										
 									</div>
 									<div className={styles["job-general-buttons"]}>
 										<Button style={{ width: "145px" }} className={`btn-grey-outlined`}>
@@ -97,9 +105,11 @@ const DetailsContainer = ({ data }: any) => {
 								<Divider />
 								<KeyValueComponent data={jobDetails || []} />
 								{data?.advertisedDate && (
-									<div className={styles["job-date-info"]}>
-										<p>{`Advertised since ${data?.advertisedDate}`}</p>
-										<p>{`Closed on ${data?.closeDate}`}</p>
+									<div className={'mb-6 flex justify-between text-sm text-gray-500'}>
+										<p className="flex gap-2">Advertised since: {DateConverter({  mongoDate: data?.advertisedDate })}</p>
+										{data?.closeDate && (
+											<p>Closed on: {DateConverter({  mongoDate: data?.closeDate })}</p>
+											)}
 									</div>
 								)}
 								<div className={styles["job-description"]}>

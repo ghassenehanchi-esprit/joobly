@@ -53,7 +53,7 @@ const JobSchema = new Schema({
   },
   views: { type: Number, default: 0}, 
   jobPostAuthorId: { type: String }, 
-});
+}, {timestamps: true});
 
 
 export const Job = models?.Job || model<JobTypes>('Job', JobSchema);

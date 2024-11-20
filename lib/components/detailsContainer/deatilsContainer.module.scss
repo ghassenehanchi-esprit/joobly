@@ -44,11 +44,12 @@
         margin: 32px 0;
 
         .job-general-job-title {
-          font-size: 18px;
+          font-size: 28px;
           font-style: normal;
           font-weight: 700;
           line-height: 150%;
           margin-bottom: 16px;
+          max-width: 350px;
         }
 
         .job-general-job-url {
