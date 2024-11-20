@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Paper from "@/lib/components/paper/Paper";
 import styles from "./deatilsContainer.module.scss";
 import addArchive from "@/public/images/icons/archive-add.svg";
@@ -11,9 +11,33 @@ import KeyValueComponent from "@/lib/components/keyValueComponent/keyValueCompon
 import { useRouter } from "next/navigation";
 import { useClient } from "@/lib/hooks/useClient";
 import DateConverter from "../dateConverter/DateConverter";
+import toast from "react-hot-toast";
 
 const DetailsContainer = ({ data }: any) => {
-	console.log(data);
+	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  	const currentUrl = encodeURIComponent(window.location.href); 
+
+
+	const socialPlatforms = [
+		{
+		  name: 'share in Facebook',
+		  url: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+		},
+		{
+		  name: 'share in Twitter',
+		  url: `https://twitter.com/intent/tweet?url=${currentUrl}`,
+		},
+		{
+		  name: 'share in LinkedIn',
+		  url: `https://www.linkedin.com/shareArticle?url=${currentUrl}`,
+		},
+		{
+		  name: 'share in WhatsApp',
+		  url: `https://api.whatsapp.com/send?text=${currentUrl}`,
+		},
+	  ];
+
+
 	const jobDetails = [
 		{
 			key: "Job Role",
@@ -60,6 +84,10 @@ const DetailsContainer = ({ data }: any) => {
 		},
 	];
 
+	const toggleDropdown = () => {
+		setIsDropdownOpen(!isDropdownOpen);
+	  };
+
 	const { back } = useRouter();
 	const isClient = useClient();
 	return (
@@ -70,8 +98,37 @@ const DetailsContainer = ({ data }: any) => {
 						<Paper className='details-component-paper'>
 							<section className={styles["job-details-page-info"]}>
 								<div className={styles["job-details-page-actions"]}>
-									<Image alt='' src={addArchive} width={44} height={44} />
-									<Image alt='' src={shareButton} width={44} height={44} />
+									{/* share popup start */}
+								{isDropdownOpen && (
+										<div 
+										onClick={toggleDropdown}
+										className="absolute top-1 -right-8 mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">
+										<ul className="p-2 space-y-2">
+											{socialPlatforms?.map((platform) => (
+											<li key={platform.name}>
+												<a
+												href={platform.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="block text-[#006c53] hover:underline"
+												>
+												{platform.name}
+												</a>
+											</li>
+											))}
+										</ul>
+										</div>
+      								)}
+									{/* share popup end */}
+									<Image alt='add archive' src={addArchive} width={44} height={44} />
+									<Image 
+									onClick={toggleDropdown}
+									className="cursor-pointer"
+									alt='share button' 
+									src={shareButton} 
+									width={44} 
+									height={44} 
+									/>
 								</div>
 								<div className={styles["job-general-details"]}>
 									<div>
@@ -88,9 +145,11 @@ const DetailsContainer = ({ data }: any) => {
 										
 									</div>
 									<div className={styles["job-general-buttons"]}>
-										<Button style={{ width: "145px" }} className={`btn-grey-outlined`}>
-											Report Job
-										</Button>
+										{/*
+											<Button style={{ width: "145px" }} className={`btn-grey-outlined`}>
+												Report Job
+											</Button>
+										*/}
 										<a href={data?.jobUrl} target='_blank' rel='noopener noreferrer'>
 											<Button
 												style={{ width: "145px" }}
