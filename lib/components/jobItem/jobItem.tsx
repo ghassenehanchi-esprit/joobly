@@ -10,6 +10,7 @@ import saveIcon from "@/public/images/icons/archive.svg";
 import { useRouter } from "next/navigation";
 import { useClient } from "@/lib/hooks/useClient";
 import Skeleton from "@mui/material/Skeleton";
+import DateConverter from "../dateConverter/DateConverter";
 
 interface JobItem {
 	data: JobData;
@@ -38,9 +39,9 @@ const JobItem = ({ data }: JobItem) => {
 									</span>
 									{data?.location}
 								</p>
-								<p className="flex items-center gap-2 text-dark font-semibold text-base">
+								<p className="flex items-center gap-1 text-dark font-semibold text-base">
 									<span className="inline-block">
-										<Image src={moneyIcon} alt="money" />
+										CZK
 									</span>
 									{data?.salary}
 									<span className="text-gray-600 font-normal">/{data?.salaryDetail}</span>
@@ -48,12 +49,14 @@ const JobItem = ({ data }: JobItem) => {
 							</div>
 						</div>
 						<div className="flex flex-col justify-between">
-							<div className="flex justify-end gap-4 items-center">
+							<div 
+							onClick={() => push(`/jobs/${data?._id}`)}
+							className="flex justify-end gap-4 items-center">
 								<Image src={saveIcon} alt="save" className="cursor-pointer" />
 								<Image src={moreIcon} alt="more" className="cursor-pointer" />
 							</div>
 							<div className="flex flex-col mt-4">
-								<span className="self-end text-sm text-gray-500">{data?.postedDate}</span>
+								<span className="self-end text-sm text-gray-500">{DateConverter({  mongoDate: data?.createdAt })}</span>
 								<div className="flex gap-2 mt-4">
 									<Button
 										className="bg-[#c5f06d] text-gray-800  font-bold text-lg hover:bg-[#006c53] hover:text-white px-6 py-2 rounded-2xl flex gap-1 items-center duration-200"
