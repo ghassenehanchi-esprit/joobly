@@ -14,7 +14,7 @@ import {
 	SALARY_DETAILS,
 	WORK_TIMES,
 	WORK_TYPES,
-	EXPERIENCELEVEL,
+	EXPERIENCE_LEVEL,
 } from "@/lib/constant/constants";
 import dynamic from "next/dynamic";
 import { Button } from "@mui/base";
@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { selectJobDetails } from "../../lib/selectors/selectors";
 import { batch } from "react-redux";
 import { useProfile } from "@/lib/hooks/useProfile";
+import { setSalaryLine } from "@/lib/constant/helpers";
 
 interface Inputs {
 	jobTitle: string;
@@ -73,6 +74,7 @@ const PostJob = () => {
 		},
 	});
 
+
 	const title = watch("jobTitle");
 	const jobUrl = watch("jobUrl");
 	const location = watch("location");
@@ -88,6 +90,7 @@ const PostJob = () => {
 			language: values.language,
 			experienceLevel: values.experienceLevel,
 			salary: values.salary,
+			salaryLabel: setSalaryLine(values.salary),
 			currency: values.currency,
 			salaryDetail: values.salaryDetail,
 			workType: values.workType,
@@ -168,7 +171,7 @@ const PostJob = () => {
 							name={"experienceLevel"}
 							label={"Experience Level"}
 							defaultValue={jobDetails?.experienceLevel || "Entry-level"}
-							options={EXPERIENCELEVEL}
+							options={EXPERIENCE_LEVEL}
 						/>
 
 

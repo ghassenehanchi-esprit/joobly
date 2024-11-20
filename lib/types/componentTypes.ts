@@ -39,6 +39,7 @@ export type JobData = {
     workType: string;
     jobTime: string;
     salary: number;
+	salaryLabel: string;
     currency: string;
     salaryDetail: string;
     advertisedDate: string;
@@ -96,6 +97,7 @@ export interface JobsPagePropsTypes {
 		education: string | undefined;
 		experienceLevel: string | undefined;
 		salary: string | undefined;
+		salaryLabel: string | undefined;
 	};
 }
 export type PackageType = {

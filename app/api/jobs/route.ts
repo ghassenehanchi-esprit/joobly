@@ -5,6 +5,7 @@ import xlsx from "xlsx";
 import {authOptions} from "@/lib/authOptions";
 import {getServerSession} from "next-auth";
 import { User } from "@/models/User";
+import { SALARY_RANGES } from "@/lib/constant/constants";
 
 
 export async function POST(req: Request) {
@@ -37,8 +38,7 @@ export async function POST(req: Request) {
 }
 
 
-  
-  export async function GET(req: Request) {
+export async function GET(req: Request) {
   await mongoose.connect(process.env.MONGODB_URI as string);
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
