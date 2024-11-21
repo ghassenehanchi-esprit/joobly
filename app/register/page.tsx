@@ -59,7 +59,7 @@ const Register = () => {
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles["login-modal"]}>
 					<div className={styles["login--modal-header"]}>
-						<h1>Hi, Welcome to Prague Morning Jobs</h1>
+						<h1>Hi, Welcome to Joobly</h1>
 						<p>Find your dream job in Joobly! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
 					</div>
 					<Button 
@@ -134,7 +134,7 @@ const Register = () => {
 						</div>
 					</div>
 					<div className={styles["login-modal-footer"]}>
-						<p>Prague Morning Jobs. All rights reserved.</p>
+						<p>Joobly. All rights reserved.</p>
 					</div>
 				</div>
 			</form>
