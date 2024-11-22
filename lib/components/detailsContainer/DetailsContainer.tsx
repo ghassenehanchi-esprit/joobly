@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 
 const DetailsContainer = ({ data }: any) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  	const currentUrl = encodeURIComponent(window?.location?.href); 
+	const currentUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
 
 
 	const socialPlatforms = [
