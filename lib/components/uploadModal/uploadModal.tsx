@@ -38,10 +38,10 @@ const UploadModal = ({ open, setOpen }: UploadModalPropsTypes) => {
 		formData.append("email", values.email);
 
 		try {
-			const response = await fetch(`http://localhost:8080/api/upload-resume`, {
+			const response = await fetch(`/api/resumes/upload`, {
 				method: "POST",
 				body: formData,
-			});
+			  });
 
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
@@ -92,7 +92,7 @@ const UploadModal = ({ open, setOpen }: UploadModalPropsTypes) => {
 							errors={errors}
 							name={"email"}
 							label='Email address'
-							placeholder='Enter email'
+							placeholder='Enter email...'
 						/>
 						<Input
 							control={control}
@@ -110,7 +110,7 @@ const UploadModal = ({ open, setOpen }: UploadModalPropsTypes) => {
 							errors={errors}
 							name={"location"}
 							label='Your location'
-							placeholder='City, state or country'
+							placeholder='City...'
 							endIcon={<Image src={locationIcon} alt='location' />}
 						/>
 						<div className={styles["upload-modal__form__buttons"]}>
