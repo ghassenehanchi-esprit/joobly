@@ -41,7 +41,7 @@ export const uploadToGoogleDrive = async (file: File, metadata: Record<string, s
   };
 
   // Преобразование потока
-  const nodeReadableStream = readableStreamToNodeReadable(file.stream);
+  const nodeReadableStream = readableStreamToNodeReadable(file.stream as any);
 
   const media = {
     mimeType: file.type,
