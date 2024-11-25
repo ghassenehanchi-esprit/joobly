@@ -1,5 +1,3 @@
-
-"use client"
 import React, { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
 import JobItem from "../../lib/components/jobItem/jobItem";
