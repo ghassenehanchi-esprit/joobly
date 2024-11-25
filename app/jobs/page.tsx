@@ -1,10 +1,12 @@
+
+"use client"
 import React, { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
 import { uniqueArray } from "@/lib/utils/uniqueArray/uniqueArray";
 import HeaderBackground from "@/lib/components/headerBackground/headerBackground";
-import { BACKEND_URL, SALARY_RANGES } from "@/lib/constant/constants";
+import { BACKEND_URL } from "@/lib/constant/constants";
 
 export const dynamic = "force-dynamic";
 
