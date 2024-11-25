@@ -89,7 +89,7 @@ const Topbar: React.FC<TopbarProps> = ({
 			/>
 			{/*  @ts-ignore */}
 			<Dropdown
-				key="work-type-dropdown"
+				key="job-time-dropdown"
 				defaultSelected={defaultJobTime}
 				queryPushing={(label: string) =>
 					router.push(pathname + "?" + createQueryString("jobTime", label))
@@ -133,7 +133,7 @@ const Topbar: React.FC<TopbarProps> = ({
 			/>
 			{/*  @ts-ignore */}
 			<Dropdown
-				key="specialization-dropdown"
+				key="education-dropdown"
 				defaultSelected={defaultEducation}
 				queryPushing={(label: string) =>
 					router.push(pathname + "?" + createQueryString("education", label))
@@ -144,7 +144,7 @@ const Topbar: React.FC<TopbarProps> = ({
 			/>
 			{/*  @ts-ignore */}
 			<Dropdown
-				key="specialization-dropdown"
+				key="experience-dropdown"
 				defaultSelected={defaultExperienceLevel}
 				queryPushing={(label: string) =>
 					router.push(pathname + "?" + createQueryString("experienceLevel", label))
