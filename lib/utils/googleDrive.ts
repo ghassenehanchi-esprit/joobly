@@ -10,6 +10,19 @@ oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN })
 
 const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
+function readableStreamToAsyncIterable(stream: ReadableStream<Uint8Array>): AsyncIterable<Uint8Array> {
+  const reader = stream.getReader();
+  return {
+    async *[Symbol.asyncIterator]() {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        yield value!;
+      }
+    },
+  };
+}
+
 export const uploadToGoogleDrive = async (file: File, metadata: Record<string, string>) => {
   const fileMetadata = {
     name: file.name,
@@ -23,7 +36,7 @@ export const uploadToGoogleDrive = async (file: File, metadata: Record<string, s
 
   const media = {
     mimeType: file.type,
-    body: Readable.from(file.stream),
+    body: Readable.from(readableStreamToAsyncIterable(file.stream)),
   };
 
   const response = await drive.files.create({
