@@ -5,10 +5,10 @@ import { uploadToGoogleDriveAndSaveToDB } from '@/lib/utils/googleDrive';
 
 export async function POST(req: NextRequest) {
   try {
-    // Подключаемся к базе данных
+    // Connect to DB
     await mongoose.connect(process.env.MONGODB_URI as string);
 
-    // Извлекаем данные из formData
+    // Insert data from wow, you don't believed, from formData
     const formData = await req.formData();
     const file = formData.get('file') as File;
 
@@ -26,19 +26,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required metadata' }, { status: 400 });
     }
 
-    // Загружаем файл на Google Drive и получаем ссылку
+    // Upload file ot Google Drive ayl get link
     const driveResponse = await uploadToGoogleDriveAndSaveToDB(file, metadata);
 
-    console.log('Drive response:', driveResponse); // Логируем для отладки
+    console.log('Drive response:', driveResponse); // Logging for debugging
 
     if (!driveResponse || !driveResponse.link) {
       throw new Error('Drive response does not contain a valid link');
     }
-
-    // Создаём новую запись в базе данных
+    // Creating a new data for DB
     const newResume = new Resume({
-      fileName: driveResponse.link.split('/').pop() || 'Unnamed file', // Имя файла
-      fileLink: driveResponse.link, // Прямая ссылка для скачивания
+      fileName: driveResponse.link.split('/').pop() || 'Unnamed file', // File name
+      fileLink: driveResponse.link, // Link to upload resume
       email: metadata.email,
       jobTitle: metadata.jobTitle,
       location: metadata.location,
@@ -47,7 +46,7 @@ export async function POST(req: NextRequest) {
 
     const savedResume = await newResume.save();
 
-    // Возвращаем успешный ответ
+    // Return a successful response
     return NextResponse.json({ success: true, resume: savedResume });
   } catch (error: any) {
     console.error('Error uploading resume:', error.message);
