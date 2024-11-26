@@ -36,13 +36,15 @@ const UploadModal = ({ open, setOpen }: UploadModalPropsTypes) => {
 		const formData = new FormData();
 		formData.append("file", values.file);
 		formData.append("email", values.email);
+		formData.append("title", values.title);
+		formData.append("location", values.location);
 
 		try {
 			const response = await fetch(`/api/resumes/upload`, {
 				method: "POST",
 				body: formData,
 			  });
-
+			  console.log(response);
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
 			}

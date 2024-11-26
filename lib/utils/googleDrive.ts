@@ -1,5 +1,7 @@
 import { google } from 'googleapis';
 import { Readable } from 'stream';
+import mongoose from 'mongoose';
+import { Resume } from '@/models/Resume'; // Убедитесь, что путь правильный
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
@@ -18,41 +20,94 @@ function readableStreamToNodeReadable(stream: ReadableStream<Uint8Array>): Reada
       try {
         const { done, value } = await reader.read();
         if (done) {
-          this.push(null); // Конец потока
+          this.push(null);
         } else {
-          this.push(Buffer.from(value)); // Добавляем данные в поток
+          this.push(Buffer.from(value));
         }
       } catch (error: any) {
-        this.destroy(error); // Обрабатываем ошибки
+        this.destroy(error);
       }
     },
   });
 }
 
-export const uploadToGoogleDrive = async (file: File, metadata: Record<string, string>) => {
-  const fileMetadata = {
-    name: file.name,
-    description: `Resume uploaded by ${metadata.email}`,
-    properties: {
+export const uploadToGoogleDriveAndSaveToDB = async (
+  file: File,
+  metadata: { email: string; jobTitle: string; location: string }
+) => {
+  try {
+    // Подключение к базе данных
+    await mongoose.connect(process.env.MONGODB_URI as string);
+
+    const fileMetadata = {
+      name: file.name,
+      description: `Resume uploaded by ${metadata.email}`,
+      properties: {
+        email: metadata.email,
+        jobTitle: metadata.jobTitle,
+        location: metadata.location,
+      },
+    };
+
+    const nodeReadableStream = readableStreamToNodeReadable(file.stream());
+
+    const media = {
+      mimeType: file.type,
+      body: nodeReadableStream,
+    };
+
+    // Загружаем файл на Google Drive
+    const response = await drive.files.create({
+      requestBody: fileMetadata,
+      media,
+      fields: 'id, name, webContentLink',
+    });
+
+    const fileId = response.data.id;
+
+    if (!fileId) {
+      throw new Error('Failed to upload file to Google Drive');
+    }
+
+    // Делаем файл доступным по ссылке
+    await drive.permissions.create({
+      fileId,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
+
+    // Получаем обновленную ссылку для скачивания
+    const fileDetails = await drive.files.get({
+      fileId,
+      fields: 'webContentLink',
+    });
+
+    const fileLink = fileDetails.data.webContentLink;
+
+    if (!fileLink) {
+      throw new Error('Failed to retrieve download link from Google Drive');
+    }
+
+    // Сохраняем информацию о резюме в базе данных
+    const resume = new Resume({
+      fileName: file.name,
+      fileLink,
       email: metadata.email,
       jobTitle: metadata.jobTitle,
       location: metadata.location,
-    },
-  };
+    });
 
-  // Преобразование потока
-  const nodeReadableStream = readableStreamToNodeReadable(file.stream as any);
+    await resume.save();
 
-  const media = {
-    mimeType: file.type,
-    body: nodeReadableStream,
-  };
-
-  const response = await drive.files.create({
-    requestBody: fileMetadata,
-    media,
-    fields: 'id, name',
-  });
-
-  return response.data; // Возвращаем информацию о загруженном файле
+    return {
+      message: 'File uploaded and saved to database successfully',
+      resume,
+      link: fileLink, // Вернуть ссылку
+    };
+  } catch (error: any) {
+    console.error('Error uploading file or saving to database:', error.message);
+    throw new Error(error.message);
+  }
 };

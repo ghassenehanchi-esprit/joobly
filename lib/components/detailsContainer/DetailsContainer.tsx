@@ -100,9 +100,14 @@ const DetailsContainer = ({ data }: any) => {
 								<div className={styles["job-details-page-actions"]}>
 									{/* share popup start */}
 								{isDropdownOpen && (
+									<div 
+									onClick={toggleDropdown}
+									className="absolute top-0 left-0 w-screen h-screen">
 										<div 
 										onClick={toggleDropdown}
-										className="absolute top-1 -right-8 mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">
+										className="absolute mt-2 bg-white top-[22%] 
+										left-[39%] sml:left-[58%] sml:left-[73%] lg:left-[58%] 
+										border border-gray-300 rounded shadow-lg z-10">
 										<ul className="p-2 space-y-2">
 											{socialPlatforms?.map((platform) => (
 											<li key={platform.name}>
@@ -110,7 +115,7 @@ const DetailsContainer = ({ data }: any) => {
 												href={platform.url}
 												target="_blank"
 												rel="noopener noreferrer"
-												className="block text-[#006c53] hover:underline"
+												className="block text-gray-500 hover:text-[#006c53] duration-200"
 												>
 												{platform.name}
 												</a>
@@ -118,6 +123,7 @@ const DetailsContainer = ({ data }: any) => {
 											))}
 										</ul>
 										</div>
+									</div>
       								)}
 									{/* share popup end */}
 									<Image alt='add archive' src={addArchive} width={44} height={44} />
