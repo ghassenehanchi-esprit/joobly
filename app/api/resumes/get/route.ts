@@ -4,10 +4,10 @@ import { Resume } from '@/models/Resume';
 
 export async function GET() {
   try {
-    // Подключение к базе данных
+    // Db connection
     await mongoose.connect(process.env.MONGODB_URI as string);
 
-    // Получение списка резюме
+    // Get resumes list
     const resumes = await Resume.find({});
     return NextResponse.json({ resumes });
   } catch (error: any) {

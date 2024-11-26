@@ -12,10 +12,14 @@ import { useRouter } from "next/navigation";
 import { useClient } from "@/lib/hooks/useClient";
 import DateConverter from "../dateConverter/DateConverter";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const DetailsContainer = ({ data }: any) => {
+	const session = useSession();
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 	const currentUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
+	console.log(session);
+	const userData = session.data?.user as UserTypes;
 
 
 	const socialPlatforms = [
@@ -88,6 +92,19 @@ const DetailsContainer = ({ data }: any) => {
 		setIsDropdownOpen(!isDropdownOpen);
 	  };
 
+
+	function addJobToArchive() {
+		if (userData.email) {
+			toast((t) => (
+				<div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+				  <span className="font-medium">
+					To add the job to favorite you need to be logged in
+				  </span>
+				</div>
+			  ));
+		}
+	} 
+
 	const { back } = useRouter();
 	const isClient = useClient();
 	return (
@@ -126,7 +143,12 @@ const DetailsContainer = ({ data }: any) => {
 									</div>
       								)}
 									{/* share popup end */}
-									<Image alt='add archive' src={addArchive} width={44} height={44} />
+									<Image
+									onClick={addJobToArchive}
+									className="cursor-pointer"
+									alt='add archive' 
+									src={addArchive} width={44} height={44} 
+									/>
 									<Image 
 									onClick={toggleDropdown}
 									className="cursor-pointer"

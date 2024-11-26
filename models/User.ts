@@ -10,6 +10,7 @@ export type UserProfileTypes = {
   admin: string;
   emailVerified: boolean;
   jobPostPoints: number;
+  archiveJobs: any[]; 
   createdAt?: Date;
 };
 
@@ -21,7 +22,8 @@ const UserSchema = new Schema({
   image: {type: String},
   admin: {type: Boolean, default: false},
   emailVerified: { type: Boolean, default: false },
-  jobPostPoints: {type: Number, default: 0}
+  jobPostPoints: { type: Number, default: 0 },
+  archiveJobs: { type: [Schema.Types.Mixed], default: [] } 
 }, {timestamps: true});
 
 export const User = models?.User || model<UserProfileTypes>('User', UserSchema);
