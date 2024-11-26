@@ -60,7 +60,6 @@ const DashboardPage = () => {
               </button>
             </span>
           ));
-         
         } else {
           router.push('/post-job');
         }
