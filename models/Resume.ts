@@ -3,6 +3,7 @@ import {model, models, Schema} from "mongoose";
 export type ResumeTypes = {
     _id?: FormDataEntryValue;
     fileName: string;
+    fileLink: string;
     email: string;
     jobTitle: string;
     location: string;
@@ -11,6 +12,7 @@ export type ResumeTypes = {
 
 const ResumeSchema = new Schema({
   fileName: { type: String },
+  fileLink: { type: String },
   email: { type: String },
   jobTitle: { type: String },
   location: {type: String },
