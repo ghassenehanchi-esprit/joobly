@@ -1,4 +1,5 @@
 import {model, models, Schema} from "mongoose";
+import { JobSchema, JobTypes } from "./Job";
 
 export type UserProfileTypes = {
   _id?: FormDataEntryValue;
@@ -10,7 +11,7 @@ export type UserProfileTypes = {
   admin: string;
   emailVerified: boolean;
   jobPostPoints: number;
-  archiveJobs: any[]; 
+  favoriteJobs: JobTypes[]; 
   createdAt?: Date;
 };
 
@@ -23,7 +24,9 @@ const UserSchema = new Schema({
   admin: {type: Boolean, default: false},
   emailVerified: { type: Boolean, default: false },
   jobPostPoints: { type: Number, default: 0 },
-  archiveJobs: { type: [Schema.Types.Mixed], default: [] } 
+  favoriteJobs: {
+    type:[JobSchema]
+}
 }, {timestamps: true});
 
 export const User = models?.User || model<UserProfileTypes>('User', UserSchema);

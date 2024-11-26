@@ -18,7 +18,7 @@ const DetailsContainer = ({ data }: any) => {
 	const session = useSession();
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 	const currentUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
-	console.log(session);
+	console.log(data);
 	const userData = session.data?.user as UserTypes;
 
 
@@ -93,17 +93,37 @@ const DetailsContainer = ({ data }: any) => {
 	  };
 
 
-	function addJobToArchive() {
-		if (userData.email) {
-			toast((t) => (
-				<div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
-				  <span className="font-medium">
-					To add the job to favorite you need to be logged in
-				  </span>
-				</div>
-			  ));
+	  async function addJobToFavorite() {
+		if (!userData.email) {
+		  toast((t) => (
+			<div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+			  <span className="font-medium">
+				To add the job to favorite, you need to be logged in
+			  </span>
+			</div>
+		  ));
+		  return;
 		}
-	} 
+	  
+		try {
+		  const response = await fetch("/api/favorite-jobs", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({data}),
+		  });
+	  
+		  const result = await response.json();
+	  
+		  if (response.ok) {
+			toast.success("Job added to favorites!");
+		  } else {
+			toast.error(result.error || result.message || "Failed to add job");
+		  }
+		} catch (error) {
+		  toast.error("An unexpected error occurred");
+		  console.error(error);
+		}
+	  } 
 
 	const { back } = useRouter();
 	const isClient = useClient();
@@ -144,7 +164,7 @@ const DetailsContainer = ({ data }: any) => {
       								)}
 									{/* share popup end */}
 									<Image
-									onClick={addJobToArchive}
+									onClick={addJobToFavorite}
 									className="cursor-pointer"
 									alt='add archive' 
 									src={addArchive} width={44} height={44} 

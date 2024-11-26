@@ -29,7 +29,7 @@ export type JobTypes = {
     createdAt?: Date;
   };
 
-const JobSchema = new Schema({
+export const JobSchema = new Schema({
   jobTitle: { type: String, required: true }, //1
   description: { type: String, required: true },//1
   jobUrl: { type: String, required: true }, //1
