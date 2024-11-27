@@ -6,12 +6,12 @@ export type UserProfileTypes = {
   name: string;
   email: string;
   password: string;
-  phone: string;
-  image: string;
-  admin: string;
+  phone?: string;
+  image?: string;
+  admin?: string;
   emailVerified: boolean;
-  jobPostPoints: number;
-  favoriteJobs: JobTypes[]; 
+  jobPostPoints?: number;
+  favoriteJobs?: JobTypes[]; 
   createdAt?: Date;
 };
 

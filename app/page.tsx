@@ -53,7 +53,7 @@ const Home = () => {
 						<p className={styles["desc"]}>
 							Drive candidates to your career site and convert them into applicants.
 						</p>
-						<Link href={"/jobs"}>
+						<Link href={"/post-job-info"}>
 							<Button
 								style={{ minHeight: "64px" }}
 								className={`${styles["btn"]} ${styles["btn-main-primary"]}`}

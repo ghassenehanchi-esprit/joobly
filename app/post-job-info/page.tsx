@@ -12,8 +12,28 @@ import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import { POST_JOB_ACTIONS } from '@/lib/constant/constants';
+import { useProfile } from '@/lib/hooks/useProfile';
+import toast from 'react-hot-toast';
+
+
 const PostJobInfo = () => {
-  const {push}=useRouter()
+  const profile = useProfile();
+  const jobPostPoints = profile?.data?.jobPostPoints as number;
+  console.log(profile);
+
+  const {push}=useRouter();
+
+  function postJobInfoMessage(text: string) {
+      toast((t) => (
+        <div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+          <span className="font-medium">
+            {text}
+          </span>
+        </div>
+      ))
+  };
+
+
   return (
     <section className={styles["post-job-info"]}>
       <div style={{backgroundImage: `url(${bg.src})`}} className={styles["post-job-info__top"]}>
@@ -21,11 +41,18 @@ const PostJobInfo = () => {
           <h1>Post jobs directly </h1>
           <h4>Publish your vacancies and start receiving applications.</h4>
           <PostJobActions data={POST_JOB_ACTIONS} image={checkMarkLight} color="white"/>
-          <Button onClick={()=>push("/post-job")} style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
-            Post a Job
-          </Button>
+          {profile && jobPostPoints > 0 ? (
+              <Button onClick={()=>push("/post-job")} style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
+                Post a Job
+              </Button>
+          ) : (
+            <Button onClick={() => postJobInfoMessage('To post a job you need to be logged in')} 
+            style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
+                Post a Job
+            </Button>
+          )}
         </div>
-        <Image src={dashboard} width={595} alt=""/>
+        <Image src={dashboard} width={595} alt="dashboard image"/>
       </div>
       <div className={styles["post-job-info__bottom"]}>
         <Image src={chart} width={610} alt=""/>
@@ -34,7 +61,9 @@ const PostJobInfo = () => {
           <h4>Jobs already online? Save time and have them
             listed automatically.</h4>
           <PostJobActions data={POST_JOB_ACTIONS} image={checkMark} color="black"/>
-          <Button style={{marginTop: "35px",maxWidth:"210px",width:"100%"}} className={`btn-secondary-search`} icon="/images/icons/note.svg"
+          <Button 
+          onClick={() => postJobInfoMessage('To submit your website please contact to website administrator')} 
+          style={{marginTop: "35px",maxWidth:"210px",width:"100%"}} className={`btn-secondary-search`} icon="/images/icons/note.svg"
                   hoverIcon="/images/icons/list-white.svg">
             <Link href="">Submit your website</Link>
           </Button>
