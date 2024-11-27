@@ -97,10 +97,15 @@ const DashboardPage = () => {
         )}
         </div>
         <div className="flex flex-col text-gray-500">
-        <div>name: {" "}<span>{name}</span></div>
-        <div>email: {" "}<span>{email}</span></div>
-          
+          <div>name: {" "}<span>{name}</span></div>
+          <div>email: {" "}<span>{email}</span></div>
         </div>
+        <Link
+        className="mt-4 font-bold text-lg border-2 text-center bg-white border-[#006c53] text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
+        href={'/dashboard/favorite-jobs'}
+        >
+          My favorite jobs
+        </Link>
       </div>
       <div className="px-0 md:px-2 mdl:px-6 flex-grow">
           <div className="flex flex-col md:flex-row items-center justify-between mb-6 py-2 h-14 mt-4 lg:mt-0">

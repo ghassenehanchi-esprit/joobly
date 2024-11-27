@@ -3,6 +3,7 @@ import {Source_Sans_3} from 'next/font/google'
 import '@/lib/styles/globals.scss'
 import Header from "@/app/header";
 import PostJobInfo from "@/app/post-job-info/page";
+import { Toaster } from 'react-hot-toast';
 
 
 const mainFont = Source_Sans_3({subsets: ['latin']})
@@ -19,6 +20,7 @@ export default function PostJobInfoLayout({
 }) {
   return (
     <>
+    <Toaster/>
       <Header needBackgroundHeader={false} topHeaderTitle="" bottomHeaderTitle="Post a job"/>
       {children}
     </>

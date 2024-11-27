@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "@/lib/styles/globals.scss";
 import Header from "@/app/header";
-import Footer from "@/app/footer";
+import { Toaster } from "react-hot-toast";
 
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function JobLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
+			<Toaster/>
 			<Header needBackgroundHeader={false}/>
 			{children}
 		</>
