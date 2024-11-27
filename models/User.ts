@@ -10,7 +10,7 @@ export type UserProfileTypes = {
   image?: string;
   admin?: string;
   emailVerified: boolean;
-  jobPostPoints?: number;
+  jobPostPoints: number;
   favoriteJobs?: JobTypes[]; 
   createdAt?: Date;
 };
