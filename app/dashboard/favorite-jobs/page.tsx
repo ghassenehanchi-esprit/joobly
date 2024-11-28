@@ -1,4 +1,3 @@
-import DashboardPage from "@/lib/components/dashboard/DashboardPage";
 import MyFavoriteJobsPage from "@/lib/components/dashboard/MyFavoriteJobsPage";
 import type { Metadata } from "next";
 
@@ -10,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function FavoriteJobs() {
   return (
-    <div>
+    <section className="mt-16 mb-20 px-4 min-h-[60%]">
         <MyFavoriteJobsPage/>
-    </div>
+    </section>
   )
 }
