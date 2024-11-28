@@ -101,10 +101,10 @@ const DashboardPage = () => {
           <div>email: {" "}<span>{email}</span></div>
         </div>
         <Link
-        className="mt-4 font-bold text-lg border-2 text-center bg-white border-[#006c53] text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
+        className="mt-4 font-bold text-lg border-2 text-center bg-white border-[#006c53] hover:border-[#83cfbe] text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
         href={'/dashboard/favorite-jobs'}
         >
-          My favorite jobs
+          Favorite jobs
         </Link>
       </div>
       <div className="px-0 md:px-2 mdl:px-6 flex-grow">
