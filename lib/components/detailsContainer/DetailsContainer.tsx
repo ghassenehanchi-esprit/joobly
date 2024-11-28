@@ -106,23 +106,55 @@ const DetailsContainer = ({ data }: any) => {
 		}
 	  
 		try {
-		  const response = await fetch("/api/favorite-jobs", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({data}),
-		  });
-	  
-		  const result = await response.json();
-	  
-		  if (response.ok) {
-			toast.success("Job added to favorites!");
-		  } else {
-			toast.error(result.error || result.message || "Failed to add job");
+			const response = await fetch("/api/favorite-jobs", {
+			  method: "POST",
+			  headers: { "Content-Type": "application/json" },
+			  body: JSON.stringify({ data }),
+			});
+		  
+			const result = await response.json();
+		  
+			if (response.ok) {
+			  toast((t) => (
+				<div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+				  <span className="font-medium">Job added to favorites!</span>
+				  <button
+					className="bg-[#006c53] text-white px-4 py-2 rounded"
+					onClick={() => toast.dismiss(t.id)}
+				  >
+					Dismiss
+				  </button>
+				</div>
+			  ));
+			} else {
+			  toast((t) => (
+				<div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+				  <span className="font-medium">
+					{result.error || result.message || "Failed to add job"}
+				  </span>
+				  <button
+					className="bg-[#006c53] text-white px-4 py-2 rounded"
+					onClick={() => toast.dismiss(t.id)}
+				  >
+					Close
+				  </button>
+				</div>
+			  ));
+			}
+		  } catch (error) {
+			toast((t) => (
+			  <div className="flex flex-col gap-4 text-red-500 text-center items-center mb-2">
+				<span className="font-medium">An unexpected error occurred</span>
+				<button
+				  className="bg-red-500 text-white px-4 py-2 rounded"
+				  onClick={() => toast.dismiss(t.id)}
+				>
+				  Dismiss
+				</button>
+			  </div>
+			));
+			console.error(error);
 		  }
-		} catch (error) {
-		  toast.error("An unexpected error occurred");
-		  console.error(error);
-		}
 	  } 
 
 	const { back } = useRouter();

@@ -56,7 +56,7 @@ const JobItem = ({ data }: JobItem) => {
 								<Image src={moreIcon} alt="more" className="cursor-pointer" />
 							</div>
 							<div className="flex flex-col mt-4">
-								<span className="self-end text-sm text-gray-500">{DateConverter({  mongoDate: data?.createdAt })}</span>
+								<span className="self-end text-sm text-gray-500">{DateConverter({  mongoDate: data?.advertisedDate })}</span>
 								<div className="flex gap-2 mt-4">
 									<Button
 										className="bg-[#c5f06d] text-gray-800  font-bold text-lg hover:bg-[#006c53] hover:text-white px-6 py-2 rounded-2xl flex gap-1 items-center duration-200"
