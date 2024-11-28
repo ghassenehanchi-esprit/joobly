@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const DateConverter = ({ mongoDate }: {mongoDate: Date | undefined}) => {
+const DateConverter = ({ mongoDate }: {mongoDate: any}) => {
     const convertMongoDate = (mongoDateStr: any) => {
         const mongoDate = moment.utc(mongoDateStr);
         const formattedDate = mongoDate.format('MM/DD/YYYY HH:mm');
