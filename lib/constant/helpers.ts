@@ -28,3 +28,8 @@ export function setSalaryLine(salary: string) {
     }
     return "Unknown salary"; 
 }
+
+export function extractFirstTwoDigits(inputString: string) {
+    const match = inputString.match(/\d{1,2}/); 
+    return match ? parseInt(match[0], 10) : null;
+  }

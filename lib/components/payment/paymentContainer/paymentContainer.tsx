@@ -2,22 +2,31 @@ import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
 import styles from "./paymentContainer.module.scss";
 
-import { FaCcStripe } from "react-icons/fa";
 import { FaStripe } from "react-icons/fa";
+import { extractFirstTwoDigits } from "@/lib/constant/helpers";
 
 const PaymentContainer = (props: ServicePlanType) => {
-	const handleSubmit = async () => {
+
+	const numberOfPostPoints = extractFirstTwoDigits(props.title);
+
+	async function handleSubmit() {
 		try {
-			const session = await fetch("/api/checkout", {
+			const response = await fetch("/api/checkout", {
 				method: "POST",
+				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					title: props.title,
 					price: props.price,
+					points: numberOfPostPoints
 				}),
 			});
 
-			const data = await session.json();
-			window.location.href = data.session.url;
+			const { url } = await response.json();
+				if (url) {
+				window.location.href = url; // Правильное использование ссылки
+				} else {
+				console.error("URL not found in response");
+				}
 			/* replace("/jobs");
 			refresh(); */
 		} catch (error: unknown) {

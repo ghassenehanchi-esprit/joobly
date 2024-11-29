@@ -30,6 +30,8 @@ const PackagesPage = () => {
 		};
 	};
 
+	console.log(packages.value.split(" ")[0]);
+
 	return (
 		<section className={styles["packages_page"]}>
 			<div className={styles["about_contex"]}>
