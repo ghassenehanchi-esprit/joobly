@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.1",
     "@mui/material": "^5.15.1",
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^8.7.0",
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/react-stripe-js": "^2.8.0",

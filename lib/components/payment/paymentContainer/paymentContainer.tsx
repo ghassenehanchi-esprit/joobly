@@ -1,3 +1,4 @@
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
 import styles from "./paymentContainer.module.scss";
@@ -48,6 +49,38 @@ const PaymentContainer = (props: ServicePlanType) => {
 				<Button style={{ width: "100%" }} className={"btn-primary"} onClick={handleSubmit}>
 					Go to Pay
 				</Button>
+
+				 {/* Кнопка для PayPal */}
+				 <PayPalScriptProvider options={{ "clientId": process.env.PAYPAL_CLIENT_ID! }}>
+                    <PayPalButtons
+                        style={{ layout: "vertical" }}
+                        createOrder={async () => {
+                            const response = await fetch("/api/paypal/create-order", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    title: props.title,
+                                    price: props.price,
+                                    points: numberOfPostPoints,
+                                }),
+                            });
+
+                            const { id } = await response.json();
+                            return id;
+                        }}
+                        onApprove={async (data, actions) => {
+                            await fetch(`/api/paypal/capture-order`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ orderId: data.orderID }),
+                            });
+                            alert("Payment successful!");
+                        }}
+                        onError={(err) => {
+                            console.error("PayPal error", err);
+                        }}
+                    />
+                </PayPalScriptProvider>
 			</div>
 		</section>
 	);
