@@ -46,41 +46,55 @@ const PaymentContainer = (props: ServicePlanType) => {
 						<FaStripe  className="w-9 h-9 text-[#009c77]"/>
 					</div>
 				</label>
-				<Button style={{ width: "100%" }} className={"btn-primary"} onClick={handleSubmit}>
-					Go to Pay
+
+				<Button className="bg-[#006c53] text-white text-xl font-bold py-3 sml:py-4 max-w-[750px] rounded-xl" onClick={handleSubmit}>
+					Pay with Credit Card
 				</Button>
 
 				 {/* Кнопка для PayPal */}
-				 <PayPalScriptProvider options={{ "clientId": process.env.PAYPAL_CLIENT_ID! }}>
-                    <PayPalButtons
-                        style={{ layout: "vertical" }}
-                        createOrder={async () => {
-                            const response = await fetch("/api/paypal/create-order", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    title: props.title,
-                                    price: props.price,
-                                    points: numberOfPostPoints,
-                                }),
-                            });
+				 <div className="w-full mt-2">
+					<PayPalScriptProvider 
+					options={{ 
+						"clientId": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+						components: "buttons",
+						currency: "CZK",
+						"disable-funding": "credit,card,p24",
+					}}>
+						<div className="">
+							<PayPalButtons
+								style={{ 
+									layout: "vertical", 
+									borderRadius: 12 
+								}}
+								createOrder={async () => {
+									const response = await fetch("/api/paypal/create-order", {
+										method: "POST",
+										headers: { "Content-Type": "application/json" },
+										body: JSON.stringify({
+											title: props.title,
+											price: props.price,
+											points: numberOfPostPoints,
+										}),
+									});
 
-                            const { id } = await response.json();
-                            return id;
-                        }}
-                        onApprove={async (data, actions) => {
-                            await fetch(`/api/paypal/capture-order`, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ orderId: data.orderID }),
-                            });
-                            alert("Payment successful!");
-                        }}
-                        onError={(err) => {
-                            console.error("PayPal error", err);
-                        }}
-                    />
-                </PayPalScriptProvider>
+									const { id } = await response.json();
+									return id;
+								}}
+								onApprove={async (data, actions) => {
+									await fetch(`/api/paypal/capture-order`, {
+										method: "POST",
+										headers: { "Content-Type": "application/json" },
+										body: JSON.stringify({ orderId: data.orderID }),
+									});
+									alert("Payment successful!");
+								}}
+								onError={(err) => {
+									console.error("PayPal error", err);
+								}}
+							/>
+						</div>
+					</PayPalScriptProvider>
+				 </div>
 			</div>
 		</section>
 	);
