@@ -30,6 +30,7 @@ const PackagesPage = () => {
 		};
 	};
 
+	//price debug feature
 	console.log(packages.value.split(" ")[0]);
 
 	return (
