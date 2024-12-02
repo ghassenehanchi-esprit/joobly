@@ -50,7 +50,7 @@ const PackagesPage = () => {
                     />
                 ))}
             </div>
-            <PaymentContainer {...servicePlan(selectedPackage)} /> {/* Передаем текущий выбранный пакет */}
+            <PaymentContainer {...servicePlan(selectedPackage)} />
             <label className={styles["ending_text_head"]}> Want to post more?</label>
             <p className={styles["ending_text"]}>
                 Please contact us and we will find a personalized solution for you.

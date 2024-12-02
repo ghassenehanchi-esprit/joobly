@@ -9,6 +9,7 @@ import { useCallback } from "react";
 
 const PaymentContainer = (props: ServicePlanType) => {
     const numberOfPostPoints = extractFirstTwoDigits(props.title);
+    console.log("Props in PaymentContainer:", props);
 
     // Stripe logic
     async function handleSubmit() {
@@ -40,26 +41,21 @@ const PaymentContainer = (props: ServicePlanType) => {
     }
 
     // PayPal logic
-    const createOrder = async () => {
-		console.log("PayPal order request:", {
-			title: props.title,
-			price: props.price,
-			points: numberOfPostPoints,
-		});
-	
-		const response = await fetch("/api/paypal/create-order", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				title: props.title,
-				price: props.price,
-				points: numberOfPostPoints,
-			}),
-		});
-	
-		const { id } = await response.json();
-		return id;
-	};
+
+    const createOrder = useCallback(async () => {
+        const response = await fetch("/api/paypal/create-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: props.title,
+                price: props.price,
+                points: numberOfPostPoints,
+            }),
+        });
+    
+        const { id } = await response.json();
+        return id;
+    }, [props.title, props.price, numberOfPostPoints]);
 	
 
     return (
