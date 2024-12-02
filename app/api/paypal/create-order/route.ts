@@ -1,8 +1,29 @@
+import { authOptions } from "@/lib/authOptions";
+import { PointsOrder } from "@/models/PointsOrder";
+import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const { title, price, points } = await req.json();
+    mongoose.connect(process.env.MONGODB_URI as string);
 
+    const { title, price, points } = await req.json();
+    const session = await getServerSession(authOptions);
+    const userEmail = session?.user?.email || undefined;
+
+
+    if (!userEmail) {
+        return NextResponse.json({ error: "User not authenticated" }, { status: 401 });
+    }
+
+    const orderDoc = await PointsOrder.create({
+        userEmail,
+        title,
+        price,
+        points,
+        paymentType: "paypal",
+        paid: false,
+    });
 
     const response = await fetch(`${process.env.PAYPAL_API_URL}/v2/checkout/orders`, {
         method: "POST",
@@ -26,7 +47,7 @@ export async function POST(req: Request) {
         }),
     });
     
-    // Логируем весь ответ для диагностики
+    // Diagnosis logs
     if (!response.ok) {
         const errorDetails = await response.text();
         console.error(`PayPal API Error: ${response.status} - ${errorDetails}`);
@@ -34,5 +55,5 @@ export async function POST(req: Request) {
     }
     
     const data = await response.json();
-    return NextResponse.json({ id: data.id });
+    return NextResponse.json({ id: data.id, orderId: orderDoc._id });
 }

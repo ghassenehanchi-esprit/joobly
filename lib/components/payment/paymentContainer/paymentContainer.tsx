@@ -10,7 +10,6 @@ import { useCallback } from "react";
 const PaymentContainer = (props: ServicePlanType) => {
 
 	const numberOfPostPoints = extractFirstTwoDigits(props.title);
-	const amount = props.price;
 
 
 
