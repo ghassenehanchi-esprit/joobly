@@ -8,6 +8,9 @@ export async function POST(req: Request) {
     mongoose.connect(process.env.MONGODB_URI as string);
 
     const { title, price, points } = await req.json();
+
+    console.log("Received order data:", { title, price, points });
+    
     const session = await getServerSession(authOptions);
     const userEmail = session?.user?.email || undefined;
 
@@ -24,6 +27,8 @@ export async function POST(req: Request) {
         paymentType: "paypal",
         paid: false,
     });
+
+    console.log("Created order document:", orderDoc);
 
     const response = await fetch(`${process.env.PAYPAL_API_URL}/v2/checkout/orders`, {
         method: "POST",
