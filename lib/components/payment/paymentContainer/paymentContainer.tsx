@@ -5,11 +5,16 @@ import styles from "./paymentContainer.module.scss";
 
 import { FaStripe } from "react-icons/fa";
 import { extractFirstTwoDigits } from "@/lib/constant/helpers";
+import { useCallback } from "react";
 
 const PaymentContainer = (props: ServicePlanType) => {
 
 	const numberOfPostPoints = extractFirstTwoDigits(props.title);
+	const amount = props.price;
 
+
+
+	//Stripe logic
 	async function handleSubmit() {
 		try {
 			const response = await fetch("/api/checkout", {
@@ -17,7 +22,7 @@ const PaymentContainer = (props: ServicePlanType) => {
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					title: props.title,
-					price: props.price,
+					price: amount,
 					points: numberOfPostPoints
 				}),
 			});
@@ -34,6 +39,26 @@ const PaymentContainer = (props: ServicePlanType) => {
 			console.log(error);
 		}
 	};
+
+
+	//paypal logic
+	const createOrder = useCallback(async () => {
+        console.log("Current price:", props.price); 
+        const response = await fetch("/api/paypal/create-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: props.title,
+                price: props.price,
+                points: numberOfPostPoints,
+            }),
+        });
+
+        const { id } = await response.json();
+        return id;
+    }, [props.title, props.price, numberOfPostPoints]);
+
+
 	return (
 		<section className={styles["payment-container"]}>
 			<div className={styles["payment-container__labels"]}>
@@ -55,7 +80,7 @@ const PaymentContainer = (props: ServicePlanType) => {
 				 <div className="w-full mt-2">
 					<PayPalScriptProvider 
 					options={{ 
-						"clientId": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+						clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
 						components: "buttons",
 						currency: "CZK",
 						"disable-funding": "credit,card,p24",
@@ -66,21 +91,8 @@ const PaymentContainer = (props: ServicePlanType) => {
 									layout: "vertical", 
 									borderRadius: 12 
 								}}
-								createOrder={async () => {
-									const response = await fetch("/api/paypal/create-order", {
-										method: "POST",
-										headers: { "Content-Type": "application/json" },
-										body: JSON.stringify({
-											title: props.title,
-											price: props.price,
-											points: numberOfPostPoints,
-										}),
-									});
-
-									const { id } = await response.json();
-									return id;
-								}}
-								onApprove={async (data, actions) => {
+								createOrder={createOrder}
+								onApprove={async (data) => {
 									await fetch(`/api/paypal/capture-order`, {
 										method: "POST",
 										headers: { "Content-Type": "application/json" },

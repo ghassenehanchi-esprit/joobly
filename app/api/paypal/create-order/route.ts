@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const { title, price } = await req.json();
+    const { title, price, points } = await req.json();
 
-    console.log(process.env.PAYPAL_API_URL);
-    console.log(process.env.PAYPAL_CLIENT_ID);
-    console.log(process.env.PAYPAL_CLIENT_SECRET);
 
     const response = await fetch(`${process.env.PAYPAL_API_URL}/v2/checkout/orders`, {
         method: "POST",
