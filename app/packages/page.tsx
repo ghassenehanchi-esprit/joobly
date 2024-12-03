@@ -18,12 +18,14 @@ const PackagesPage = () => {
         setSelectedPackage(packageInfo); // Обновляем выбранный пакет
     };
 
+
     const servicePlan = (packageItem: PackageType): ServicePlanType => {
         return {
-            title: packageItem.title,
+            title: packageItem.title as string,
             price: parseFloat(packageItem.value.split(" ")[0]),
         };
     };
+
 
     return (
         <section className={styles["packages_page"]}>

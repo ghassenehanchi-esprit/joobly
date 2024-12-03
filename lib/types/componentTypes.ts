@@ -83,6 +83,7 @@ export type PlanContainerDataType = {
 };
 
 export type ServicePlanType = {
+	dbOrderId?: string;
 	title: string;
 	price: number;
 };
