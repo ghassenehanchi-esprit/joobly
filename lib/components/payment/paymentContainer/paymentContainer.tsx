@@ -5,11 +5,16 @@ import styles from "./paymentContainer.module.scss";
 
 import { FaStripe } from "react-icons/fa";
 import { extractFirstTwoDigits } from "@/lib/constant/helpers";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const PaymentContainer = (props: ServicePlanType) => {
     const numberOfPostPoints = extractFirstTwoDigits(props.title);
+    const [dbOrderId, setDbOrderId] = useState<string | null>(null);
     console.log("Props in PaymentContainer:", props);
+    
+
+   const packagePrice = props.price;
+   console.log(packagePrice);
 
     // Stripe logic
     async function handleSubmit() {
@@ -31,7 +36,7 @@ const PaymentContainer = (props: ServicePlanType) => {
 
             const { url } = await response.json();
             if (url) {
-                window.location.href = url; // Перенаправляем на страницу оплаты
+                window.location.href = url; // redirect to payment page
             } else {
                 console.error("URL not found in response");
             }
@@ -43,19 +48,45 @@ const PaymentContainer = (props: ServicePlanType) => {
     // PayPal logic
 
     const createOrder = useCallback(async () => {
-        const response = await fetch("/api/paypal/create-order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                title: props.title,
-                price: props.price,
-                points: numberOfPostPoints,
-            }),
-        });
-    
-        const { id } = await response.json();
-        return id;
-    }, [props.title, props.price, numberOfPostPoints]);
+        try {
+            const response = await fetch("/api/paypal/create-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title: props.title,
+                    price: packagePrice,
+                    points: numberOfPostPoints,
+                }),
+            });
+            const data = await response.json();
+            setDbOrderId(data.orderId); // Сохраняем ID заказа из базы
+            return data.id; // Возвращаем PayPal ID
+        } catch (error) {
+            console.error("Error creating PayPal order:", error);
+            throw error;
+        }
+    }, [packagePrice, numberOfPostPoints, props.title]);
+
+    const onApprove = async (data: { orderID: string }) => {
+        try {
+            const response = await fetch(`/api/paypal/capture-order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    orderId: data.orderID,
+                    dbOrderId,
+                }),
+            });
+            const result = await response.json();
+            if (result.message === "Payment successful") {
+                alert("Payment successful!");
+            } else {
+                alert("Payment not completed!");
+            }
+        } catch (error) {
+            console.error("Error capturing PayPal order:", error);
+        }
+    };
 	
 
     return (
@@ -95,23 +126,9 @@ const PaymentContainer = (props: ServicePlanType) => {
                                     borderRadius: 12,
                                 }}
                                 createOrder={createOrder}
-                                onApprove={async (data) => {
-                                    const response = await fetch(`/api/paypal/capture-order`, {
-                                        method: "POST",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({ orderId: data.orderID }),
-                                    });
-                                    const result = await response.json();
-                                    if (result.success) {
-                                        alert("Payment successful!");
-                                    } else {
-                                        alert("Payment failed!");
-                                    }
-                                }}
-                                onError={(err) => {
-                                    console.error("PayPal error:", err);
-                                }}
-                            />
+                                onApprove={onApprove}
+                                onError={(err) => console.error("PayPal Error:", err)}
+                                />
                         </div>
                     </PayPalScriptProvider>
                 </div>

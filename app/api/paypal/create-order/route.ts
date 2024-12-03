@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+
+
 export async function POST(req: Request) {
     mongoose.connect(process.env.MONGODB_URI as string);
 
@@ -19,7 +21,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "User not authenticated" }, { status: 401 });
     }
 
-    const orderDoc = await PointsOrder.create({
+    const orderDoc = new PointsOrder({
         userEmail,
         title,
         price,
@@ -27,6 +29,8 @@ export async function POST(req: Request) {
         paymentType: "paypal",
         paid: false,
     });
+    await orderDoc.save();
+
 
     console.log("Created order document:", orderDoc);
 
@@ -41,24 +45,18 @@ export async function POST(req: Request) {
         body: JSON.stringify({
             intent: "CAPTURE",
             purchase_units: [
-                {
-                    description: title,
-                    amount: {
-                        currency_code: "CZK",
-                        value: price.toFixed(2).toString(),
-                    },
-                },
+                { description: title, amount: { currency_code: "CZK", value: price.toFixed(2) } },
             ],
         }),
     });
     
     // Diagnosis logs
     if (!response.ok) {
-        const errorDetails = await response.text();
-        console.error(`PayPal API Error: ${response.status} - ${errorDetails}`);
-        return NextResponse.json({ error: "PayPal API error", details: errorDetails }, { status: 500 });
+        const error = await response.text();
+        console.error("PayPal error:", error);
+        return NextResponse.json({ error }, { status: 500 });
     }
-    
-    const data = await response.json();
-    return NextResponse.json({ id: data.id, orderId: orderDoc._id });
+
+    const { id } = await response.json();
+    return NextResponse.json({ id, orderId: orderDoc._id });
 }
