@@ -21,7 +21,7 @@ const PaymentContainer = (props: ServicePlanType) => {
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					title: props.title,
-					price: amount,
+					price: props.price,
 					points: numberOfPostPoints
 				}),
 			});
@@ -58,6 +58,20 @@ const PaymentContainer = (props: ServicePlanType) => {
     }, [props.title, props.price, numberOfPostPoints]);
 
 
+	const orderRecord = async () => {
+		const response = await fetch("/api/paypal/order-record", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: props.title,
+                price: props.price,
+                points: numberOfPostPoints,
+            }),
+        });
+
+	}
+
+
 	return (
 		<section className={styles["payment-container"]}>
 			<div className={styles["payment-container__labels"]}>
@@ -92,12 +106,16 @@ const PaymentContainer = (props: ServicePlanType) => {
 								}}
 								createOrder={createOrder}
 								onApprove={async (data) => {
-									await fetch(`/api/paypal/capture-order`, {
+									const res = await fetch(`/api/paypal/capture-order`, {
 										method: "POST",
 										headers: { "Content-Type": "application/json" },
 										body: JSON.stringify({ orderId: data.orderID }),
 									});
-									alert("Payment successful!");
+									if (res.status === 200) {
+										console.log(res);
+										await orderRecord();
+									}
+									
 								}}
 								onError={(err) => {
 									console.error("PayPal error", err);
