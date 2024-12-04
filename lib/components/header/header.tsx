@@ -197,7 +197,7 @@ const TopHeader = () => {
 			{/* Mobile Menu */}
 			<motion.div
 				onClick={toggleMenu}
-				className="mobile-menu fixed top-20 left-0 z-50 bg-white w-full h-full p-6"
+				className="z-50 mobile-menu fixed top-20 left-0 bg-white w-full h-full p-6"
 				initial="closed"
 				animate={isMenuOpen ? "open" : "closed"}
 				variants={menuVariants}

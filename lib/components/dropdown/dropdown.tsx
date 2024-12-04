@@ -1,5 +1,5 @@
 'use client';
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {DropdownProps} from '@/lib/types/componentTypes';
 
@@ -12,19 +12,23 @@ import { IoIosClose } from "react-icons/io";
 
 
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(defaultSelected);
-  const toggleDropdown = () => setOpen(!isOpen);
-  const handleItemClick = (e: any,label:string) => {
-    selectedItem !== e.target.id && setSelectedItem(e.target.id);
-    queryPushing && queryPushing(label)
-    toggleDropdown();
-  }
+  const [windowWidth, setWindowWidth] = useState<any>(0);
+
+
+      useEffect(() => {
+        setWindowWidth(window?.innerWidth);
+        if (windowWidth <= 960) {
+          setOpen(true);
+        }
+    }, [windowWidth]);
+
 
   return (
-    <ClickAwayListener onClickAway={()=>setOpen(true)}>
+    <ClickAwayListener onClickAway={() => setOpen(!isOpen)}>
     <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
-      <div className={styles['header']} onClick={toggleDropdown} >
+      <div className={styles['header']} onClick={() => setOpen(!isOpen)} >
                 <span className='min-w-max ml-2'>
                     {icon && <picture>
                       <img
@@ -43,7 +47,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
           onClick={() => {
             queryPushing && queryPushing("")
             setSelectedItem(undefined)
-            setOpen(true); //false
+            setOpen(!isOpen); //false
           }}
         >
           <IoIosClose />
