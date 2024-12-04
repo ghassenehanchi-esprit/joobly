@@ -31,15 +31,22 @@ export async function POST(req: Request) {
         paid: true,
     });
 
-    if (orderDoc)  {
-        await User.findOneAndUpdate(
-            { email: userEmail },
-            { $inc: { points: points } }
-        );
+
+    
+   
+    const updatedUser = await User.findOneAndUpdate(
+        { email: userEmail }, // Find user with email
+        { $inc: { jobPostPoints: points } }, // Increase -> jobPostPoints + points
+        { new: true } // Return updated doc
+      );
+    
+
+    if (updatedUser) {
+        return NextResponse.json({ message: "Your points has been added!" });
+    } else {
+        return NextResponse.json({ message: "Some thing went wrong!" });
     }
 
-
-    return NextResponse.json({ message: "Your points has been added!" });
     } catch (error) {
         console.error("Error processing order:", error);
         return NextResponse.json({ error: "Failed to save order and update points" }, { status: 500 });
