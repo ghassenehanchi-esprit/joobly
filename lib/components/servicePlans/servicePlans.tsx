@@ -9,7 +9,7 @@ interface ServicePlansPropsTypes {
 	servicePlan: ServicePlanType;
 }
 
-const ServicePlans = ({ setServicePlan, servicePlan }: ServicePlansPropsTypes) => {
+const ServicePlans = ({ setServicePlan, servicePlan }: any) => {
 	const plans = PLANS.map((item) => {
 		if (item.planPrice === servicePlan.price) {
 			item.isActive = true;
