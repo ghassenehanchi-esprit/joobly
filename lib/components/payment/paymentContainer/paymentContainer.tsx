@@ -1,5 +1,5 @@
 "use client"
-import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
 import styles from "./paymentContainer.module.scss";
@@ -10,7 +10,7 @@ import { RootState } from "@/lib/store";
 
 
 const PaymentContainer = () => {
-	const selectedPackage = useSelector((state: RootState) => state.packages.selectedPackage);
+	const selectedPackage: ServicePlanType = useSelector((state: RootState) => state.packages.selectedPackage);
 	const amount = selectedPackage.price;
     const currency = "CZK";
     const style = { layout: "vertical" };
