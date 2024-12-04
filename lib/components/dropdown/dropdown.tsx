@@ -39,66 +39,44 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
 
   return (
     <ClickAwayListener onClickAway={()=>setOpen(!isOpen)}>
-      <div
-        className={`${styles['dropdown']} ${
-          isOpen && styles['open']
-        } ${className ? styles[className] : ''}`}
-      >
-        <div className={styles['header']} onClick={toggleDropdown}>
-          <span className="min-w-max ml-2">
-            {icon && (
-              <picture>
-                <img
-                  src={icon}
-                  alt="button"
-                  className={'location h-4 w-4 '}
-                />
-              </picture>
-            )}
-
-            {/*  @ts-ignore */}
-            {selectedItem
-              ? items &&
-                items?.find((item) => item.id == selectedItem)?.label
-              : headerTitle}
-          </span>
-          <div className="w-full p-1">
-            <Image
-              src={arrowIcon}
-              alt="arrow"
-              className={`${styles['icon']} ${isOpen && styles['open']}`}
-            />
-          </div>
-          <IconButton
-            onClick={() => {
-              queryPushing && queryPushing('');
-              setSelectedItem(undefined);
-              setOpen(false);
-            }}
-          >
-            <IoIosClose />
-          </IconButton>
+    <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
+      <div className={styles['header']} onClick={toggleDropdown} >
+                <span className='min-w-max ml-2'>
+                    {icon && <picture>
+                      <img
+                        src={icon}
+                        alt="button"
+                        className={'location h-4 w-4 '}
+                      />
+                    </picture>}
+                  {/*  @ts-ignore */}
+                  {selectedItem ? items && items?.find(item => item.id == selectedItem)?.label : headerTitle}
+                </span>
+        <div className='w-full p-1'>
+          <Image src={arrowIcon} alt="arrow" className={`${styles['icon']} ${isOpen && styles["open"]}`}/>
         </div>
-        <div className={`${styles['body']} ${isOpen && styles['open']}`}>
-          {items?.map((item, idx) => (
-            <div
-              key={idx}
-              className={styles['item']}
-              onClick={(e) => handleItemClick(e, item.label)}
-              id={item.id}
-            >
-              <span
-                className={`${styles['dot']} ${
-                  item.id == selectedItem && styles['selected']
-                }`}
-              >
-                •{' '}
-              </span>
+        <IconButton
+          onClick={() => {
+            queryPushing && queryPushing("")
+            setSelectedItem(undefined)
+            setOpen(!isOpen);
+          }}
+        >
+          <IoIosClose />
+        </IconButton>
+      </div>
+      <div className={`${styles['body']} ${isOpen && styles['open']}`}>
+        {items.map((item, idx) => (
+          <>
+            {/*  @ts-ignore */}
+            <div key={idx} className={styles["item"]} onClick={e => handleItemClick(e,item.label)} id={item.id}>
+              <span className={`${styles['dot']} ${item.id == selectedItem && styles['selected']}`}>• </span>
               {item.label}
             </div>
-          ))}
-        </div>
+          </>
+        ))}
       </div>
+    </div>
     </ClickAwayListener>
   );
 };
