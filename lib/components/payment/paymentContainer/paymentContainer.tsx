@@ -1,24 +1,19 @@
 "use client"
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
 import styles from "./paymentContainer.module.scss";
 
 import { FaStripe } from "react-icons/fa";
-import { extractFirstTwoDigits } from "@/lib/constant/helpers";
-import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 
-const PaymentContainer = (props: ServicePlanType) => {
-	const [pointsPac, setPointsPac] = useState<any>(null)
-	const numberOfPostPoints = extractFirstTwoDigits(props.title);
-	console.log(props.price);
-	console.log(pointsPac);
-
-	useEffect(() => {
-		setPointsPac(props)
-	}, [])
-
+const PaymentContainer = () => {
+	const selectedPackage = useSelector((state: RootState) => state.packages.selectedPackage);
+	const amount = selectedPackage.price;
+    const currency = "CZK";
+    const style = { layout: "vertical" };
 
 	//Stripe logic
 	async function handleSubmit() {
@@ -27,15 +22,15 @@ const PaymentContainer = (props: ServicePlanType) => {
 				method: "POST",
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
-					title: props.title,
-					price: props.price,
-					points: numberOfPostPoints
+					title: selectedPackage.title,
+					price: 700,
+					points: selectedPackage.points
 				}),
 			});
 
 			const { url } = await response.json();
 				if (url) {
-				window.location.href = url; // Правильное использование ссылки
+				window.location.href = url; 
 				} else {
 				console.error("URL not found in response");
 				}
@@ -48,24 +43,20 @@ const PaymentContainer = (props: ServicePlanType) => {
 
 
 	//paypal logic
-	const createOrder = useCallback(async () => {
-		const { title, price } = pointsPac;
-		console.log(price);
-        //const price = parseFloat(price.split(" ")[0]);
-        console.log("Current price:", price); 
+	const createOrder = async () => {
         const response = await fetch("/api/paypal/create-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title,
-                price,
-                points: numberOfPostPoints,
+                title: selectedPackage.title,
+            	price: selectedPackage.price,
+            	points: selectedPackage.points,
             }),
         });
 
         const { id } = await response.json();
         return id;
-    }, [pointsPac, numberOfPostPoints]);
+    };
 
 
 	const orderRecord = async () => {
@@ -73,9 +64,9 @@ const PaymentContainer = (props: ServicePlanType) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: props.title,
-                price: props.price,
-                points: numberOfPostPoints,
+                title: selectedPackage.title,
+                price: selectedPackage.price,
+                points: selectedPackage.points,
             }),
         });
 
@@ -114,6 +105,9 @@ const PaymentContainer = (props: ServicePlanType) => {
 									layout: "vertical", 
 									borderRadius: 12 
 								}}
+								disabled={false}
+								forceReRender={[amount, currency, style]}
+								fundingSource={undefined}
 								createOrder={createOrder}
 								onApprove={async (data) => {
 									const res = await fetch(`/api/paypal/capture-order`, {

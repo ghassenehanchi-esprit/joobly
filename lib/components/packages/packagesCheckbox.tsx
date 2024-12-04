@@ -11,12 +11,14 @@ import { PackageType } from "@/lib/types/componentTypes";
 interface PackageCheckboxProps {
 	title: string;
 	percent: string;
+	price: number;
 	value: string;
 	checked: boolean;
+	points: number;
 	onChange: (packageInfo: PackageType) => void;
 }
 
-const PackagesCheckbox = ({ title, percent, value, checked, onChange }: PackageCheckboxProps) => {
+const PackagesCheckbox = ({ title, price, points, percent, value, checked, onChange }: PackageCheckboxProps) => {
 	return (
 		<section
 			className={`${styles["packages-checkbox__container"]} ${checked ? styles.checked : ""}`}
@@ -25,7 +27,7 @@ const PackagesCheckbox = ({ title, percent, value, checked, onChange }: PackageC
 				<div className={styles["packages-checkbox__image-label-wrapper"]}>
 					<RadioCheckbox
 						checked={checked}
-						onChange={(e) => onChange({ title, percent, value, active: checked })}
+						onChange={(e) => onChange({ title, points, price, percent, value, active: checked })}
 					/>
 					<label>{title}</label>
 				</div>
