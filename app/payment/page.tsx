@@ -9,7 +9,7 @@ import { ServicePlanType } from "@/lib/types/componentTypes";
 const Payment = () => {
 	const [monthly, setMonthly] = useState<boolean>(true);
 	const [yearly, setYearly] = useState<boolean>(false);
-	const [servicePlan, setServicePlan] = useState<ServicePlanType>({
+	const [servicePlan, setServicePlan] = useState<any>({
 		title: "Bronze",
 		price: 0,
 	});

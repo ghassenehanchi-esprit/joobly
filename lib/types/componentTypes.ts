@@ -88,7 +88,7 @@ export type ServicePlanType = {
 	percent: string;
 	value?: string;
 	active: boolean;
-	price?: number;
+	price?: number | string;
 };
 export interface JobsPagePropsTypes {
 	params?: { value: string | number };

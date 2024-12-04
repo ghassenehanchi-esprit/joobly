@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 
 
-const PaymentContainer = () => {
+const PaymentContainer = ({props}: any) => {
 	const selectedPackage: ServicePlanType = useSelector((state: RootState) => state.packages.selectedPackage);
 	const amount = selectedPackage.price;
     const currency = "CZK";
