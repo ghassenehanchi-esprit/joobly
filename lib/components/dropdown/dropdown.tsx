@@ -12,7 +12,7 @@ import { IoIosClose } from "react-icons/io";
 
 
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   const [selectedItem, setSelectedItem] = useState(defaultSelected);
   const toggleDropdown = () => setOpen(!isOpen);
   const handleItemClick = (e: any,label:string) => {
@@ -22,7 +22,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
   }
 
   return (
-    <ClickAwayListener onClickAway={()=>setOpen(false)}>
+    <ClickAwayListener onClickAway={()=>setOpen(true)}>
     <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
       <div className={styles['header']} onClick={toggleDropdown} >
                 <span className='min-w-max ml-2'>
@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
           onClick={() => {
             queryPushing && queryPushing("")
             setSelectedItem(undefined)
-            setOpen(false);
+            setOpen(true); //false
           }}
         >
           <IoIosClose />
