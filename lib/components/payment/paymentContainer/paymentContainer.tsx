@@ -1,3 +1,4 @@
+"use client"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Button from "@/lib/components/button/button";
 import { ServicePlanType } from "@/lib/types/componentTypes";
@@ -5,12 +6,18 @@ import styles from "./paymentContainer.module.scss";
 
 import { FaStripe } from "react-icons/fa";
 import { extractFirstTwoDigits } from "@/lib/constant/helpers";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+
 
 const PaymentContainer = (props: ServicePlanType) => {
-
+	const [pointsPac, setPointsPac] = useState<any>(null)
 	const numberOfPostPoints = extractFirstTwoDigits(props.title);
+	console.log(props.price);
+	console.log(pointsPac);
 
+	useEffect(() => {
+		setPointsPac(props)
+	}, [])
 
 
 	//Stripe logic
@@ -42,20 +49,23 @@ const PaymentContainer = (props: ServicePlanType) => {
 
 	//paypal logic
 	const createOrder = useCallback(async () => {
-        console.log("Current price:", props.price); 
+		const { title, price } = pointsPac;
+		console.log(price);
+        //const price = parseFloat(price.split(" ")[0]);
+        console.log("Current price:", price); 
         const response = await fetch("/api/paypal/create-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: props.title,
-                price: props.price,
+                title,
+                price,
                 points: numberOfPostPoints,
             }),
         });
 
         const { id } = await response.json();
         return id;
-    }, [props.title, props.price, numberOfPostPoints]);
+    }, [pointsPac, numberOfPostPoints]);
 
 
 	const orderRecord = async () => {
