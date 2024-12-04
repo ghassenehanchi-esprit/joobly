@@ -740,20 +740,26 @@ export const POST_PACKAGES_ACTIONS = [
 export const PACKAGES = [
 	{
 		title: "5 Job Postings",
+		points: 5,
 		percent: "30% Rebate",
 		value: "275.00 CZK",
+		price: 275,
 		active: true,
 	},
 	{
 		title: "10 Job Postings",
+		points: 10,
 		percent: "40% Rebate",
 		value: "390.00 CZK",
+		price: 390,
 		active: false,
 	},
 	{
 		title: "15 Job Postings",
+		points: 15,
 		percent: "50% Rebate",
 		value: "650.00 CZK",
+		price: 650,
 		active: false,
 	},
 ];

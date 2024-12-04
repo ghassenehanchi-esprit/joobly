@@ -83,9 +83,9 @@ export type PlanContainerDataType = {
 };
 
 export type ServicePlanType = {
-	dbOrderId?: string;
 	title: string;
 	price: number;
+	points: number
 };
 export interface JobsPagePropsTypes {
 	params?: { value: string | number };
@@ -103,9 +103,11 @@ export interface JobsPagePropsTypes {
 }
 export type PackageType = {
 	title: string;
+	points: number;
 	percent: string;
-	value: string;
+	value?: string;
 	active: boolean;
+	price?: number;
 };
 export type UserMenuProps = {
 	items: {

@@ -8,23 +8,29 @@ import { PACKAGES, POST_PACKAGES_ACTIONS } from "@/lib/constant/constants";
 import checkMark from "@/public/images/icons/checkmark.svg";
 import PackagesCheckbox from "@/lib/components/packages/packagesCheckbox";
 import PaymentContainer from "@/lib/components/payment/paymentContainer/paymentContainer";
-import { PackageType, ServicePlanType } from "@/lib/types/componentTypes";
+import { PackageType } from "@/lib/types/componentTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { setPackage } from "@/lib/features/packageSlice/packageSlice";
 
 const PackagesPage = () => {
-    const [selectedPackage, setSelectedPackage] = useState<PackageType>(PACKAGES[0]); // Установка первого пакета по умолчанию
+    const dispatch = useDispatch();
+    const selectedPackage = useSelector((state: RootState) => state.packages.selectedPackage);
 
     const changePackage = (packageInfo: PackageType) => {
-        console.log("Selected package:", packageInfo);
-        setSelectedPackage(packageInfo); // Обновляем выбранный пакет
+        dispatch(setPackage(packageInfo));
     };
+    
+    
+      const servicePlan = {
+        title: selectedPackage.title,
+        price: selectedPackage.price,
+        points: selectedPackage.points as number
+      };
 
 
-    const servicePlan = (packageItem: PackageType): ServicePlanType => {
-        return {
-            title: packageItem.title as string,
-            price: parseFloat(packageItem.value.split(" ")[0]),
-        };
-    };
+    
+    
 
 
     return (
@@ -45,6 +51,8 @@ const PackagesPage = () => {
                     <PackagesCheckbox
                         key={index}
                         title={item.title}
+                        price={item.price}
+                        points={item.points}
                         percent={item.percent}
                         value={item.value}
                         checked={selectedPackage.title === item.title}
@@ -52,7 +60,7 @@ const PackagesPage = () => {
                     />
                 ))}
             </div>
-            <PaymentContainer {...servicePlan(selectedPackage)} />
+            <PaymentContainer {...servicePlan} />
             <label className={styles["ending_text_head"]}> Want to post more?</label>
             <p className={styles["ending_text"]}>
                 Please contact us and we will find a personalized solution for you.

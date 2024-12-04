@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "@/lib/styles/globals.scss";
 import Header from "@/app/header";
-import Footer from "@/app/footer";
-import styles from "./packagesPage.module.scss";
+import ClientProvider from "@/lib/components/ClientProvider";
+
 
 const mainFont = Source_Sans_3({ subsets: ["latin"] });
 
@@ -20,7 +20,10 @@ export default function PackagesLayout({ children }: { children: React.ReactNode
 				topHeaderTitle=''
 				bottomHeaderTitle='Packages and Subscriptions'
 			/>
-			{children}
+			<ClientProvider>
+					{children}
+			</ClientProvider>
+			
 		</>
 	);
 }
