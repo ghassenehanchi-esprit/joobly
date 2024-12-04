@@ -1,12 +1,13 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import Image from 'next/image';
-import { DropdownProps } from '@/lib/types/componentTypes';
+import {DropdownProps} from '@/lib/types/componentTypes';
 
 import styles from './dropdown.module.scss';
 import arrowIcon from '@/public/images/icons/dropdown-arrow.svg';
-import IconButton from '@mui/material/IconButton';
-import { ClickAwayListener } from '@mui/base';
+import IconButton from "@mui/material/IconButton";
+import {ClickAwayListener} from "@mui/base";
+
 
 import { IoIosClose } from 'react-icons/io';
 
@@ -14,15 +15,6 @@ import { IoIosClose } from 'react-icons/io';
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(defaultSelected);
-  const [windowWidth, setWindowWidth] = useState<any>(0);
-
-  useEffect(() => {
-    setWindowWidth(window?.innerWidth);
-    if (windowWidth <= 960) {
-      setOpen(true);
-    }
-}, [windowWidth]);
-
   const toggleDropdown = () => setOpen(!isOpen);
   const handleItemClick = (e: any,label:string) => {
     selectedItem !== e.target.id && setSelectedItem(e.target.id);
@@ -30,15 +22,8 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
     toggleDropdown();
   }
 
-
-    
-
-
-
-
-
   return (
-    <ClickAwayListener onClickAway={()=>setOpen(!isOpen)}>
+    <ClickAwayListener onClickAway={()=>setOpen(false)}>
     <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
       <div className={styles['header']} onClick={toggleDropdown} >
                 <span className='min-w-max ml-2'>
@@ -59,7 +44,7 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
           onClick={() => {
             queryPushing && queryPushing("")
             setSelectedItem(undefined)
-            setOpen(!isOpen);
+            setOpen(false);
           }}
         >
           <IoIosClose />
@@ -82,3 +67,6 @@ const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle,
 };
 
 export default Dropdown;
+
+
+
