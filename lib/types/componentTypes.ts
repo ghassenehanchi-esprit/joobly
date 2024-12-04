@@ -84,8 +84,11 @@ export type PlanContainerDataType = {
 
 export type ServicePlanType = {
 	title: string;
-	price: number;
-	points: number
+	points: number;
+	percent: string;
+	value?: string;
+	active: boolean;
+	price?: number;
 };
 export interface JobsPagePropsTypes {
 	params?: { value: string | number };

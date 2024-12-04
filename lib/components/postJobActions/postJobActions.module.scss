@@ -4,7 +4,8 @@
 .post-job-actions {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 16px;
+	padding: 10px;
 
 	&__wrapper {
 		display: flex;
@@ -16,6 +17,22 @@
 			font-style: normal;
 			font-weight: 400;
 			line-height: normal;
+			position: relative;
+			padding-left: 30px; // Отступ для картинки
+
+			&::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				
+				top: 30%;
+				transform: translateY(-50%);
+				width: 22px; // Ширина изображения
+				height: 20px; // Высота изображения
+				background-image: url('/images/icons/checkmark.svg'); 
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
 		}
 	}
 }

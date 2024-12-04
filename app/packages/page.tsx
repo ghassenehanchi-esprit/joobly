@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import styles from "./packagesPage.module.scss";
 import packagesBg from "../../public/images/packageBg.svg";
 import Image from "next/image";
@@ -12,6 +11,7 @@ import { PackageType } from "@/lib/types/componentTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { setPackage } from "@/lib/features/packageSlice/packageSlice";
+import Link from "next/link";
 
 const PackagesPage = () => {
     const dispatch = useDispatch();
@@ -21,27 +21,24 @@ const PackagesPage = () => {
         dispatch(setPackage(packageInfo));
     };
     
-    
+    {/*
       const servicePlan = {
         title: selectedPackage.title,
         price: selectedPackage.price,
         points: selectedPackage.points as number
       };
-
-
-    
-    
+    */}
 
 
     return (
         <section className={styles["packages_page"]}>
             <div className={styles["about_contex"]}>
-                <div className={styles["about_contex__image"]}>
-                    <Image src={packagesBg} alt="Package's Background" />
-                </div>
                 <div className={styles["about_contex__list"]}>
                     <h1>Advantages</h1>
-                    <PostJobActions data={POST_PACKAGES_ACTIONS} image={checkMark} color="black" />
+                    <PostJobActions data={POST_PACKAGES_ACTIONS} color="black" />
+                </div>
+                <div className={styles["about_contex__image"]}>
+                    <Image src={packagesBg} width={600} height={400} alt="Package's Background" />
                 </div>
             </div>
             <div className={styles["packages-page__wrapper"]}>
@@ -60,10 +57,10 @@ const PackagesPage = () => {
                     />
                 ))}
             </div>
-            <PaymentContainer {...servicePlan} />
+            <PaymentContainer /> {/* selector initialization in component + */}
             <label className={styles["ending_text_head"]}> Want to post more?</label>
             <p className={styles["ending_text"]}>
-                Please contact us and we will find a personalized solution for you.
+                Please <Link className="text-[#006c53] underline hover:text-[#009c77] duration-200" href="/contact">contact</Link> us and we will find a personalized solution for you.
             </p>
         </section>
     );
