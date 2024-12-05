@@ -8,6 +8,7 @@ import { optionItems } from "@/lib/types/componentTypes";
 import { CiSearch } from "react-icons/ci";
 
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import Link from "next/link";
 
 interface TopbarProps {
 	style?: React.CSSProperties;
@@ -47,23 +48,20 @@ const Topbar: React.FC<TopbarProps> = ({
 	defaultJobSearchValue,
 	defaultExperienceLevel,
 }) => {
-	const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
+	//const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
 	const [isFilterActive, setIsFilterActive] = useState<boolean>(true);
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
 
-
+{/*
 	useEffect(() => {
         setWindowWidth(window?.innerWidth);
     }, []);
+*/}
+	
 
 
-	useEffect(() => {
-		if (windowWidth < 960) {
-			setIsFilterActive(false);
-		}
-	}, [windowWidth])
 
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
@@ -85,19 +83,26 @@ const Topbar: React.FC<TopbarProps> = ({
 			</button>
 					<div
 					style={style}
-					className={`bg-light rounded-lg ${!isFilterActive ? "hidden" : ""} shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px]`}
+					className={`bg-light rounded-lg ${!isFilterActive ? "hidden" : ""} shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px] flex-1`}
 					>
-					<div className="flex items-center gap-3 mb-8">
-						<CiSearch className="w-5 h-5 text-gray-500"/>
-						<input
-							defaultValue={defaultJobSearchValue || ""}
-							onChange={(e) =>
-								router.push(pathname + "?" + createQueryString("jobTitle", e.target.value))
-							}
-							type="text"
-							className="w-[188px] h-[32px] placeholder-gray-500 placeholder-opacity-60 placeholder-font-semibold placeholder-line-[21px] text-lg"
-							placeholder="Search job name"
-						/>
+					<div className="flex items-center gap-3 mb-8 flex-1">
+						<div className="flex items-center justify-between">
+							<CiSearch className="w-5 h-5 text-gray-500"/>
+							<input
+								defaultValue={defaultJobSearchValue || ""}
+								onChange={(e) =>
+									router.push(pathname + "?" + createQueryString("jobTitle", e.target.value))
+								}
+								type="text"
+								className="w-[188px] h-[32px] placeholder-gray-500 placeholder-opacity-60 placeholder-font-semibold placeholder-line-[21px] text-lg"
+								placeholder="Search job name"
+							/>
+						</div>
+						<Link 
+						className="bg-light rounded-md border border-gray-200 py-1 px-4 mb-2 text-gray-500"
+						href={'/jobs'}>
+							Clear 
+						</Link>
 					</div>
 					{/*  @ts-ignore */}
 					<Dropdown

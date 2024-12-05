@@ -15,7 +15,9 @@ import { IoIosClose } from 'react-icons/io';
 const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected,queryPushing}) => {
   const [isOpen, setOpen] = useState(true); //false
   const [selectedItem, setSelectedItem] = useState(defaultSelected);
-  const toggleDropdown = () => setOpen(!isOpen);
+  const toggleDropdown = () => {
+    //setOpen(!isOpen)
+  };
   const handleItemClick = (e: any,label:string) => {
     selectedItem !== e.target.id && setSelectedItem(e.target.id);
     queryPushing && queryPushing(label)
