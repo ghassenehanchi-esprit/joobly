@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import Dropdown from "@/lib/components/dropdown/dropdown";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -45,6 +45,7 @@ const Topbar: React.FC<TopbarProps> = ({
 	defaultJobSearchValue,
 	defaultExperienceLevel,
 }) => {
+	const [isFilterActive, setIsFilterActive] = useState<boolean>("true");
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
@@ -62,7 +63,7 @@ const Topbar: React.FC<TopbarProps> = ({
 	return (
 		<div
 			style={style}
-			className="bg-light rounded-lg shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px]"
+			className={`bg-light rounded-lg ${!isFilterActive ? "hidden" : ""} shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px]`}
 		>
 			<div className="flex items-center gap-3 mb-8">
 				<CiSearch className="w-5 h-5 text-gray-500"/>
