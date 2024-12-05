@@ -45,7 +45,7 @@ const Topbar: React.FC<TopbarProps> = ({
 	defaultJobSearchValue,
 	defaultExperienceLevel,
 }) => {
-	const [isFilterActive, setIsFilterActive] = useState<boolean>("true");
+	const [isFilterActive, setIsFilterActive] = useState<boolean>(true);
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
