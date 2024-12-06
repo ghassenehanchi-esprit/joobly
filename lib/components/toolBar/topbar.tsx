@@ -83,9 +83,9 @@ const Topbar: React.FC<TopbarProps> = ({
 			</button>
 					<div
 					style={style}
-					className={`bg-light rounded-lg ${!isFilterActive ? "hidden" : ""} shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px] flex-1`}
+					className={`bg-light rounded-lg ${!isFilterActive ? "hidden" : ""} shadow-[0_4px_120px_rgba(151,159,183,0.15)] py-4 px-6 min-w-[300px]`}
 					>
-					<div className="flex items-center gap-3 mb-8 flex-1">
+					<div className="flex items-center justify-between mb-8">
 						<div className="flex items-center justify-between">
 							<CiSearch className="w-5 h-5 text-gray-500"/>
 							<input
