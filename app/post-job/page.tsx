@@ -129,6 +129,7 @@ const PostJob = () => {
 		push("/");
 	};
 
+
 	return (
 		<section className={styles["post-job-page"]}>
 			<section className={styles["post-job-page-form"]}>
