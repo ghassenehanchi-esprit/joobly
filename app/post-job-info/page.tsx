@@ -45,6 +45,10 @@ const PostJobInfo = () => {
               <Button onClick={()=>push("/post-job")} style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
                 Post a Job
               </Button>
+          ) : profile && jobPostPoints === 0 ? (
+            <Button onClick={()=>push("/payment")} style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
+              Post a Job
+            </Button>
           ) : (
             <Button onClick={() => postJobInfoMessage('To post a job you need to be logged in')} 
             style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
