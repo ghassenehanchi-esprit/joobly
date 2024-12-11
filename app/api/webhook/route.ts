@@ -1,5 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 import { PointsOrder } from "@/models/PointsOrder";
+import { User } from "@/models/User";
+import mongoose from "mongoose";
 
 export async function POST(req: Request) {
     const sig = req.headers.get('stripe-signature');
@@ -21,13 +23,40 @@ export async function POST(req: Request) {
         console.log(event);
         const orderId = event?.data?.object?.metadata?.orderId;
         const isPaid = event?.data?.object?.payment_status === 'paid';
-        if (isPaid) {
-            await PointsOrder.updateOne({ _id: orderId }, { paid: true });
-        }
-    }
 
-    return new Response(JSON.stringify({ message: 'ok' }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-    });
+
+            if (isPaid) {
+                await mongoose.connect(process.env.MONGODB_URI as string);
+                const orderPaid = await PointsOrder.updateOne({ _id: orderId }, { paid: true });
+                const order = await PointsOrder.findById(orderId);
+    
+                if (orderPaid) {
+                    const updatedUser = await User.findOneAndUpdate(
+                        { email: order.userEmail },
+                        { $inc: { jobPostPoints: order.points } },
+                        { new: true }
+                      );
+                    if (updatedUser) {
+                        return new Response(JSON.stringify({ message: 'ok' }), {
+                            status: 200,
+                            headers: { 'Content-Type': 'application/json' },
+                        });
+                    } else {
+                        return new Response(JSON.stringify({ message: 'error updating the points' }), {
+                            status: 200,
+                            headers: { 'Content-Type': 'application/json' },
+                        });
+                    }
+                }
+            }
+        } else {
+            return new Response(JSON.stringify({ message: 'payment error' }), {
+                status: 501,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+    
 }
+
+
