@@ -10,19 +10,25 @@ const Payment = () => {
 	const [monthly, setMonthly] = useState<boolean>(true);
 	const [yearly, setYearly] = useState<boolean>(false);
 	const [servicePlan, setServicePlan] = useState<any>({
-		title: "Bronze",
-		price: 0,
+		title: "1 Job Postings",
+		price: 150,
+		points: 1
 	});
 
 	return (
 		<section className={styles["payment-page"]}>
 			<div className={styles["payment-page__wrapper"]}>
-				 <PaymentPlanCheckbox
+				{
+					/*
+					<PaymentPlanCheckbox
 					monthly={monthly}
 					yearly={yearly}
 					setMonthly={setMonthly}
 					setYearly={setYearly}
 				/>
+					*/
+				}
+				
 				<ServicePlans servicePlan={servicePlan} setServicePlan={setServicePlan} />
 				{!!servicePlan && <PaymentContainer {...servicePlan} />}
 			</div>

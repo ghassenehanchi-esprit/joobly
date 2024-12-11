@@ -4,7 +4,6 @@ import packagesBg from "../../public/images/packageBg.svg";
 import Image from "next/image";
 import PostJobActions from "@/lib/components/postJobActions/postJobActions";
 import { PACKAGES, POST_PACKAGES_ACTIONS } from "@/lib/constant/constants";
-import checkMark from "@/public/images/icons/checkmark.svg";
 import PackagesCheckbox from "@/lib/components/packages/packagesCheckbox";
 import PaymentContainer from "@/lib/components/payment/paymentContainer/paymentContainer";
 import { PackageType } from "@/lib/types/componentTypes";

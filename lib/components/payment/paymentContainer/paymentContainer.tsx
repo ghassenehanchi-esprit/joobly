@@ -22,9 +22,9 @@ const PaymentContainer = ({props}: any) => {
 				method: "POST",
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
-					title: selectedPackage.title,
-					price: 700,
-					points: selectedPackage.points
+					title: props?.title ? props?.title : selectedPackage?.title,
+					price: props?.price ? props?.price : selectedPackage?.price,
+					points: props?.points ? props?.points : selectedPackage?.points
 				}),
 			});
 
@@ -48,9 +48,9 @@ const PaymentContainer = ({props}: any) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: selectedPackage.title,
-            	price: selectedPackage.price,
-            	points: selectedPackage.points,
+                title: props?.title ? props?.title : selectedPackage?.title,
+				price: props?.price ? props?.price : selectedPackage?.price,
+				points: props?.points ? props?.points : selectedPackage?.points
             }),
         });
 
@@ -64,9 +64,9 @@ const PaymentContainer = ({props}: any) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: selectedPackage.title,
-                price: selectedPackage.price,
-                points: selectedPackage.points,
+                title: props?.title ? props?.title : selectedPackage?.title,
+				price: props?.price ? props?.price : selectedPackage?.price,
+				points: props?.points ? props?.points : selectedPackage?.points
             }),
         });
 
