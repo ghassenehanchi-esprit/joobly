@@ -1,36 +1,41 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./paymenPage.module.scss";
-import PaymentPlanCheckbox from "@/lib/components/payment/paymentPlanCheckbox/paymentPlanCheckbox";
 import ServicePlans from "@/lib/components/servicePlans/servicePlans";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { setPackage } from "@/lib/features/packageSlice/packageSlice";
 import PaymentContainer from "@/lib/components/payment/paymentContainer/paymentContainer";
-import { ServicePlanType } from "@/lib/types/componentTypes";
+
+
+const defaultPlan: any = {
+	title: "1 Basic Job Post",
+	price: 150,
+	points: 1,
+	percent: "30% Rebate",
+	value: "150.00 CZK",
+	isActive: true,
+};
 
 const Payment = () => {
-	const [monthly, setMonthly] = useState<boolean>(true);
-	const [yearly, setYearly] = useState<boolean>(false);
-	const [servicePlan, setServicePlan] = useState<any>({
-		title: "1 Job Postings",
-		price: 150,
-		points: 1
-	});
+	const dispatch = useDispatch();
+	const selectedPackage = useSelector((state: RootState) => state.packages.selectedPackage);
+	
+
+	useEffect(() => {
+		dispatch(setPackage(defaultPlan));
+	}, [dispatch]);
+
+	const handleServicePlanChange = (plan: any) => {
+		dispatch(setPackage(plan));
+	};
 
 	return (
 		<section className={styles["payment-page"]}>
 			<div className={styles["payment-page__wrapper"]}>
-				{
-					/*
-					<PaymentPlanCheckbox
-					monthly={monthly}
-					yearly={yearly}
-					setMonthly={setMonthly}
-					setYearly={setYearly}
-				/>
-					*/
-				}
 				
-				<ServicePlans servicePlan={servicePlan} setServicePlan={setServicePlan} />
-				{!!servicePlan && <PaymentContainer {...servicePlan} />}
+				<ServicePlans servicePlan={selectedPackage} setServicePlan={handleServicePlanChange} />
+				{!!selectedPackage && <PaymentContainer props={selectedPackage} />}
 			</div>
 		</section>
 	);

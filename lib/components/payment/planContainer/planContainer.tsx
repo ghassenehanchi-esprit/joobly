@@ -17,11 +17,13 @@ const PlanContainer = ({
 	onClick,
 	isActive,
 }: PlanContainerPropsTypes) => {
+
 	return (
-			<section className={`p-6 w-full 
-			${title === "Gold" ? 'bg-black' : 'bg-inputBg'} rounded-xl border-2 border-white 
-			flex flex-col justify-between
-			${isActive && 'border-[#009c77]'}
+			<section
+			className={`p-6 w-full 
+				${title === "Premium" ? "bg-black" : "bg-inputBg"} rounded-xl border-2 
+				flex flex-col justify-between
+				${isActive ? "border-[#009c77]" : "border-white"}
 			`}
 			>
 				<div>
@@ -29,25 +31,25 @@ const PlanContainer = ({
 						<Image width={48} height={48} src={logo} alt='logo' />
 						<h1
 							className={`${'text-lg font-semibold'} ${
-								title === "Gold" && "text-white"
+								title === "Premium" && "text-white"
 							}`}
 						>
 							{title}
 						</h1>
 					</div>
 					<p className={"text-gray-400 mt-4"}>
-						{title === "Bronze" ? "Perfect plan to get started" : "Paid plan with features"}
+						{title === "Basic" ? "Perfect plan to get started" : "Paid plan with features"}
 					</p>
 					<p
 						className={`${'text-md mt-4'} ${
-							title === "Gold" && "text-white"
+							title === "Premium" && "text-white"
 						}`}
 					>
 						{planPrice} CZK /month
 					</p>
 					<p
 						className={`${'text-sm mt-2 text-gray-500'}  ${
-							title === "Gold" && styles["text-black"]
+							title === "Premium" && styles["text-black"]
 						}`}
 					>
 						{title === "Bronze"
@@ -62,7 +64,7 @@ const PlanContainer = ({
 							onClick={onClick}
 							style={{ width: "100%", height: "56px" }}
 							className={
-								title === "Gold" ? `btn-plans-white green-text` : `btn-green-outlined green-text`
+								title ===  "Premium" ? `btn-plans-white green-text` : `btn-green-outlined green-text`
 							}
 						>
 							Select
