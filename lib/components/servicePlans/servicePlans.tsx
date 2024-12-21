@@ -10,14 +10,10 @@ interface ServicePlansPropsTypes {
 }
 
 const ServicePlans = ({ setServicePlan, servicePlan }: any) => {
-	const plans = PLANS.map((item) => {
-		if (item.planPrice === servicePlan.price) {
-			item.isActive = true;
-		} else {
-			item.isActive = false;
-		}
-		return item;
-	});
+	const plans = PLANS.map((item) => ({
+		...item,
+		isActive: item.planPrice === servicePlan.price, 
+	}));
 
 	return (
 		<section className={styles["service-plans"]}>
@@ -34,8 +30,10 @@ const ServicePlans = ({ setServicePlan, servicePlan }: any) => {
 					<PlanContainer
 						onClick={() =>
 							setServicePlan({
-								title: `${title} Plan`,
+								title: `1 ${title} Joob Post`,
 								price: planPrice,
+								points: 1,
+								isActive: true
 							})
 						}
 						key={index}

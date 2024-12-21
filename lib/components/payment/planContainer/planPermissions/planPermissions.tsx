@@ -17,7 +17,7 @@ const PlanPermissions = ({data,title}:PlanPermissionsPropsTypes) => {
       {data?.map(({name, permission}, index) =>
         <div key={index} className={styles["plan-permissions__item"]}>
           <Image width={24} height={24} src={permission ? havePerm : noPerm} alt=""/>
-          <p className={`${styles["plan-permissions__item__text"]} ${!permission && styles["no-perm"]} ${title==="Gold" && styles["gold-plan"]}`}>{name}</p>
+          <p className={`${styles["plan-permissions__item__text"]} ${!permission && styles["no-perm"]} ${title==="Premium" && styles["gold-plan"]}`}>{name}</p>
         </div>
       )}
     </section>

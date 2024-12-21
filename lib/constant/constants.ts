@@ -571,155 +571,104 @@ export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const BRONZE_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
-		name: "Task Management & Scheduling",
+		name: "Single Job Post",
 		permission: true,
 	},
 	{
-		name: "Interview Schedule",
+		name: "Job posting on the portal for 30 days",
 		permission: true,
 	},
 	{
-		name: "Detailed Job Postsg",
+		name: "Access to basic performance insights",
 		permission: true,
 	},
 	{
-		name: "Unlimited Views",
+		name: "Job promotion with Instagram Story on Prague Morning",
 		permission: true,
 	},
 	{
-		name: "User Access",
-		permission: true,
-	},
-	{
-		name: "Notifications",
-		permission: true,
-	},
-	{
-		name: "Job Post",
-		permission: true,
-	},
-	{
-		name: "Messaging",
+		name: "Access to advanced performance insights (views, clicks)",
 		permission: false,
 	},
 	{
-		name: "Candidate Reviews",
-		permission: false,
-	},
-	{
-		name: "Candidate Database Discovery",
+		name: "Email support for any issues",
 		permission: false,
 	},
 ];
 export const GOLD_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
-		name: "Task Management & Scheduling",
+		name: "Single Job Post",
 		permission: true,
 	},
 	{
-		name: "Candidate Database Discovery",
+		name: "Job posting on the portal for 60 days",
 		permission: true,
 	},
 	{
-		name: "Platform Auto Online Meet ",
+		name: "Job promotion with Instagram Story on Prague Morning",
 		permission: true,
 	},
 	{
-		name: "Interview Schedule",
+		name: "Featured in Prague Morning daily newsletter and shared in Facebook group",
 		permission: true,
 	},
 	{
-		name: "Candidate Reviews",
+		name: "Access to advanced performance insights (views, clicks)",
 		permission: true,
 	},
 	{
-		name: "Detailed Job Posts",
-		permission: true,
-	},
-	{
-		name: "Unlimited Views",
-		permission: true,
-	},
-	{
-		name: "User Access",
-		permission: true,
-	},
-	{
-		name: "Notifications",
-		permission: true,
-	},
-	{
-		name: "Messaging",
-		permission: true,
-	},
-	{
-		name: "Job Post",
+		name: "Priority email support and 24/7 assistance",
 		permission: true,
 	},
 ];
 export const SILVER_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
-		name: "Task Management & Scheduling",
+		name: "Single Job Post",
 		permission: true,
 	},
 	{
-		name: "Interview Schedule",
+		name: "Job posting on the portal for 40 days",
 		permission: true,
 	},
 	{
-		name: "Detailed Job Postsg",
+		name: "Job promotion with Instagram Story on Prague Morning",
 		permission: true,
 	},
 	{
-		name: "Unlimited Views",
+		name: "Access to advanced performance insights (views, clicks)",
 		permission: true,
 	},
 	{
-		name: "User Access",
+		name: "Email support for any issues",
 		permission: true,
 	},
 	{
-		name: "Notifications",
-		permission: true,
-	},
-	{
-		name: "Job Post",
-		permission: true,
-	},
-	{
-		name: "Messaging",
-		permission: true,
-	},
-	{
-		name: "Candidate Reviews",
-		permission: true,
-	},
-	{
-		name: "Candidate Database Discovery",
+		name: "Priority email support and 24/7 assistance",
 		permission: false,
 	},
+	
 ];
 
 export const PLANS: PlanContainerDataType[] = [
 	{
-		title: "Bronze",
+		title: "Basic",
 		logo: bronze,
 		data: BRONZE_PLAN_PERMISSIONS,
-		planPrice: 0,
+		planPrice: 350,
 		isActive: false,
 	},
 	{
-		title: "Gold",
+		title: "Premium",
 		logo: gold,
 		data: GOLD_PLAN_PERMISSIONS,
-		planPrice: 150,
+		planPrice: 550,
 		isActive: false,
 	},
 	{
-		title: "Silver",
+		title: "Standard",
 		logo: silver,
 		data: SILVER_PLAN_PERMISSIONS,
-		planPrice: 240,
+		planPrice: 450,
 		isActive: false,
 	},
 ];
