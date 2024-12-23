@@ -10,8 +10,8 @@ const initialState: PackageState = {
     title: "5 Job Postings",
     points: 5,
     percent: "30% Rebate",
-    value: "275.00 CZK",
-    price: 275,
+    value: "1500.00 CZK",
+    price: 1500,
     active: true,
   },
 };
