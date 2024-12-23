@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 export async function POST(req: Request) {
     const sig = req.headers.get('stripe-signature');
     let event;
+    console.log('Stripe Event:', JSON.stringify(event, null, 2)); 
 
     try {
         const reqBuffer = await req.text();
@@ -27,8 +28,12 @@ export async function POST(req: Request) {
 
             if (isPaid) {
                 await mongoose.connect(process.env.MONGODB_URI as string);
+                console.log(`Order ID: ${orderId}`);
+                console.log(`Is Paid: ${isPaid}`);
                 const orderPaid = await PointsOrder.updateOne({ _id: orderId }, { paid: true });
+                console.log(`Order Paid Response:`, orderPaid);
                 const order = await PointsOrder.findById(orderId);
+                console.log(`Order:`, order);
     
                 if (orderPaid) {
                     const updatedUser = await User.findOneAndUpdate(
