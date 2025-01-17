@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       mode: "payment",
       customer_email: userEmail,
       success_url: `${process.env.NEXTAUTH_URL}success`,
-      cancel_url: `${process.env.NEXTAUTH_URL}`,
+      cancel_url: `${process.env.NEXTAUTH_URL}error`,
       metadata: { orderId: orderDoc._id.toString() }, // Attach order ID for webhook
     });
 
