@@ -7,9 +7,12 @@ import styles from "./paymentContainer.module.scss";
 import { FaStripe } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 const PaymentContainer = ({props}: any) => {
+	const router = useRouter();
 	const selectedPackage: ServicePlanType = useSelector((state: RootState) => state.packages.selectedPackage);
 	const amount = selectedPackage.price;
     const currency = "CZK";
@@ -70,6 +73,20 @@ const PaymentContainer = ({props}: any) => {
             }),
         });
 
+		if (response.ok) {
+			router.push('success');
+		} else {
+			toast((t) => (
+				<span className="flex flex-col gap-4 text-red-400 text-center items-center mb-2">
+				  <span className="font-medium">
+					Payment failed.
+				  </span>
+				  <button onClick={() => toast.dismiss(t.id)}>
+					close
+				  </button>
+				</span>
+			  ));
+		}
 	}
 
 
