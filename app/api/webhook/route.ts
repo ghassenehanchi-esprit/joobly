@@ -30,7 +30,7 @@ export async function POST(req: Request) {
                 await mongoose.connect(process.env.MONGODB_URI as string);
                 console.log(`Order ID: ${orderId}`);
                 console.log(`Is Paid: ${isPaid}`);
-                const orderPaid = await PointsOrder.updateOne({ _id: orderId }, { paid: true },  { new: true });
+                const orderPaid = await PointsOrder.updateOne({ _id: orderId }, { paid: true });
                 console.log(`Order Paid Response:`, orderPaid);
                 const order = await PointsOrder.findById(orderId);
                 console.log(`Order:`, order);
