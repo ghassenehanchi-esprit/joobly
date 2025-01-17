@@ -53,7 +53,7 @@ const DashboardPage = () => {
                 className="bg-[#006c53] text-white px-4 py-2 border 
                 hover:bg-white hover:text-[#006c53] border-[#006c53] 
                 rounded-xl duration-300"
-                href={'/packages'}
+                href={'/payment'}
                 >
                   Buy more
                 </Link>
