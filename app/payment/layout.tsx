@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PaymentLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
-			<Header topHeaderTitle='' bottomHeaderTitle='List Payment' />
+			<Header needBackgroundHeader={false} topHeaderTitle='' />
 			{children}
 		</>
 	);
