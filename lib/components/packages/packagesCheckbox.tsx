@@ -4,7 +4,7 @@ import styles from "../../components/packages/packagesCheckbox.module.scss";
 import RadioCheckbox from "../radioCheckbox/RadioCheckbox";
 import Image from "next/image";
 import percent_icon from "../../../public/images/icons/discount.svg";
-import value_icon from "../../../public/images/icons/dollar-circle.svg";
+import value_icon from "../../../public/images/icons/czechkoruna.svg";
 import ellipse from "../../../public/images/icons/Ellipse.svg";
 import { PackageType } from "@/lib/types/componentTypes";
 
@@ -62,7 +62,7 @@ const PackagesCheckbox = ({ title, price, points, percent, value, checked, onCha
 
 			<div className={styles["packages-checkbox__checkboxes__checkbox"]}>
 				<div className={styles["packages-checkbox__image-label-wrapper"]}>
-					<Image className={styles["packages-checkbox__image"]} src={value_icon} alt='value_icon' />
+					<Image className={styles["packages-checkbox__image-value"]} width={50} height={50} src={value_icon} alt='value_icon' />
 					<label>{value}</label>
 				</div>
 			</div>
