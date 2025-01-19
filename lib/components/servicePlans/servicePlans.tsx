@@ -21,9 +21,6 @@ const ServicePlans = ({ setServicePlan, servicePlan }: any) => {
 				<label className={styles["service-plans__labels__label"]}>
 					Service Plans<span>*</span>
 				</label>
-				<label className={styles["service-plans__labels__subLabel"]}>
-					Choose the service that suits your needs
-				</label>
 			</div>
 			<div className={'flex flex-col gap-4 lg:flex-row mdl:gap-10'}>
 				{plans.map(({ logo, data, planPrice, title, isActive }, index) => (

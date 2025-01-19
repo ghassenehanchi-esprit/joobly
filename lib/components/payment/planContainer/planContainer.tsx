@@ -37,15 +37,12 @@ const PlanContainer = ({
 							{title}
 						</h1>
 					</div>
-					<p className={"text-gray-400 mt-4"}>
-						{title === "Basic" ? "Perfect plan to get started" : "Paid plan with features"}
-					</p>
 					<p
 						className={`${'text-md mt-4'} ${
 							title === "Premium" && "text-white"
 						}`}
 					>
-						{planPrice} CZK /month
+						{planPrice} CZK
 					</p>
 					<p
 						className={`${'text-sm mt-2 text-gray-500'}  ${
