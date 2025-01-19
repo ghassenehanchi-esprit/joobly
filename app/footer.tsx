@@ -3,6 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { FaInstagramSquare, FaLinkedin } from "react-icons/fa";
+
 const Footer = () => {
   const pathname = usePathname();
 
@@ -34,13 +36,21 @@ const Footer = () => {
             Contact
           </Link>
         </div>
-        <div className="flex justify-center w-full md:w-auto md:ml-auto">
+        <div className="flex gap-2 justify-center w-full md:w-auto md:ml-auto">
           <Link
             target={'_blank'}
             href="https://praguemorning.cz/privacy-policy/"
             className="text-sm font-normal leading-5 text-light">
             Privacy Policy
           </Link>
+          <div className='flex gap-2'>
+            <Link href={'https://www.instagram.com/joobly.cz/'} target='_blank'>
+              <FaInstagramSquare className='w-5 h-5'/>
+            </Link>
+            <Link href={'/'} target='_blank'>
+              <FaLinkedin  className='w-5 h-5'/>
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
