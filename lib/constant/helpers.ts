@@ -14,17 +14,17 @@ export function isIdentical(first: any, second: any) {
 
 export function setSalaryLine(salary: string) {
     if (+salary <= 25000) {
-        return "0 - 25.000";
+        return "0 - 25,000";
     } else if (+salary > 25000 && +salary <= 40000) {
-        return "25.000 - 40.000";
+        return "25,000 - 40,000";
     } else if (+salary > 40000 && +salary <= 80000) {
-        return "40.000 - 80.000";
+        return "40,000 - 80,000";
     } else if (+salary > 80000 && +salary <= 120000) {
-        return "80.000 - 120.000";
+        return "80,000 - 120,000";
     } else if (+salary > 120000 && +salary <= 200000) {
-        return "120.000 - 200.000";
+        return "120,000 - 200,000";
     } else if (+salary > 200000) {
-        return "200.000 - 500.000+";
+        return "200,000 - 500,000+";
     }
     return "Unknown salary"; 
 }
