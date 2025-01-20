@@ -667,7 +667,7 @@ export const PACKAGES = [
 		title: "5 Job Postings",
 		points: 5,
 		percent: "30% Save",
-		value: "1500 CZK",
+		value: "1,500 CZK",
 		price: 1500,
 		active: true,
 	},
@@ -675,7 +675,7 @@ export const PACKAGES = [
 		title: "10 Job Postings",
 		points: 10,
 		percent: "40% Save",
-		value: "2500 CZK",
+		value: "2.500 CZK",
 		price: 2500,
 		active: false,
 	},
@@ -683,7 +683,7 @@ export const PACKAGES = [
 		title: "15 Job Postings",
 		points: 15,
 		percent: "50% Save",
-		value: "3200 CZK",
+		value: "3.200 CZK",
 		price: 3200,
 		active: false,
 	},
@@ -692,10 +692,10 @@ export const PACKAGES = [
 
 export const SALARY_RANGES = [
 	{ id: "0-25,000", label: "0 - 25,000" },
-	{ id: "25.000-40.000", label: "25.000 - 40.000" },
-	{ id: "40.000-80.000", label: "40.000 - 80.000" },
-	{ id: "80.000-120000", label: "80.000 - 120.000" },
-	{ id: "120.000-200000", label: "120.000 - 200.000" },
-	{ id: "200.000-500000", label: "200.000 - 500.000+" },
+	{ id: "25,000-40.000", label: "25,000 - 40,000" },
+	{ id: "40,000-80,000", label: "40,000 - 80,000" },
+	{ id: "80,000-120000", label: "80,000 - 120,000" },
+	{ id: "120,000-200,000", label: "120,000 - 200,000" },
+	{ id: "200,000-500,000", label: "200,000 - 500,000+" },
   ];
 

@@ -62,7 +62,6 @@ const PackagesCheckbox = ({ title, price, points, percent, value, checked, onCha
 
 			<div className={styles["packages-checkbox__checkboxes__checkbox"]}>
 				<div className={styles["packages-checkbox__image-label-wrapper"]}>
-					<Image className={styles["packages-checkbox__image-value"]} width={50} height={50} src={value_icon} alt='value_icon' />
 					<label>{value}</label>
 				</div>
 			</div>
