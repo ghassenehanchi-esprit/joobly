@@ -123,6 +123,11 @@ p {
 .btn-google-login-button {
   @include btn-google-login;
 }
+
+.btn-linkedin-login-button {
+  @include btn-linkedin-login;
+}
+
 .container {
   margin: auto;
   height: 100%;

@@ -156,3 +156,16 @@
 	@include flex-row-center();
 	gap: 16px;
 }
+
+@mixin btn-linkedin-login {
+	border-radius: 8px;
+	border: 1px solid #d8dae5;
+	width: 100%;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24px;
+	height: 56px;
+	@include flex-row-center();
+	gap: 10px;
+}
