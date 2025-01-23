@@ -19,6 +19,8 @@ import { useAppSelector } from "@/lib/hooks";
 import { createUser } from "@/actions/user.actions";
 import { signIn } from "next-auth/react";
 
+import { FaLinkedin } from "react-icons/fa";
+
 
 interface Inputs {
 	name: string;
@@ -62,14 +64,24 @@ const Register = () => {
 						<h1>Hi, Welcome to Joobly</h1>
 						<p>Find your dream job in Joobly! We&apos;ll help you connect with top employers and take the first step toward a successful career.</p>
 					</div>
-					<Button 
-					onClick={() => signIn('google', {callbackUrl: '/'})}
-					className={"btn-google-login-button"}
-					type="button"
-					>
-						<Image src={google} alt='' width={25} height={25} />
-						Sign in with Google
-					</Button>
+					<div className="flex flex-col gap-2">
+						<Button 
+						onClick={() => signIn('google', {callbackUrl: '/'})}
+						className={"btn-google-login-button"}
+						type="button"
+						>
+							<Image src={google} alt='' width={25} height={25} />
+							Sign in with Google
+						</Button>
+						<Button 
+						onClick={() => signIn('linkedin', {callbackUrl: '/'})}
+						className={"btn-linkedin-login-button"}
+						type="button"
+						>
+							<FaLinkedin className="text-[#2873B3] w-7 h-7"/>
+							Sign in with LinkedIn
+						</Button>
+					</div>
 					<div className={styles["login-modal-email-login"]}>
 						<Divider>
 						<p>or Register in with Email</p>
