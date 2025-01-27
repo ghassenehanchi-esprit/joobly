@@ -16,6 +16,13 @@ export const authOptions = {
     LinkedInProvider({
       clientId: process.env.LINKEDIN_CLIENT_ID as string,
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+      checks: ["state"],
+      issuer: undefined, // Убедитесь, что проверки настроены корректно
+      authorization: {
+        params: {
+          scope: "openid profile email", // Используем OpenID scope
+        },
+      },
     }),
     CredentialsProvider({
       name: 'Credentials',
@@ -42,4 +49,5 @@ export const authOptions = {
       }
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET as string,
 };
