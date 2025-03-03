@@ -12,12 +12,24 @@ import { useClient } from "@/lib/hooks/useClient";
 import Skeleton from "@mui/material/Skeleton";
 import DateConverter from "../dateConverter/DateConverter";
 
+import DOMPurify from "dompurify";
+
 interface JobItem {
 	data: JobData;
 }
 const JobItem = ({ data }: JobItem) => {
 	const { push } = useRouter();
 	const isClient = useClient();
+
+	const truncateText = (htmlString: string, maxLength: number) => {
+		const tempDiv = document.createElement("div");
+		tempDiv.innerHTML = htmlString;
+		const textContent = tempDiv.textContent || tempDiv.innerText || "";
+		
+		return textContent.length > maxLength 
+			? textContent.slice(0, maxLength) + "..." 
+			: textContent;
+	};
 
 	return (
 		<>
@@ -27,9 +39,12 @@ const JobItem = ({ data }: JobItem) => {
 							<div className="flex flex-col gap-6">
 								<h4 className="font-bold text-lg text-dark">{data?.jobTitle}</h4>
 								<div className="max-w-[700px]">
-									{data?.description && isClient && (
-										<p dangerouslySetInnerHTML={{ __html: data?.description }} className="text-base text-gray-600" />
-									)}
+								{data?.description && isClient && (
+										<p 
+											dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncateText(data.description, 200)) }} 
+											className="text-base text-gray-600" 
+										/>
+								)}
 								</div>
 							</div>
 							<div className="flex items-center gap-5">
