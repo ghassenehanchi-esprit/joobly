@@ -509,6 +509,7 @@ export const CITIES = [
   ];
 
   export const LANGUAGES = [
+	"Czech",
 	"English",
 	"German",
 	"French",
