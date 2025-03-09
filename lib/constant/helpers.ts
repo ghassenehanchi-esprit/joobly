@@ -34,3 +34,13 @@ export function extractFirstTwoDigits(inputString: string) {
     return match ? parseInt(match[0], 10) : null;
   }
 
+
+export const truncateText = (htmlString: string, maxLength: number) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlString;
+    const textContent = tempDiv.textContent || tempDiv.innerText || "";
+    
+    return textContent.length > maxLength 
+        ? textContent.slice(0, maxLength) + "..." 
+        : textContent;
+};
