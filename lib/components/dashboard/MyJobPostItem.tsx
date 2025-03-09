@@ -5,6 +5,9 @@ import Button from '../button/button';
 import { MdDelete } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 
+import DOMPurify from "dompurify";
+import { truncateText } from "@/lib/constant/helpers";
+
 
 const MyJobPostItem = ({data}: any) => {
 
@@ -17,6 +20,8 @@ const MyJobPostItem = ({data}: any) => {
           window.location.reload();
         }
   }
+
+  
   
   const router = useRouter();
   return (
@@ -24,7 +29,7 @@ const MyJobPostItem = ({data}: any) => {
     <div className="flex flex-col gap-6">
       <h3 className="text-lg font-bold text-gray-800">{data?.jobTitle}</h3>
        <p className="max-w-[800px]"
-       dangerouslySetInnerHTML={{ __html: data?.description }}
+       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncateText(data.description, 200)) }} 
         />
     </div>
     <div className="flex flex-col items-end justify-end">

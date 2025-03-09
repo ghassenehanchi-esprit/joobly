@@ -13,6 +13,7 @@ import Skeleton from "@mui/material/Skeleton";
 import DateConverter from "../dateConverter/DateConverter";
 
 import DOMPurify from "dompurify";
+import { truncateText } from "@/lib/constant/helpers";
 
 interface JobItem {
 	data: JobData;
@@ -21,15 +22,7 @@ const JobItem = ({ data }: JobItem) => {
 	const { push } = useRouter();
 	const isClient = useClient();
 
-	const truncateText = (htmlString: string, maxLength: number) => {
-		const tempDiv = document.createElement("div");
-		tempDiv.innerHTML = htmlString;
-		const textContent = tempDiv.textContent || tempDiv.innerText || "";
-		
-		return textContent.length > maxLength 
-			? textContent.slice(0, maxLength) + "..." 
-			: textContent;
-	};
+
 
 	return (
 		<>
@@ -54,13 +47,18 @@ const JobItem = ({ data }: JobItem) => {
 									</span>
 									{data?.location}
 								</p>
-								<p className="flex items-center gap-1 text-dark font-semibold text-base">
-									<span className="inline-block">
-										CZK
-									</span>
-									{data?.salary}
-									<span className="text-gray-600 font-normal">/{data?.salaryDetail}</span>
-								</p>
+								{
+									/*
+									<p className="flex items-center gap-1 text-dark font-semibold text-base">
+										<span className="inline-block">
+											CZK
+										</span>
+										{data?.salary}
+										<span className="text-gray-600 font-normal">/{data?.salaryDetail}</span>
+									</p>
+									*/
+								}
+								
 							</div>
 						</div>
 						<div className="flex flex-col justify-between">
@@ -82,12 +80,16 @@ const JobItem = ({ data }: JobItem) => {
 											Apply Now
 										</a>
 									</Button>
-									<Button
+									{
+										/*
+										<Button
 										onClick={() => push(`/jobs/${data?._id}`)}
 										className="bg-gray-200 text-gray-500 font-bold text-lg border-2  hover:bg-white hover:border-[#006c53] hover:text-black text px-4 py-2 rounded-2xl flex items-center duration-200"
-									>
-										Detail Information
-									</Button>
+										>
+											Detail Information
+										</Button>
+										*/
+									}
 								</div>
 							</div>
 						</div>
