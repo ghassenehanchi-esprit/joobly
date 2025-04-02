@@ -11,7 +11,7 @@ import Button from "@/lib/components/button/button";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import { POST_JOB_ACTIONS } from '@/lib/constant/constants';
+import { POST_JOB_ACTIONS_SECTION_1, POST_JOB_ACTIONS_SECTION_2 } from '@/lib/constant/constants';
 import { useProfile } from '@/lib/hooks/useProfile';
 import toast from 'react-hot-toast';
 
@@ -40,7 +40,7 @@ const PostJobInfo = () => {
         <div className={styles["post-job-info__top__content"]}>
           <h1>Post jobs directly </h1>
           <h4>Publish your vacancies and start receiving applications.</h4>
-          <PostJobActions data={POST_JOB_ACTIONS} image={checkMarkLight} color="white"/>
+          <PostJobActions data={POST_JOB_ACTIONS_SECTION_1} image={checkMarkLight} color="white"/>
           {profile && jobPostPoints > 0 ? (
               <Button onClick={()=>push("/post-job")} style={{marginTop:"35px"}} className={`btn-secondary-search`} icon="/images/icons/note.svg" hoverIcon="/images/icons/list-white.svg">
                 Post a Job
@@ -64,7 +64,7 @@ const PostJobInfo = () => {
           <h1>Automatically index jobs </h1>
           <h4>Jobs already online? Save time and have them
             listed automatically.</h4>
-          <PostJobActions data={POST_JOB_ACTIONS} image={checkMark} color="black"/>
+          <PostJobActions data={POST_JOB_ACTIONS_SECTION_2} image={checkMark} color="black"/>
           <Button 
           onClick={() => postJobInfoMessage('To submit your website please contact to website administrator')} 
           style={{marginTop: "35px",maxWidth:"210px",width:"100%"}} className={`btn-secondary-search`} icon="/images/icons/note.svg"
