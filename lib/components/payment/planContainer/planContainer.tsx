@@ -21,7 +21,7 @@ const PlanContainer = ({
 	return (
 			<section
 			className={`p-6 w-full 
-				${title === "Premium" ? "bg-black" : "bg-inputBg"} rounded-xl border-2 
+				${title === "Gold" ? "bg-black" : "bg-inputBg"} rounded-xl border-2 
 				flex flex-col justify-between
 				${isActive ? "border-[#009c77]" : "border-white"}
 			`}
@@ -31,7 +31,7 @@ const PlanContainer = ({
 						<Image width={48} height={48} src={logo} alt='logo' />
 						<h1
 							className={`${'text-lg font-semibold'} ${
-								title === "Premium" && "text-white"
+								title === "Gold" && "text-white"
 							}`}
 						>
 							{title}
@@ -39,14 +39,14 @@ const PlanContainer = ({
 					</div>
 					<p
 						className={`${'text-md mt-4'} ${
-							title === "Premium" && "text-white"
+							title === "Gold" && "text-white"
 						}`}
 					>
 						{planPrice} CZK
 					</p>
 					<p
 						className={`${'text-sm mt-2 text-gray-500'}  ${
-							title === "Premium" && styles["text-black"]
+							title === "Gold" && styles["text-black"]
 						}`}
 					>
 						{title === "Bronze"
