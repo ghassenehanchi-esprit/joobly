@@ -1,5 +1,5 @@
 import bronze from "@/public/images/logos/bronzePlan.svg";
-import { BRONZE_PLAN_PERMISSIONS } from "@/lib/constant/constants";
+import { BASIC_PLAN_PERMISSIONS } from "@/lib/constant/constants";
 
 export type ButtonProps = {
 	onClick?: () => void;
