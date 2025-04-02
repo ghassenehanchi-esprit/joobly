@@ -529,7 +529,24 @@ export const CITIES = [
 	"Senior",
 	"Executive",
 	"Director"
-  ]
+  ];
+
+  export const JOB_CATEGORIES = [
+	"Sales & Business Development",
+	"Marketing & Advertising",
+	"IT & Software Development",
+	"Customer Service",
+	"Finance & Accounting",
+	"Healthcare",
+	"Engineering",
+	"Education",
+	"Hospitality",
+	"Logistics",
+	"Real Estate",
+	"Legal",
+	"HR",
+	"Creative & Design"
+  ];
 
 export const SALARY_DETAILS = ["Year", "Month", "Week"];
 export const EDUCATION = ["Any", "High School", "Master", "PhD", "Bachelor", "College", "Coursework"];

@@ -14,6 +14,7 @@ import {
 	SALARY_DETAILS,
 	WORK_TIMES,
 	WORK_TYPES,
+	JOB_CATEGORIES,
 	EXPERIENCE_LEVEL,
 } from "@/lib/constant/constants";
 import dynamic from "next/dynamic";
@@ -39,6 +40,7 @@ interface Inputs {
 	salaryDetail: string;
 	jobTime: string;
 	workType: string;
+	jobCategory: string;
 	education: string;	
 	founded: string;
 	ceoCompany: string;
@@ -94,6 +96,7 @@ const PostJob = () => {
 			currency: values.currency,
 			salaryDetail: values.salaryDetail,
 			workType: values.workType,
+			jobCategory: values.jobCategory,
 			jobTime: values.jobTime,
 			education: values?.education,
 			companyDetails: {
@@ -151,6 +154,15 @@ const PostJob = () => {
 							isRequired
 							placeholder='e.g. https://www.myjob.com'
 						/>
+					</div>
+					<div className={styles["post-job-page-input-wrapper"]}>
+						<FormSelect
+							control={control}
+							name={"jobCategories"}
+							label={"Job category"}
+							defaultValue={jobDetails?.jobCategory || "Other"}
+							options={JOB_CATEGORIES}
+							/>
 					</div>
 					<div className={styles["post-job-page-input-wrapper"]}>
 						<FormSelect
