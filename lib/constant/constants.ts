@@ -563,31 +563,35 @@ export const BACKEND_URL = process.env.BACKEND_URL as string;
 // REGEXPS
 export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export const BRONZE_PLAN_PERMISSIONS: PermissionsDataType[] = [
+export const BASIC_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
 		name: "Single Job Post",
 		permission: true,
 	},
 	{
-		name: "Job posting on the portal for 30 days",
+		name: "30 days visibility on Joobly platform",
 		permission: true,
 	},
 	{
-		name: "Access to basic performance insights",
+		name: "24/7 customer support",
 		permission: true,
 	},
 	{
-		name: "Job promotion with Instagram Story on Prague Morning",
-		permission: true,
-	},
-	{
-		name: "Access to advanced performance insights (views, clicks)",
+		name: "Two Instagram Stories on Prague Morning",
 		permission: false,
 	},
 	{
-		name: "Email support for any issues",
+		name: "Share in “Jobs for Foreigners in Prague” Facebook Group",
 		permission: false,
 	},
+	{
+		name: "Feature in daily newsletter",
+		permission: false,
+	},
+	{
+		name: "Share in “Expats in Prague” Facebook Group",
+		permission: false,
+	}
 ];
 export const GOLD_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
@@ -595,74 +599,81 @@ export const GOLD_PLAN_PERMISSIONS: PermissionsDataType[] = [
 		permission: true,
 	},
 	{
-		name: "Job posting on the portal for 60 days",
+		name: "30 days visibility on Joobly platform",
 		permission: true,
 	},
 	{
-		name: "Job promotion with Instagram Story on Prague Morning",
+		name: "24/7 customer support",
 		permission: true,
 	},
 	{
-		name: "Featured in Prague Morning daily newsletter and shared in Facebook group",
+		name: "Two Instagram Stories on Prague Morning",
 		permission: true,
 	},
 	{
-		name: "Access to advanced performance insights (views, clicks)",
+		name: "Share in “Jobs for Foreigners in Prague” Facebook Group",
 		permission: true,
 	},
 	{
-		name: "Priority email support and 24/7 assistance",
+		name: "Feature in daily newsletter",
 		permission: true,
 	},
+	{
+		name: "Share in “Expats in Prague” Facebook Group",
+		permission: true,
+	}
 ];
-export const SILVER_PLAN_PERMISSIONS: PermissionsDataType[] = [
+export const MEDIUM_PLAN_PERMISSIONS: PermissionsDataType[] = [
 	{
 		name: "Single Job Post",
 		permission: true,
 	},
 	{
-		name: "Job posting on the portal for 40 days",
+		name: "30 days visibility on Joobly platform",
 		permission: true,
 	},
 	{
-		name: "Job promotion with Instagram Story on Prague Morning",
+		name: "24/7 customer support",
 		permission: true,
 	},
 	{
-		name: "Access to advanced performance insights (views, clicks)",
+		name: "Instagram Story on Prague Morning",
 		permission: true,
 	},
 	{
-		name: "Email support for any issues",
+		name: "Share in “Jobs for Foreigners in Prague” Facebook Group",
 		permission: true,
 	},
 	{
-		name: "Priority email support and 24/7 assistance",
+		name: "Feature in daily newsletter",
 		permission: false,
 	},
-	
+	{
+		name: "Share in “Expats in Prague” Facebook Group",
+		permission: false,
+	}
 ];
 
 export const PLANS: PlanContainerDataType[] = [
 	{
 		title: "Basic",
 		logo: bronze,
-		data: BRONZE_PLAN_PERMISSIONS,
-		planPrice: 350,
+		data: BASIC_PLAN_PERMISSIONS,
+		planPrice: 349,
 		isActive: false,
 	},
 	{
-		title: "Premium",
+		title: "Gold",
 		logo: gold,
 		data: GOLD_PLAN_PERMISSIONS,
-		planPrice: 550,
+		planPrice: 799,
 		isActive: false,
 	},
 	{
-		title: "Standard",
+		title: "Medium",
 		logo: silver,
-		data: SILVER_PLAN_PERMISSIONS,
-		planPrice: 450,
+		data: MEDIUM_PLAN_PERMISSIONS,
+		planPrice: 499,
 		isActive: false,
 	},
 ];
