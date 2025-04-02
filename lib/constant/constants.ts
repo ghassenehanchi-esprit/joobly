@@ -667,11 +667,18 @@ export const PLANS: PlanContainerDataType[] = [
 	},
 ];
 
-export const POST_JOB_ACTIONS = [
-	"Be featured in the top search results ",
-	"Be included in our job alerts",
-	"Get quality applications directly to your inbox ",
-	"Only $130.00 for 30 days",
+export const POST_JOB_ACTIONS_SECTION_1 = [
+	"Create your job post in minutes. No hassle, no complex forms.",
+	"Job seekers will receive your job posting via our job alerts.",
+	"Get quality applications directly to your inbox.",
+	"Only CZK 350 for 30 days",
+];
+
+export const POST_JOB_ACTIONS_SECTION_2 = [
+	"Provide the file to your existing job post, and we’ll do the rest.",
+	"Any changes made to your posts are automatically reflected on Joobly.",
+	"Your jobs appear on our website as soon as they're indexed.",
+	"Focus on hiring while we handle the indexing for you!",
 ];
 
 export const POST_PACKAGES_ACTIONS = [
