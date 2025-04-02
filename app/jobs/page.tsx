@@ -131,7 +131,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					languages={languages}
 					educations={educations}
 					workType={workTypes}
-					jobCategory={jobCategories}
+					jobCategories={jobCategories}
 					jobTime={jobTimes}
 					experienceLevel={experienceLevels}
 					salary={salaryLabels}
