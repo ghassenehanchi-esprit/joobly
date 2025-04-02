@@ -23,6 +23,9 @@ async function processOptions(options: JobData[]) {
 			if (item.workType) {
 				acc.workTypes.push({ id: item._id!, label: item.workType });
 			}
+			if (item.jobCategory) {
+				acc.jobCategories.push({ id: item._id!, label: item.jobCategory });
+			}
 			if (item.jobTime) {
 				acc.jobTimes.push({ id: item._id!, label: item.jobTime });
 			}
@@ -41,6 +44,7 @@ async function processOptions(options: JobData[]) {
 			languages: [] as optionItems[],
 			educations: [] as optionItems[],
 			workTypes: [] as optionItems[],
+			jobCategories: [] as optionItems[],
 			jobTimes: [] as optionItems[],
 			salaryLabels: [] as optionItems[],
 			experienceLevels: [] as optionItems[],
@@ -52,6 +56,7 @@ async function processOptions(options: JobData[]) {
 		languages: uniqueArray(processedOptions.languages),
 		educations: uniqueArray(processedOptions.educations),
 		workTypes: uniqueArray(processedOptions.workTypes),
+		jobCategories: uniqueArray(processedOptions.jobCategories),
 		jobTimes: uniqueArray(processedOptions.jobTimes),
 		salaryLabels: uniqueArray(processedOptions.salaryLabels),
 		experienceLevels: uniqueArray(processedOptions.experienceLevels),
@@ -87,6 +92,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 		location: searchParams?.location || "",
 		language: searchParams?.language || "",
 		workType: searchParams?.workType || "",
+		jobCategory: searchParams?.jobCategory || "",
 		education: searchParams?.education || "",
 		jobTime: searchParams?.jobTime || "",
 		salaryLabel: searchParams?.salaryLabel || "",
@@ -95,11 +101,12 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
 	
 
-	const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels } = await processOptions(options);
+	const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels, jobCategories } = await processOptions(options);
 
 	const defaultLocation = locations.find((item) => item.label === searchParams?.location);
 	const defaultLanguage = languages.find((item) => item.label === searchParams?.language);
 	const defaultWorkType = workTypes.find((item) => item.label === searchParams?.workType);
+	const defaultJobCategory = jobCategories.find((item) => item.label === searchParams?.jobCategory);
 	const defaultSalaryLabel = salaryLabels.find((item) => item.label === searchParams?.salaryLabel);
 	const defaultJobTime = jobTimes.find((item) => item.label === searchParams?.jobTime);
 	const defaultEducation = educations.find((item) => item.label === searchParams?.education);
@@ -116,6 +123,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					defaultLanguage={defaultLanguage?.id}
 					defaultEducation={defaultEducation?.id}
 					defaultWorkType={defaultWorkType?.id}
+					defaultJobCategory={defaultJobCategory?.id}
 					defaultExperienceLevel={defaultExperienceLevel?.id}
 					defaultSalary={defaultSalaryLabel?.id}
 					defaultJobTime={defaultJobTime?.id}
@@ -123,6 +131,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					languages={languages}
 					educations={educations}
 					workType={workTypes}
+					jobCategory={jobCategories}
 					jobTime={jobTimes}
 					experienceLevel={experienceLevels}
 					salary={salaryLabels}

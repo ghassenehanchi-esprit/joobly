@@ -17,6 +17,7 @@ interface TopbarProps {
 	educations: optionItems[];
 	experienceLevel: optionItems[];
 	workType: optionItems[];
+	jobCategories: optionItems[];
 	jobTime: optionItems[];
 	salary: optionItems[];
 	defaultJobTitle?: string;
@@ -25,6 +26,7 @@ interface TopbarProps {
 	defaultEducation?: string;
 	defaultExperienceLevel: string | undefined;
 	defaultWorkType?: string;
+	defaultJobCategory?: string;
 	defaultJobTime?: string;
 	defaultSalary?: string;
 	defaultJobSearchValue?: string | number;
@@ -36,12 +38,14 @@ const Topbar: React.FC<TopbarProps> = ({
 	languages,
 	educations,
 	workType,
+	jobCategories,
 	experienceLevel,
 	jobTime,
 	salary,
 	defaultLocation,
 	defaultLanguage,
 	defaultWorkType,
+	defaultJobCategory,
 	defaultEducation,
 	defaultJobTime,
 	defaultSalary,
@@ -104,6 +108,17 @@ const Topbar: React.FC<TopbarProps> = ({
 							Clear 
 						</Link>
 					</div>
+					{/*  @ts-ignore */}
+					<Dropdown
+						key="work-type-dropdown"
+						defaultSelected={defaultJobCategory}
+						queryPushing={(label: string) =>
+							router.push(pathname + "?" + createQueryString("jobCategory", label))
+						}
+						items={jobCategories}
+						headerTitle={"Category"}
+						icon="/images/icons/findJob.svg"
+					/>
 					{/*  @ts-ignore */}
 					<Dropdown
 						key="work-type-dropdown"

@@ -37,6 +37,7 @@ export type JobData = {
     location: string;
     language: string;
     workType: string;
+	jobCategory: string;
     jobTime: string;
     salary: number;
 	salaryLabel: string;
@@ -96,6 +97,7 @@ export interface JobsPagePropsTypes {
 		jobTitle: string | undefined;
 		workType: string | undefined;
 		jobTime: string | undefined;
+		jobCategory: string | undefined;
 		language: string | undefined;
 		location: string | undefined;
 		education: string | undefined;

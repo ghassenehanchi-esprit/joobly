@@ -9,6 +9,7 @@ export type JobTypes = {
     location: string;
     language: string;
     workType: string;
+    jobCategory: string;
     jobTime: string;
     salary: number;
     salaryLabel: string;
@@ -36,6 +37,7 @@ export const JobSchema = new Schema({
   location: { type: String },//1
   language: { type: String },//1
   workType: { type: String },//1
+  jobCategory: {type: String }, 
   jobTime: { type: String },
   salary: { type: Number },//1
   salaryLabel: {type: String},
