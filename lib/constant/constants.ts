@@ -545,7 +545,8 @@ export const CITIES = [
 	"Real Estate",
 	"Legal",
 	"HR",
-	"Creative & Design"
+	"Creative & Design",
+	"Manufacturing & Production"
   ];
 
 export const SALARY_DETAILS = ["Year", "Month", "Week"];
@@ -659,21 +660,21 @@ export const PLANS: PlanContainerDataType[] = [
 		title: "Basic",
 		logo: bronze,
 		data: BASIC_PLAN_PERMISSIONS,
-		planPrice: 349,
+		planPrice: 599,
 		isActive: false,
 	},
 	{
 		title: "Gold",
 		logo: gold,
 		data: GOLD_PLAN_PERMISSIONS,
-		planPrice: 799,
+		planPrice: 999,
 		isActive: false,
 	},
 	{
 		title: "Medium",
 		logo: silver,
 		data: MEDIUM_PLAN_PERMISSIONS,
-		planPrice: 499,
+		planPrice: 799,
 		isActive: false,
 	},
 ];
@@ -700,8 +701,8 @@ export const POST_PACKAGES_ACTIONS = [
 ];
 export const PACKAGES = [
 	{
-		title: "5 Job Postings",
-		points: 5,
+		title: "2 Job Postings",
+		points: 2,
 		percent: "30% Save",
 		value: "1,500 CZK",
 		price: 1500,
