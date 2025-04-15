@@ -158,7 +158,7 @@ const PostJob = () => {
 					<div className={styles["post-job-page-input-wrapper"]}>
 						<FormSelect
 							control={control}
-							name={"jobCategories"}
+							name={"jobCategory"}
 							label={"Job category"}
 							defaultValue={jobDetails?.jobCategory || "Other"}
 							options={JOB_CATEGORIES}
