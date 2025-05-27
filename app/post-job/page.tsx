@@ -37,6 +37,7 @@ interface Inputs {
 	experienceLevel: string;
 	salary: string;
 	currency: string;
+	salaryLabel?: string;
 	salaryDetail: string;
 	jobTime: string;
 	workType: string;
