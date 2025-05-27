@@ -14,6 +14,7 @@ import MyJobPostItem from "./MyJobPostItem";
 
 const DashboardPage = () => {
     const [jobs, setJobs] = useState<any>([]);
+    const [showAllJobs, setShowAllJobs] = useState(false);
     const session = useSession();
     const router = useRouter();
     
@@ -123,11 +124,20 @@ const DashboardPage = () => {
           <div className="space-y-4">
             {/*your job posts*/}
               <Suspense fallback={<div>Loading...</div>}>
-                {jobs?.map((result: any) => (
-                  <MyJobPostItem data={result} key={result._id} />
-                ))}
-              </Suspense>  
-
+                  {(showAllJobs ? jobs : jobs.slice(0, 5)).map((result: any) => (
+                    <MyJobPostItem data={result} key={result._id} />
+                  ))}
+              </Suspense>
+                {jobs.length > 5 && !showAllJobs && (
+                  <div className="flex justify-center mt-4">
+                    <Button
+                      onClick={() => setShowAllJobs(true)}
+                      className="bg-[#006c53] text-white px-4 py-2 rounded-xl hover:bg-[#004c3b] transition"
+                    >
+                      Show more
+                    </Button>
+                  </div>
+                )}  
               <div className="relative mt-16 h-[361px] bg-cover bg-center rounded-lg flex flex-col items-center justify-center text-center"
 						  style={{ backgroundImage: "url('/images/green-bg-search.svg')" }}
 					    >
