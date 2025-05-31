@@ -11,27 +11,33 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-	title: "Joobly | Home",
+  title: {
+	default: 'Joobly.cz – Find Multilingual Jobs in Prague and Czechia',
+	template: '%s | Joobly.cz',
+  },
+  description:
+	'Find multilingual jobs in Prague and across Czechia. English, German, French, and more. We connect expats with top employers.',
+  openGraph: {
+	title: 'Joobly.cz – Find Multilingual Jobs in Prague and Czechia',
 	description:
-		'Find multilingual jobs in Prague and across Czechia. English, German, French, and more. We connect expats with top employers.',
-	keywords: [
-		'multilingual jobs Czechia',
-		'English jobs Prague',
-		'expat jobs Czech Republic',
-		'foreign language jobs',
-		'international companies Prague',
+	  'Explore full-time and part-time multilingual job opportunities in Prague and across Czechia. Connect with top international employers.',
+	url: 'https://joobly.cz',
+	siteName: 'Joobly.cz',
+	images: [
+	  {
+		url: '/og-image.jpg', // Положи в public/og-image.jpg
+		width: 1200,
+		height: 630,
+		alt: 'Job search for expats in Czech Republic',
+	  },
 	],
-	openGraph: {
-		title: 'Joobly.cz – Find Multilingual Jobs in Prague and Czechia',
-		description:
-		'Explore full-time and part-time multilingual job opportunities in Prague and across Czechia. Connect with top international employers.',
-		images: [
-		{
-			url: '/og-image.jpg',
-			alt: 'Job search for expats in Czech Republic',
-		},
-		],
-	},
+	locale: 'en_US',
+	type: 'website',
+  },
+  robots: {
+	index: true,
+	follow: true,
+  },
 };
 
 const Home = () => {
