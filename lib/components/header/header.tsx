@@ -289,7 +289,7 @@ const TopHeader = () => {
 						<span>Post resume</span>
 					</Link>
 				</nav>
-				<div className="mt-6 lgl:hidden">
+				<div className="mt-6 lgl:inline">
 					{status === 'authenticated' ? (
 						<div className="flex gap-4 items-center">
 							<Link 

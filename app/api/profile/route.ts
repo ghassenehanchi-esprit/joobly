@@ -19,7 +19,7 @@ export async function POST(req: Request) {
             }
       
             // User not exist
-            const { name, password, image } = body;
+            const { name, image } = body;
             const generatedPassword = generateRandomString(32);
             const hashedPassword = await hash(generatedPassword, 12);
       
