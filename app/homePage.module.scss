@@ -139,3 +139,14 @@
     }
   }
 }
+
+
+@media screen and (max-width: 500px) {
+  .listings__posting-image {
+    display: none;
+  }
+
+  .section-content {
+ 
+  }
+}
