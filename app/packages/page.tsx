@@ -56,10 +56,6 @@ const PackagesPage = () => {
                         onChange={changePackage}
                     />
                 ))}
-                <div className="mb-4 text-gray-600">
-                    the prices included three jobs promoted on Prague Morning channels and 
-                    social media.
-                </div>
             </div>
             <PaymentContainer /> {/* selector initialization in component + */}
             <label className={styles["ending_text_head"]}> Want to post more?</label>

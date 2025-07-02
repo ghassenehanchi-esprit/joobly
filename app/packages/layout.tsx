@@ -35,7 +35,7 @@ export default function PackagesLayout({ children }: { children: React.ReactNode
 	return (
 		<>
 			<Header
-				extraBottomHeader='Simple pricing. No surprise fees. Advanced features.'
+				extraBottomHeader='Simple pricing. No surprise fees.'
 				topHeaderTitle=''
 				bottomHeaderTitle='Packages and Subscriptions'
 			/>

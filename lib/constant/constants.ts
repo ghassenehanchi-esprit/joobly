@@ -694,10 +694,9 @@ export const POST_JOB_ACTIONS_SECTION_2 = [
 ];
 
 export const POST_PACKAGES_ACTIONS = [
-	"Easy and instant posting process - your jobs available online in just 5 minutes. ",
-	"Job posting credits that you purchase will never expire. Buy now and post whenever you need.",
-	"It is a long established fact that a reader will be distracted. ",
-	"The best place for new opportunities for long-term and productive cooperation.",
+	"Save money by posting multiple vacancies at a reduced price",
+	"Benefit from additional promotion in our newsletter and social networks",
+	"Save time with easy bulk uploads and centralized management",
 ];
 export const PACKAGES = [
 	{
