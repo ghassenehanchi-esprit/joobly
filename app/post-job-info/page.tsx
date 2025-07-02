@@ -23,16 +23,6 @@ const PostJobInfo = () => {
 
   const {push}=useRouter();
 
-  function postJobInfoMessage(text: string) {
-      toast((t) => (
-        <div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
-          <span className="font-medium">
-            {text}
-          </span>
-        </div>
-      ))
-  };
-
 
   return (
     <section className={styles["post-job-info"]}>
@@ -66,10 +56,9 @@ const PostJobInfo = () => {
             listed automatically.</h4>
           <PostJobActions data={POST_JOB_ACTIONS_SECTION_2} image={checkMark} color="black"/>
           <Button 
-          onClick={() => postJobInfoMessage('To submit your website please contact to website administrator')} 
           style={{marginTop: "35px",maxWidth:"210px",width:"100%"}} className={`btn-secondary-search`} icon="/images/icons/note.svg"
                   hoverIcon="/images/icons/list-white.svg">
-            <Link href="">Submit your website</Link>
+            <Link href="/contact">Contact us</Link>
           </Button>
         </div>
       </div>
