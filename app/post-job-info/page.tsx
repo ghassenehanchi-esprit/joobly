@@ -69,7 +69,7 @@ const PostJobInfo = () => {
           onClick={() => postJobInfoMessage('To submit your website please contact to website administrator')} 
           style={{marginTop: "35px",maxWidth:"210px",width:"100%"}} className={`btn-secondary-search`} icon="/images/icons/note.svg"
                   hoverIcon="/images/icons/list-white.svg">
-            <Link href="">Submit your website</Link>
+            <Link href="/contact">Submit your website</Link>
           </Button>
         </div>
       </div>
