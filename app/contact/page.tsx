@@ -67,7 +67,7 @@ const ContactPage = () => {
 						name={"companyName"}
 						label='Company Name'
 						isRequired
-						placeholder='Prague Morning LLC'
+						placeholder='Joobly'
 					/>
 					<Input
 						control={control}
