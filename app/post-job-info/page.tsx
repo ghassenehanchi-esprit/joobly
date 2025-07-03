@@ -21,8 +21,17 @@ const PostJobInfo = () => {
   const jobPostPoints = profile?.data?.jobPostPoints as number;
   console.log(profile);
 
-  const {push}=useRouter();
+  const {push} = useRouter();
 
+   function postJobInfoMessage(text: string) {
+      toast((t) => (
+        <div className="flex flex-col gap-4 text-[#006c53] text-center items-center mb-2">
+          <span className="font-medium">
+            {text}
+          </span>
+        </div>
+      ))
+  };
 
   return (
     <section className={styles["post-job-info"]}>
