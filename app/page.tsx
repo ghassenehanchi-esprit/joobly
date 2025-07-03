@@ -58,7 +58,7 @@ const Home = () => {
                 Get a job now
               </Button>
             </Link>
-            <div className="relative w-full max-w-[496px] h-[496px] mt-6 hidden sm:block">
+            <div className="relative w-full max-w-[496px] h-[496px] mt-6 hidden md:block">
               <Image
                 src={jobSeekers}
                 fill
@@ -87,7 +87,7 @@ const Home = () => {
                 Post Your Job
               </Button>
             </Link>
-            <div className="relative w-full max-w-[496px] h-[496px] mt-6 hidden sm:block">
+            <div className="relative w-full max-w-[496px] h-[496px] mt-6 hidden md:block">
               <Image
                 src={jobPosters}
                 fill
