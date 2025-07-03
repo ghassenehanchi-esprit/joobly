@@ -697,6 +697,7 @@ export const POST_PACKAGES_ACTIONS = [
 	"Save money by posting multiple vacancies at a reduced price",
 	"Benefit from additional promotion in our newsletter and social networks",
 	"Save time with easy bulk uploads and centralized management",
+	"Strengthen your company’s visibility with multiple active listings."
 ];
 export const PACKAGES = [
 	{
