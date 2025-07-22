@@ -1,6 +1,11 @@
 "use client";
 import styles from "./packagesPage.module.scss";
 import packagesBg from "../../public/images/packageBg.svg";
+import packagesImg from "../../public/images/pakagesImg.jpg";
+import packagesImg1 from "../../public/images/pakagesImg1.jpg";
+import packagesImg2 from "../../public/images/pakagesImg2.jpg";
+import packagesImg3 from "../../public/images/pakagesImg3.jpg";
+import packagesImg4 from "../../public/images/pakagesImg4.jpg";
 import Image from "next/image";
 import PostJobActions from "@/lib/components/postJobActions/postJobActions";
 import { PACKAGES, POST_PACKAGES_ACTIONS } from "@/lib/constant/constants";
@@ -38,7 +43,7 @@ const PackagesPage = () => {
                     <PostJobActions data={POST_PACKAGES_ACTIONS} color="black" />
                 </div>
                 <div className={styles["about_contex__image"]}>
-                    <Image src={packagesBg} width={600} height={400} alt="Package's Background" />
+                    <Image src={packagesImg} width={600} height={400} alt="Package's Background" />
                 </div>
             </div>
             <div className={styles["packages-page__wrapper"]}>
