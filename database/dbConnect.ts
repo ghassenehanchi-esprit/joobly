@@ -1,12 +1,15 @@
 import mongoose from "mongoose"
 
+
 const connectionString = process.env.MONGODB_URI
 
 if (!connectionString) {
+
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env.local"
   )
 }
+
 
 const MONGODB_URI: string = connectionString
 
