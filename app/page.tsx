@@ -100,6 +100,9 @@ const Home = () => {
       </div>
 
       {/* Footer (hidden on small screens) */}
+      <div className="mt-10 mdl:hidden">
+        <Footer />
+      </div>
       <div className="hidden mdl:block z-50">
         <Footer />
       </div>

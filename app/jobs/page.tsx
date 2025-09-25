@@ -115,8 +115,8 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	return (
 	<>
 		<HeaderBackground />
-		<section className="mt-16 mb-20 px-4">
-			<div className="container mx-auto flex flex-col lg:flex-row">
+                <section className="mt-16 mb-20 px-4 sm:px-6">
+                        <div className="container mx-auto flex flex-col gap-10 lg:flex-row lg:items-start">
 				<Topbar
 					defaultJobSearchValue={searchParams?.jobTitle}
 					defaultLocation={defaultLocation?.id}
@@ -136,14 +136,14 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					experienceLevel={experienceLevels}
 					salary={salaryLabels}
 				/>
-				<div className="px-0 md:px-2 mdl:px-6 flex-grow">
-					<div className="flex items-center justify-between mb-6 py-2 h-14">
-						<p className="text-xl text-gray-600">
-							{jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
-						</p>
-					</div>
+                                <div className="px-0 md:px-2 mdl:px-6 flex-grow">
+                                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6 py-2">
+                                                <p className="text-xl text-gray-600">
+                                                        {jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
+                                                </p>
+                                        </div>
 
-					<div className="space-y-4">
+                                        <div className="space-y-4">
 						<Suspense fallback={<div>Loading...</div>}>
 							{jobs.jobs?.map((result: any) => (
 								<JobItem data={result} key={result._id} />
@@ -151,20 +151,22 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 						</Suspense>
 					</div>
 
-					<div className="relative mt-16 h-[361px] bg-cover bg-center rounded-lg flex flex-col items-center justify-center text-center"
-						style={{ backgroundImage: "url('/images/green-bg-search.svg')" }}
-					>
-						<h5 className="text-4xl font-bold tracking-wider text-light">
-							Join our Job group on Facebook
-						</h5>
-						<a href="https://www.facebook.com/groups/jobsinpragueforeigners---"
-							target="_blank"
-							className="mt-5 px-8 py-4 bg-dark text-light font-bold text-xl rounded-lg hover:opacity-80"
-						>
-							Join Here
-						</a>
-					</div>
-				</div>
+                                        <div
+                                                className="relative mt-16 bg-cover bg-center rounded-lg flex flex-col items-center justify-center text-center px-6 py-12 sm:px-10"
+                                                style={{ backgroundImage: "url('/images/green-bg-search.svg')" }}
+                                        >
+                                                <h5 className="text-2xl sm:text-4xl font-bold tracking-wider text-light">
+                                                        Join our Job group on Facebook
+                                                </h5>
+                                                <a
+                                                        href="https://www.facebook.com/groups/jobsinpragueforeigners---"
+                                                        target="_blank"
+                                                        className="mt-5 px-8 py-3 sm:py-4 bg-dark text-light font-bold text-lg sm:text-xl rounded-lg hover:opacity-80"
+                                                >
+                                                        Join Here
+                                                </a>
+                                        </div>
+                                </div>
 			</div>
 		</section>
 		</>
