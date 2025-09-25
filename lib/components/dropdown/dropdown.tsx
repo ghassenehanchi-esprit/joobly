@@ -1,72 +1,133 @@
-'use client';
-import React, { useState} from 'react';
-import Image from 'next/image';
-import {DropdownProps} from '@/lib/types/componentTypes';
+"use client";
+
+import React, { useEffect, useMemo, useState } from 'react';
+import { IoIosClose } from 'react-icons/io';
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+
+import { DropdownProps, optionItems } from '@/lib/types/componentTypes';
 
 import styles from './dropdown.module.scss';
-import arrowIcon from '@/public/images/icons/dropdown-arrow.svg';
-import IconButton from "@mui/material/IconButton";
-import {ClickAwayListener} from "@mui/base";
 
+const Dropdown: React.FC<DropdownProps> = ({
+  items,
+  className,
+  icon,
+  headerTitle,
+  defaultSelected,
+  queryPushing,
+}) => {
+  const [selectedItem, setSelectedItem] = useState<number | string | undefined>(defaultSelected);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isBodyVisible, setIsBodyVisible] = useState(true);
 
-import { IoIosClose } from 'react-icons/io';
+  useEffect(() => {
+    setSelectedItem(defaultSelected);
+  }, [defaultSelected]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-const Dropdown: React.FC<DropdownProps> = ({items, className, icon, headerTitle, defaultSelected, queryPushing}) => {
-  const [isOpen, setOpen] = useState(true); //false
-  const [selectedItem, setSelectedItem] = useState(defaultSelected);
-  const toggleDropdown = () => {
-    //setOpen(!isOpen)
+    const detectDevice = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    detectDevice();
+    window.addEventListener('resize', detectDevice);
+
+    return () => window.removeEventListener('resize', detectDevice);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsBodyVisible(false);
+    } else {
+      setIsBodyVisible(true);
+    }
+  }, [isMobile]);
+
+  const selectedLabel = useMemo(() => {
+    const match = items.find((item) => item.id === selectedItem);
+    if (!match) {
+      return 'All';
+    }
+
+    return String(match.label);
+  }, [items, selectedItem]);
+
+  const handleItemClick = (item: optionItems) => {
+    if (selectedItem === item.id) {
+      return;
+    }
+
+    setSelectedItem(item.id);
+    queryPushing && queryPushing(String(item.label));
+
+    if (isMobile) {
+      setIsBodyVisible(false);
+    }
   };
-  const handleItemClick = (e: any,label:string) => {
-    selectedItem !== e.target.id && setSelectedItem(e.target.id);
-    queryPushing && queryPushing(label)
-    toggleDropdown();
-  }
+
+  const handleReset = () => {
+    setSelectedItem(undefined);
+    queryPushing && queryPushing('');
+
+    if (isMobile) {
+      setIsBodyVisible(false);
+    }
+  };
 
   return (
-    <ClickAwayListener onClickAway={()=>setOpen(true)}> 
-    {/*false*/}
-    <div className={`${styles['dropdown']} ${isOpen && styles['open']} ${className ? styles[className] : ''}`}>
-      <div className={styles['header']} onClick={toggleDropdown} >
-                <span className='min-w-max ml-2'>
-                    {icon && <picture>
-                      <img
-                        src={icon}
-                        alt="button"
-                        className={'location h-4 w-4 '}
-                      />
-                    </picture>}
-                  {/*  @ts-ignore */}
-                  {selectedItem ? items && items?.find(item => item.id == selectedItem)?.label : headerTitle}
-                </span>
-        <div className='w-full p-1'>
-          <Image src={arrowIcon} alt="arrow" className={`${styles['icon']} ${isOpen && styles["open"]}`}/>
+    <div className={`${styles.dropdown} ${className ? styles[className] : ''}`}>
+      <div className={styles.header}>
+        <div className={styles.title}>
+          {icon && (
+            <picture>
+              <img src={icon} alt="" className={styles.icon} />
+            </picture>
+          )}
+
+          <div className={styles.copy}>
+            <span className={styles.label}>{headerTitle}</span>
+            <span className={styles.value}>{selectedLabel}</span>
+          </div>
         </div>
-        <IconButton
-          onClick={() => {
-            queryPushing && queryPushing("")
-            setSelectedItem(undefined)
-            setOpen(true);
-          }}
-        >
-           {/*false*/}
-          <IoIosClose />
-        </IconButton>
+
+        <div className={styles.actions}>
+          {selectedItem !== undefined && (
+            <button type="button" className={styles.clearButton} onClick={handleReset}>
+              <IoIosClose className={styles.clearIcon} />
+              <span>Clear</span>
+            </button>
+          )}
+
+          {isMobile && (
+            <button
+              type="button"
+              className={`${styles.toggle} ${isBodyVisible ? styles.open : ''}`}
+              onClick={() => setIsBodyVisible((prev) => !prev)}
+              aria-label={`Toggle ${headerTitle} filter`}
+            >
+              {isBodyVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+            </button>
+          )}
+        </div>
       </div>
-      <div className={`${styles['body']} ${isOpen && styles['open']}`}>
-        {items.map((item, idx) => (
-          <>
-            {/*  @ts-ignore */}
-            <div key={idx} className={styles["item"]} onClick={e => handleItemClick(e,item.label)} id={item.id}>
-              <span className={`${styles['dot']} ${item.id == selectedItem && styles['selected']}`}>• </span>
-              {item.label}
-            </div>
-          </>
+
+      <div className={`${styles.body} ${!isBodyVisible ? styles.hidden : ''}`}>
+        {items.map((item) => (
+          <button
+            type="button"
+            key={item.id}
+            onClick={() => handleItemClick(item)}
+            className={`${styles.item} ${selectedItem === item.id ? styles.selected : ''}`}
+          >
+            {item.label}
+          </button>
         ))}
       </div>
     </div>
-    </ClickAwayListener>
   );
 };
 
