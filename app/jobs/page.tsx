@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
@@ -140,9 +140,12 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
         experienceFilters.forEach((value) => params.append("experienceLevel", value));
 
         const [jobs, options] = await Promise.all([getData(params.toString()), getOptions()]);
-	
 
-	const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels, jobCategories } = await processOptions(options);
+        const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels, jobCategories } =
+                await processOptions(options);
+
+        const jobResults = Array.isArray(jobs) ? jobs : jobs?.jobs ?? [];
+        const jobCount = jobResults.length;
 
         const defaultSelections = {
                 location: getDefaultIds(locations, locationFilters),
@@ -175,17 +178,17 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
                                 <div className="px-0 md:px-2 mdl:px-6">
                                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6 py-2">
                                                 <p className="text-xl text-gray-600">
-                                                        {jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
+                                                        {jobCount || "No"} {jobCount === 1 ? "job" : "jobs"} found
                                                 </p>
                                         </div>
 
                                         <div className="space-y-4">
-						<Suspense fallback={<div>Loading...</div>}>
-							{jobs.jobs?.map((result: any) => (
-								<JobItem data={result} key={result._id} />
-							))}
-						</Suspense>
-					</div>
+                                                <Suspense fallback={<div>Loading...</div>}>
+                                                        {jobResults.map((result: any) => (
+                                                                <JobItem data={result} key={result._id} />
+                                                        ))}
+                                                </Suspense>
+                                        </div>
 
                                         <div
                                                 className="relative mt-16 bg-cover bg-center rounded-lg flex flex-col items-center justify-center text-center px-6 py-12 sm:px-10"
