@@ -2,8 +2,9 @@
 @import "@/lib/styles/variables.scss";
 
 .dropdown {
-	max-width: 287px;
-	border-radius: 8px;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 8px;
 
 	.header {
 		height: 36px;
@@ -99,18 +100,10 @@
 	}
 }
 
-@media screen and (max-width: 960px) {
-	.dropdown {
-		min-width: 100%;
-		border-radius: 8px;
-}
-}
-
-
-@media screen and (min-width: 1280px) {
-	.dropdown {
-		min-width: 180px;
-	}
+@media screen and (min-width: 1024px) {
+        .dropdown {
+                max-width: 320px;
+        }
 }
 
 

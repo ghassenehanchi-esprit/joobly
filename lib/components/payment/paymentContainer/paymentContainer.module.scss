@@ -2,15 +2,18 @@
 @import "@/lib/styles/variables.scss";
 
 .payment-container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: left;
-	margin-top: 24px;
-	&__labels {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin-top: 24px;
+        gap: 16px;
+        &__labels {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 16px;
+                gap: 12px;
 
 		&__label {
 			color: #1d2427;
@@ -35,11 +38,11 @@
 			color: $grey-medium;
 		}
 	}
-	.payment-container__wrapper {
-		display: flex;
-		justify-content: center;
-		width: 100%;
-		gap: 24px;
+        .payment-container__wrapper {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                gap: 24px;
 		.payment-container-total-price {
 			display: flex;
 			flex-direction: column;
@@ -73,8 +76,26 @@
 	}
 }
 
-@media screen and (max-width: 900px) {
-	.payment-container__wrapper {
-		flex-direction: column;
-	}
+@media screen and (max-width: 768px) {
+        .payment-container {
+                padding: 0;
+
+                .payment-container__labels {
+                        gap: 10px;
+                        &__label {
+                                font-size: 16px;
+                        }
+
+                        &__subLabel {
+                                font-size: 14px;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 6px;
+                        }
+                }
+        }
+
+        .payment-container__wrapper {
+                flex-direction: column;
+        }
 }
