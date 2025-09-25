@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { IoIosClose } from 'react-icons/io';
-import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import { TiArrowSortedDown } from 'react-icons/ti';
 
 import { DropdownProps, optionItems } from '@/lib/types/componentTypes';
 
@@ -17,42 +17,21 @@ const Dropdown: React.FC<DropdownProps> = ({
   queryPushing,
 }) => {
   const [selectedItem, setSelectedItem] = useState<number | string | undefined>(defaultSelected);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isBodyVisible, setIsBodyVisible] = useState(true);
+  const [isBodyVisible, setIsBodyVisible] = useState(false);
+
+  const panelId = useMemo(
+    () => `${headerTitle.toLowerCase().replace(/\s+/g, '-')}-filter-panel`,
+    [headerTitle],
+  );
 
   useEffect(() => {
     setSelectedItem(defaultSelected);
   }, [defaultSelected]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const detectDevice = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-
-    detectDevice();
-    window.addEventListener('resize', detectDevice);
-
-    return () => window.removeEventListener('resize', detectDevice);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      setIsBodyVisible(false);
-    } else {
-      setIsBodyVisible(true);
-    }
-  }, [isMobile]);
-
   const selectedLabel = useMemo(() => {
     const match = items.find((item) => item.id === selectedItem);
     if (!match) {
       return 'All';
     }
-
     return String(match.label);
   }, [items, selectedItem]);
 
@@ -64,23 +43,25 @@ const Dropdown: React.FC<DropdownProps> = ({
     setSelectedItem(item.id);
     queryPushing && queryPushing(String(item.label));
 
-    if (isMobile) {
-      setIsBodyVisible(false);
-    }
+    setIsBodyVisible(false);
+
   };
 
   const handleReset = () => {
     setSelectedItem(undefined);
     queryPushing && queryPushing('');
-
-    if (isMobile) {
-      setIsBodyVisible(false);
-    }
+    setIsBodyVisible(false);
   };
 
   return (
     <div className={`${styles.dropdown} ${className ? styles[className] : ''}`}>
-      <div className={styles.header}>
+      <button
+        type="button"
+        className={styles.header}
+        onClick={() => setIsBodyVisible((prev) => !prev)}
+        aria-expanded={isBodyVisible}
+        aria-controls={panelId}
+      >
         <div className={styles.title}>
           {icon && (
             <picture>
@@ -94,28 +75,19 @@ const Dropdown: React.FC<DropdownProps> = ({
           </div>
         </div>
 
+        <TiArrowSortedDown className={`${styles.toggle} ${isBodyVisible ? styles.open : ''}`} />
+      </button>
+
+      {selectedItem !== undefined && (
         <div className={styles.actions}>
-          {selectedItem !== undefined && (
-            <button type="button" className={styles.clearButton} onClick={handleReset}>
-              <IoIosClose className={styles.clearIcon} />
-              <span>Clear</span>
-            </button>
-          )}
-
-          {isMobile && (
-            <button
-              type="button"
-              className={`${styles.toggle} ${isBodyVisible ? styles.open : ''}`}
-              onClick={() => setIsBodyVisible((prev) => !prev)}
-              aria-label={`Toggle ${headerTitle} filter`}
-            >
-              {isBodyVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
-            </button>
-          )}
+          <button type="button" className={styles.clearButton} onClick={handleReset}>
+            <IoIosClose className={styles.clearIcon} />
+            <span>Clear</span>
+          </button>
         </div>
-      </div>
+      )}
 
-      <div className={`${styles.body} ${!isBodyVisible ? styles.hidden : ''}`}>
+      <div id={panelId} className={`${styles.body} ${!isBodyVisible ? styles.hidden : ''}`}>
         {items.map((item) => (
           <button
             type="button"

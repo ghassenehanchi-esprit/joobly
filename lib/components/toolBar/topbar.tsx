@@ -179,12 +179,12 @@ const Topbar: React.FC<TopbarProps> = ({
                         <div
                                 style={style}
                                 id="filters-panel"
-                                className={`w-full rounded-3xl border border-gray-100 bg-light/80 py-5 px-4 shadow-[0_24px_120px_rgba(151,159,183,0.18)] backdrop-blur-sm sm:px-6 lg:px-10 ${
+                                className={`mx-auto w-full max-w-5xl rounded-3xl border border-gray-100 bg-white/70 py-5 px-4 shadow-[0_18px_80px_rgba(151,159,183,0.16)] backdrop-blur-sm sm:px-6 lg:px-8 ${
                                         isFilterActive ? "block" : "hidden"
                                 }`}
                         >
-                                <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                                        <div className="flex w-full items-center gap-3 rounded-full border border-gray-200 bg-white/70 px-4 py-2 shadow-inner">
+                                <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                                        <div className="flex w-full items-center gap-3 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
                                                 <CiSearch className="h-5 w-5 text-gray-500" />
                                                 <input
                                                         defaultValue={defaultJobSearchValue || ""}
@@ -195,14 +195,14 @@ const Topbar: React.FC<TopbarProps> = ({
                                                 />
                                         </div>
                                         <Link
-                                                className="self-start rounded-full border border-gray-200 bg-white/70 px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800 sm:self-auto"
+                                                className="self-start rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800 sm:self-auto"
                                                 href="/jobs"
                                         >
                                                 Clear
                                         </Link>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                                         {filters.map((filter) => (
                                                 <div key={filter.key} className="w-full">
                                                         <Dropdown

@@ -3,64 +3,76 @@
 
 .dropdown {
         width: 100%;
-        max-width: 100%;
-        border-radius: 16px;
+        border-radius: 14px;
+        border: 1px solid rgba(151, 159, 183, 0.2);
         background: $light;
-        border: 1px solid rgba(151, 159, 183, 0.16);
-        padding: 16px;
+        padding: 12px 14px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        box-shadow: 0 8px 30px rgba(151, 159, 183, 0.08);
-        transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-
-        &:hover {
-                box-shadow: 0 14px 45px rgba(151, 159, 183, 0.14);
-                transform: translateY(-2px);
-        }
+        gap: 12px;
 
         .header {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
                 justify-content: space-between;
                 gap: 12px;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                padding: 0;
+                text-align: left;
+
+                &:focus-visible {
+                        outline: 2px solid $primary-color;
+                        outline-offset: 3px;
+                }
+
         }
 
         .title {
                 display: flex;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
         }
 
         .copy {
                 display: flex;
                 flex-direction: column;
-                gap: 4px;
+                gap: 2px;
         }
 
         .label {
-                font-size: 12px;
-                letter-spacing: 0.08em;
+                font-size: 11px;
+                letter-spacing: 0.1em;
                 text-transform: uppercase;
                 color: $grey-medium;
         }
 
         .value {
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 600;
                 color: $dark;
-                line-height: 1.4;
         }
 
         .icon {
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
+        }
+
+        .toggle {
+                font-size: 18px;
+                color: $grey-medium;
+                transition: transform 0.2s ease-in-out;
+
+                &.open {
+                        transform: rotate(180deg);
+                }
         }
 
         .actions {
                 display: flex;
-                align-items: center;
-                gap: 8px;
+                justify-content: flex-end;
+                margin-top: -4px;
         }
 
         .clearButton {
@@ -68,17 +80,14 @@
                 align-items: center;
                 gap: 4px;
                 border: none;
-                background: rgba(0, 156, 119, 0.1);
+                background: none;
                 color: $primary-dark;
-                border-radius: 999px;
-                padding: 6px 12px;
                 font-size: 13px;
                 font-weight: 500;
                 cursor: pointer;
-                transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+                padding: 0;
 
                 &:hover {
-                        background: rgba(0, 156, 119, 0.18);
                         color: $dark;
                 }
         }
@@ -87,33 +96,10 @@
                 font-size: 16px;
         }
 
-        .toggle {
-                display: none;
-                align-items: center;
-                justify-content: center;
-                width: 32px;
-                height: 32px;
-                border-radius: 999px;
-                border: 1px solid $grey-button-border;
-                background: $light;
-                color: $grey-medium;
-                cursor: pointer;
-                transition: border 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out;
-
-                &.open {
-                        transform: rotate(180deg);
-                }
-
-                &:hover {
-                        border-color: $primary-color;
-                        color: $primary-dark;
-                }
-        }
-
         .body {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
+                flex-direction: column;
+                gap: 6px;
         }
 
         .hidden {
@@ -121,14 +107,15 @@
         }
 
         .item {
-                border-radius: 999px;
-                padding: 10px 16px;
-                border: 1px solid $grey-button-border;
-                background: $input-bg;
+                border-radius: 10px;
+                padding: 8px 12px;
+                border: 1px solid rgba(151, 159, 183, 0.2);
+                background: rgba(244, 247, 252, 0.6);
                 color: $grey-medium;
                 font-size: 14px;
                 font-weight: 500;
                 cursor: pointer;
+                text-align: left;
                 transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
 
                 &:hover {
@@ -137,53 +124,20 @@
                 }
 
                 &.selected {
-                        background: $primary-color;
+                        background: rgba(0, 156, 119, 0.12);
                         border-color: $primary-color;
-                        color: $light;
-                        box-shadow: 0 8px 16px rgba(0, 156, 119, 0.2);
-                }
-        }
-}
-
-@media screen and (max-width: 1023px) {
-        .dropdown {
-                padding: 14px;
-
-                .body {
-                        gap: 8px;
+                        color: $primary-dark;
                 }
         }
 }
 
 @media screen and (max-width: 639px) {
         .dropdown {
-                gap: 12px;
+                padding: 12px;
 
-                .header {
-                        align-items: center;
-                }
+                .value {
+                        font-size: 14px;
 
-                .toggle {
-                        display: inline-flex;
-                }
-
-                .body {
-                        width: calc(100% + 28px);
-                        margin: 0 -14px -6px;
-                        padding: 0 14px 6px;
-                        flex-wrap: nowrap;
-                        overflow-x: auto;
-                        gap: 12px;
-                        scroll-snap-type: x proximity;
-
-                        &::-webkit-scrollbar {
-                                display: none;
-                        }
-                }
-
-                .item {
-                        flex: 0 0 auto;
-                        scroll-snap-align: start;
                 }
         }
 }
