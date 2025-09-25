@@ -64,26 +64,37 @@ async function processOptions(options: JobData[]) {
 }
 
 async function getData(params: any) {
-	const res = await fetch(`${BACKEND_URL}/jobs?${params}`, {
-		next: { revalidate: 60 },
-	});
-	if (!res) {
-		throw new Error("Failed to fetch data");
-	}
+        const queryString = typeof params === "string" ? params : params?.toString?.() ?? "";
+        const url = queryString.length ? `${BACKEND_URL}/jobs?${queryString}` : `${BACKEND_URL}/jobs`;
 
-	return res.json();
+        const res = await fetch(url, {
+                next: { revalidate: 60 },
+        });
+        if (!res.ok) {
+                throw new Error("Failed to fetch data");
+        }
+
+        if (res.status === 204) {
+                return [];
+        }
+
+        return res.json();
 }
 
 async function getOptions() {
-	const res = await fetch(`${BACKEND_URL}/job-options`, {
-		next: { revalidate: 60 },
-	});
+        const res = await fetch(`${BACKEND_URL}/job-options`, {
+                next: { revalidate: 60 },
+        });
 
-	if (!res.ok) {
-		throw new Error("Failed to fetch data");
-	}
+        if (!res.ok) {
+                throw new Error("Failed to fetch data");
+        }
 
-	return res.json();
+        if (res.status === 204) {
+                return [];
+        }
+
+        return res.json();
 }
 
 const parseSearchParam = (param?: string | string[]) => {
