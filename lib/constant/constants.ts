@@ -559,7 +559,15 @@ export const COMPANY_SIZE = [
 	"less than 500 Employees"
 ];
 
-export const BACKEND_URL = process.env.BACKEND_URL as string;
+const rawBackendUrl = process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_BACKEND_URL;
+
+if (!rawBackendUrl) {
+        throw new Error(
+                "Missing BACKEND_URL environment variable. Set BACKEND_URL (preferred) or NEXT_PUBLIC_BACKEND_URL to the fully qualified API base URL.",
+        );
+}
+
+export const BACKEND_URL = rawBackendUrl.replace(/\/$/, "");
 
 // REGEXPS
 export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
