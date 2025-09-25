@@ -86,31 +86,74 @@ async function getOptions() {
 	return res.json();
 }
 
+const parseSearchParam = (param?: string | string[]) => {
+        if (!param) {
+                return [] as string[];
+        }
+
+        const rawValues = Array.isArray(param) ? param : param.split(",");
+
+        return rawValues
+                .map((value) => value.trim())
+                .filter((value): value is string => Boolean(value.length));
+};
+
+const getDefaultIds = (items: optionItems[], selectedLabels: string[]) =>
+        items
+                .filter((item) => selectedLabels.includes(String(item.label)))
+                .map((item) => item.id);
+
 const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
-	const params = new URLSearchParams({
-		jobTitle: searchParams?.jobTitle || "",
-		location: searchParams?.location || "",
-		language: searchParams?.language || "",
-		workType: searchParams?.workType || "",
-		jobCategory: searchParams?.jobCategory || "",
-		education: searchParams?.education || "",
-		jobTime: searchParams?.jobTime || "",
-		salaryLabel: searchParams?.salaryLabel || "",
-		experienceLevel: searchParams?.experienceLevel || "",
-	});
-	const [jobs, options] = await Promise.all([getData(params), getOptions()]);
+        const params = new URLSearchParams();
+
+        const rawJobTitleValue = Array.isArray(searchParams?.jobTitle)
+                ? searchParams?.jobTitle[0]
+                : searchParams?.jobTitle;
+        const jobTitleValue = rawJobTitleValue?.trim();
+
+        if (jobTitleValue) {
+                params.set("jobTitle", jobTitleValue);
+        }
+
+        const locationFilters = parseSearchParam(searchParams?.location);
+        locationFilters.forEach((value) => params.append("location", value));
+
+        const languageFilters = parseSearchParam(searchParams?.language);
+        languageFilters.forEach((value) => params.append("language", value));
+
+        const workTypeFilters = parseSearchParam(searchParams?.workType);
+        workTypeFilters.forEach((value) => params.append("workType", value));
+
+        const jobCategoryFilters = parseSearchParam(searchParams?.jobCategory);
+        jobCategoryFilters.forEach((value) => params.append("jobCategory", value));
+
+        const educationFilters = parseSearchParam(searchParams?.education);
+        educationFilters.forEach((value) => params.append("education", value));
+
+        const jobTimeFilters = parseSearchParam(searchParams?.jobTime);
+        jobTimeFilters.forEach((value) => params.append("jobTime", value));
+
+        const salaryFilters = parseSearchParam(searchParams?.salaryLabel);
+        salaryFilters.forEach((value) => params.append("salaryLabel", value));
+
+        const experienceFilters = parseSearchParam(searchParams?.experienceLevel);
+        experienceFilters.forEach((value) => params.append("experienceLevel", value));
+
+        const [jobs, options] = await Promise.all([getData(params.toString()), getOptions()]);
 	
 
 	const { locations, languages, workTypes, jobTimes, educations, salaryLabels, experienceLevels, jobCategories } = await processOptions(options);
 
-	const defaultLocation = locations.find((item) => item.label === searchParams?.location);
-	const defaultLanguage = languages.find((item) => item.label === searchParams?.language);
-	const defaultWorkType = workTypes.find((item) => item.label === searchParams?.workType);
-	const defaultJobCategory = jobCategories.find((item) => item.label === searchParams?.jobCategory);
-	const defaultSalaryLabel = salaryLabels.find((item) => item.label === searchParams?.salaryLabel);
-	const defaultJobTime = jobTimes.find((item) => item.label === searchParams?.jobTime);
-	const defaultEducation = educations.find((item) => item.label === searchParams?.education);
-	const defaultExperienceLevel = experienceLevels.find((item) => item.label === searchParams?.experienceLevel);
+        const defaultSelections = {
+                location: getDefaultIds(locations, locationFilters),
+                language: getDefaultIds(languages, languageFilters),
+                education: getDefaultIds(educations, educationFilters),
+                workType: getDefaultIds(workTypes, workTypeFilters),
+                jobCategory: getDefaultIds(jobCategories, jobCategoryFilters),
+                experienceLevel: getDefaultIds(experienceLevels, experienceFilters),
+                jobTime: getDefaultIds(jobTimes, jobTimeFilters),
+                salaryLabel: getDefaultIds(salaryLabels, salaryFilters),
+        } satisfies Partial<Record<string, string[]>>;
 
 	return (
 	<>
@@ -118,15 +161,8 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
                 <section className="mt-16 mb-20 px-4 sm:px-6">
                         <div className="container mx-auto flex flex-col gap-10">
                                 <Topbar
-                                        defaultJobSearchValue={searchParams?.jobTitle}
-                                        defaultLocation={defaultLocation?.id}
-                                        defaultLanguage={defaultLanguage?.id}
-					defaultEducation={defaultEducation?.id}
-					defaultWorkType={defaultWorkType?.id}
-					defaultJobCategory={defaultJobCategory?.id}
-					defaultExperienceLevel={defaultExperienceLevel?.id}
-					defaultSalary={defaultSalaryLabel?.id}
-					defaultJobTime={defaultJobTime?.id}
+                                        defaultJobSearchValue={jobTitleValue}
+                                        defaultSelections={defaultSelections}
 					locations={locations}
 					languages={languages}
 					educations={educations}

@@ -9,26 +9,32 @@ import { IoClose } from "react-icons/io5";
 
 import { optionItems } from "@/lib/types/componentTypes";
 
+type FilterDefinition = {
+        key: string;
+        defaultSelectedIds: string[];
+        queryKey: string;
+        items: optionItems[];
+        headerTitle: string;
+        icon: string;
+};
+
+const cloneFilterState = (state: Record<string, string[]>) =>
+        Object.fromEntries(
+                Object.entries(state).map(([key, values]) => [key, [...values]]),
+        ) as Record<string, string[]>;
+
 interface TopbarProps {
-	style?: React.CSSProperties;
-	locations: optionItems[];
-	languages: optionItems[];
-	educations: optionItems[];
-	experienceLevel: optionItems[];
-	workType: optionItems[];
-	jobCategories: optionItems[];
-	jobTime: optionItems[];
-	salary: optionItems[];
-	defaultJobTitle?: string;
-	defaultLocation?: string;
-	defaultLanguage?: string;
-	defaultEducation?: string;
-	defaultExperienceLevel: string | undefined;
-	defaultWorkType?: string;
-	defaultJobCategory?: string;
-	defaultJobTime?: string;
-	defaultSalary?: string;
-	defaultJobSearchValue?: string | number;
+        style?: React.CSSProperties;
+        locations: optionItems[];
+        languages: optionItems[];
+        educations: optionItems[];
+        experienceLevel: optionItems[];
+        workType: optionItems[];
+        jobCategories: optionItems[];
+        jobTime: optionItems[];
+        salary: optionItems[];
+        defaultJobSearchValue?: string | number;
+        defaultSelections?: Partial<Record<string, string[]>>;
 }
 
 const Topbar: React.FC<TopbarProps> = ({
@@ -41,15 +47,8 @@ const Topbar: React.FC<TopbarProps> = ({
 	experienceLevel,
 	jobTime,
 	salary,
-	defaultLocation,
-	defaultLanguage,
-	defaultWorkType,
-	defaultJobCategory,
-	defaultEducation,
-	defaultJobTime,
-	defaultSalary,
-	defaultJobSearchValue,
-	defaultExperienceLevel,
+        defaultJobSearchValue,
+        defaultSelections,
 }) => {
         const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
         const [searchValue, setSearchValue] = useState(() =>
@@ -59,11 +58,11 @@ const Topbar: React.FC<TopbarProps> = ({
         const router = useRouter();
         const pathname = usePathname();
 
-        const filters = useMemo(
+        const filters = useMemo<FilterDefinition[]>(
                 () => [
                         {
                                 key: "job-category-dropdown",
-                                defaultSelected: defaultJobCategory,
+                                defaultSelectedIds: defaultSelections?.jobCategory ?? [],
                                 queryKey: "jobCategory",
                                 items: jobCategories,
                                 headerTitle: "Category",
@@ -71,7 +70,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "contract-type-dropdown",
-                                defaultSelected: defaultWorkType,
+                                defaultSelectedIds: defaultSelections?.workType ?? [],
                                 queryKey: "workType",
                                 items: workType,
                                 headerTitle: "Contract Type",
@@ -79,7 +78,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "job-time-dropdown",
-                                defaultSelected: defaultJobTime,
+                                defaultSelectedIds: defaultSelections?.jobTime ?? [],
                                 queryKey: "jobTime",
                                 items: jobTime,
                                 headerTitle: "Working hours",
@@ -87,7 +86,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "location-dropdown",
-                                defaultSelected: defaultLocation,
+                                defaultSelectedIds: defaultSelections?.location ?? [],
                                 queryKey: "location",
                                 items: locations,
                                 headerTitle: "Location",
@@ -95,7 +94,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "language-dropdown",
-                                defaultSelected: defaultLanguage,
+                                defaultSelectedIds: defaultSelections?.language ?? [],
                                 queryKey: "language",
                                 items: languages,
                                 headerTitle: "Language",
@@ -103,7 +102,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "salary-dropdown",
-                                defaultSelected: defaultSalary,
+                                defaultSelectedIds: defaultSelections?.salaryLabel ?? [],
                                 queryKey: "salaryLabel",
                                 items: salary,
                                 headerTitle: "Salary",
@@ -111,7 +110,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "education-dropdown",
-                                defaultSelected: defaultEducation,
+                                defaultSelectedIds: defaultSelections?.education ?? [],
                                 queryKey: "education",
                                 items: educations,
                                 headerTitle: "Education",
@@ -119,7 +118,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                         {
                                 key: "experience-dropdown",
-                                defaultSelected: defaultExperienceLevel,
+                                defaultSelectedIds: defaultSelections?.experienceLevel ?? [],
                                 queryKey: "experienceLevel",
                                 items: experienceLevel,
                                 headerTitle: "Experience Level",
@@ -127,14 +126,7 @@ const Topbar: React.FC<TopbarProps> = ({
                         },
                 ],
                 [
-                        defaultEducation,
-                        defaultExperienceLevel,
-                        defaultJobCategory,
-                        defaultJobTime,
-                        defaultLanguage,
-                        defaultLocation,
-                        defaultSalary,
-                        defaultWorkType,
+                        defaultSelections,
                         educations,
                         experienceLevel,
                         jobCategories,
@@ -148,33 +140,35 @@ const Topbar: React.FC<TopbarProps> = ({
 
         const initialFilterState = useMemo(() => {
                 return filters.reduce((acc, filter) => {
-                        const defaultOption = filter.items.find(
-                                (item) => item.id === filter.defaultSelected,
+                        const defaultOptions = filter.items.filter((item) =>
+                                filter.defaultSelectedIds.includes(item.id),
                         );
 
                         return {
                                 ...acc,
-                                [filter.queryKey]: defaultOption ? String(defaultOption.label) : "",
+                                [filter.queryKey]: defaultOptions.map((item) =>
+                                        String(item.label),
+                                ),
                         };
-                }, {} as Record<string, string>);
+                }, {} as Record<string, string[]>);
         }, [filters]);
 
         const emptyFilterState = useMemo(() => {
                 return filters.reduce(
                         (acc, filter) => ({
                                 ...acc,
-                                [filter.queryKey]: "",
+                                [filter.queryKey]: [],
                         }),
-                        {} as Record<string, string>,
+                        {} as Record<string, string[]>,
                 );
         }, [filters]);
 
-        const [filtersState, setFiltersState] = useState<Record<string, string>>(() => ({
-                ...initialFilterState,
-        }));
+        const [filtersState, setFiltersState] = useState<Record<string, string[]>>(() =>
+                cloneFilterState(initialFilterState),
+        );
 
         useEffect(() => {
-                setFiltersState({ ...initialFilterState });
+                setFiltersState(cloneFilterState(initialFilterState));
         }, [initialFilterState]);
 
         useEffect(() => {
@@ -183,21 +177,22 @@ const Topbar: React.FC<TopbarProps> = ({
 
         const handleApplyFilters = useCallback(() => {
                 const params = new URLSearchParams(searchParams.toString());
+                const trimmedSearchValue = searchValue.trim();
 
-                if (searchValue) {
-                        params.set("jobTitle", searchValue);
+                if (trimmedSearchValue) {
+                        params.set("jobTitle", trimmedSearchValue);
                 } else {
                         params.delete("jobTitle");
                 }
 
                 filters.forEach((filter) => {
-                        const value = filtersState[filter.queryKey];
+                        const values = filtersState[filter.queryKey] ?? [];
 
-                        if (value) {
-                                params.set(filter.queryKey, value);
-                        } else {
-                                params.delete(filter.queryKey);
-                        }
+                        params.delete(filter.queryKey);
+
+                        values.forEach((value) => {
+                                params.append(filter.queryKey, value);
+                        });
                 });
 
                 router.push(`${pathname}?${params.toString()}`);
@@ -206,16 +201,24 @@ const Topbar: React.FC<TopbarProps> = ({
 
         const handleClearAll = useCallback(() => {
                 setSearchValue("");
-                setFiltersState({ ...emptyFilterState });
+                setFiltersState(cloneFilterState(emptyFilterState));
                 router.push(pathname);
                 setIsFilterModalOpen(false);
         }, [emptyFilterState, pathname, router]);
 
         const handleFilterSelection = useCallback((key: string, value: string) => {
-                setFiltersState((prev) => ({
-                        ...prev,
-                        [key]: value,
-                }));
+                setFiltersState((prev) => {
+                        const currentValues = prev[key] ?? [];
+                        const exists = currentValues.includes(value);
+                        const nextValues = exists
+                                ? currentValues.filter((item) => item !== value)
+                                : [...currentValues, value];
+
+                        return {
+                                ...prev,
+                                [key]: nextValues,
+                        };
+                });
         }, []);
 
         return (
@@ -266,7 +269,6 @@ const Topbar: React.FC<TopbarProps> = ({
                                         </div>
                                 </div>
                         </div>
-
                         {isFilterModalOpen && (
                                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
                                         <div className="w-full max-w-3xl rounded-3xl bg-white p-6 shadow-2xl">
@@ -284,30 +286,69 @@ const Topbar: React.FC<TopbarProps> = ({
 
                                                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                                         {filters.map((filter) => (
-                                                                <label key={filter.key} className="flex flex-col gap-2 text-sm text-gray-700">
-                                                                        <span className="font-medium text-gray-600">{filter.headerTitle}</span>
-                                                                        <select
-                                                                                value={filtersState[filter.queryKey] || ""}
-                                                                                onChange={(event) =>
-                                                                                        handleFilterSelection(filter.queryKey, event.target.value)
-                                                                                }
-                                                                                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-dark focus:outline-none focus:ring-2 focus:ring-dark/20"
-                                                                        >
-                                                                                <option value="">All</option>
-                                                                                {filter.items.map((item) => (
-                                                                                        <option key={item.id} value={String(item.label)}>
-                                                                                                {item.label}
-                                                                                        </option>
-                                                                                ))}
-                                                                        </select>
-                                                                </label>
+                                                                <div
+                                                                        key={filter.key}
+                                                                        className="flex flex-col gap-3 rounded-2xl border border-gray-200 p-4 shadow-sm"
+                                                                >
+                                                                        <div className="flex items-center justify-between gap-3">
+                                                                                <span className="text-sm font-semibold text-gray-700">
+                                                                                        {filter.headerTitle}
+                                                                                </span>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        onClick={() =>
+                                                                                                setFiltersState((prev) => ({
+                                                                                                        ...prev,
+                                                                                                        [filter.queryKey]: [],
+                                                                                                }))
+                                                                                        }
+                                                                                        className="text-xs font-medium text-gray-500 transition hover:text-gray-700"
+                                                                                >
+                                                                                        Clear
+                                                                                </button>
+                                                                        </div>
+
+                                                                        <div className="flex max-h-48 flex-col gap-2 overflow-y-auto pr-1 text-sm text-gray-600">
+                                                                                {filter.items.map((item) => {
+                                                                                        const label = String(item.label);
+                                                                                        const checked = (filtersState[filter.queryKey] ?? []).includes(
+                                                                                                label,
+                                                                                        );
+
+                                                                                        return (
+                                                                                                <label
+                                                                                                        key={item.id}
+                                                                                                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 transition hover:bg-gray-100"
+                                                                                                >
+                                                                                                        <input
+                                                                                                                type="checkbox"
+                                                                                                                checked={checked}
+                                                                                                                onChange={() =>
+                                                                                                                        handleFilterSelection(
+                                                                                                                                filter.queryKey,
+                                                                                                                                label,
+                                                                                                                        )
+                                                                                                                }
+                                                                                                                className="h-4 w-4 rounded border-gray-300 text-dark focus:ring-dark/40"
+                                                                                                        />
+                                                                                                        <span className="truncate text-sm text-gray-700">
+                                                                                                                {item.label}
+                                                                                                        </span>
+                                                                                                </label>
+                                                                                        );
+                                                                                })}
+                                                                                {!filter.items.length && (
+                                                                                        <p className="text-xs text-gray-400">No options available</p>
+                                                                                )}
+                                                                        </div>
+                                                                </div>
                                                         ))}
                                                 </div>
 
                                                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
                                                         <button
                                                                 type="button"
-                                                                onClick={() => setFiltersState({ ...emptyFilterState })}
+                                                                onClick={() => setFiltersState(cloneFilterState(initialFilterState))}
                                                                 className="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800"
                                                         >
                                                                 Reset
