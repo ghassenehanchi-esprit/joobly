@@ -1,67 +1,95 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import mongoose from "mongoose";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
 import { PointsOrder } from "@/models/PointsOrder";
 import { User } from "@/models/User";
-import mongoose from "mongoose";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-    const sig = req.headers.get('stripe-signature');
-    let event;
-    console.log('Stripe Event:', JSON.stringify(event, null, 2)); 
+  const signature = headers().get("stripe-signature");
 
-    try {
-        const reqBuffer = await req.text();
-        const signSecret = process.env.STRIPE_SIGN_SECRET!;
-        event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
-    } catch (error) {
-        console.error('stripe error');
-        return new Response(JSON.stringify({ error: 'Invalid signature' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
-        });
+  if (!signature) {
+    return NextResponse.json(
+      { error: "Missing Stripe signature header" },
+      { status: 400 }
+    );
+  }
+
+  const body = await req.text();
+
+  const webhookSecret = process.env.STRIPE_SIGN_SECRET;
+
+  if (!webhookSecret) {
+    console.error("Stripe webhook secret is not configured");
+    return NextResponse.json(
+      { error: "Stripe webhook secret is not configured" },
+      { status: 500 }
+    );
+  }
+
+  let event: Stripe.Event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      webhookSecret
+    );
+  } catch (error) {
+    console.error("Failed to verify Stripe signature", error);
+    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  if (event.type !== "checkout.session.completed") {
+    return NextResponse.json({ received: true });
+  }
+
+  const session = event.data.object as Stripe.Checkout.Session;
+  const orderId = session.metadata?.orderId;
+
+  if (!orderId) {
+    console.error("Checkout session missing order metadata", session.id);
+    return NextResponse.json({ error: "Missing order metadata" }, { status: 400 });
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+
+    const order = await PointsOrder.findById(orderId);
+
+    if (!order) {
+      console.error("Order not found for Stripe session", orderId);
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
-    if (event.type === 'checkout.session.completed') {
-        console.log(event);
-        const orderId = event?.data?.object?.metadata?.orderId;
-        const isPaid = event?.data?.object?.payment_status === 'paid';
+    if (session.payment_status === "paid" && !order.paid) {
+      order.paid = true;
+      await order.save();
 
+      const updateResult = await User.findOneAndUpdate(
+        { email: order.userEmail },
+        { $inc: { jobPostPoints: order.points } },
+        { new: true }
+      );
 
-            if (isPaid) {
-                await mongoose.connect(process.env.MONGODB_URI as string);
-                console.log(`Order ID: ${orderId}`);
-                console.log(`Is Paid: ${isPaid}`);
-                const orderPaid = await PointsOrder.updateOne({ _id: orderId }, { paid: true });
-                console.log(`Order Paid Response:`, orderPaid);
-                const order = await PointsOrder.findById(orderId);
-                console.log(`Order:`, order);
-    
-                if (orderPaid) {
-                    const updatedUser = await User.findOneAndUpdate(
-                        { email: order.userEmail },
-                        { $inc: { jobPostPoints: order.points } },
-                        { new: true }
-                      );
-                    if (updatedUser) {
-                        return new Response(JSON.stringify({ message: 'ok' }), {
-                            status: 200,
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-                    } else {
-                        return new Response(JSON.stringify({ message: 'error updating the points' }), {
-                            status: 200,
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-                    }
-                }
-            }
-        } else {
-            return new Response(JSON.stringify({ message: 'payment error' }), {
-                status: 501,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
+      if (!updateResult) {
+        console.error("Unable to update user points", order.userEmail);
+        return NextResponse.json(
+          { error: "Unable to update user points" },
+          { status: 500 }
+        );
+      }
+    }
 
-    
+    return NextResponse.json({ received: true });
+  } catch (error) {
+    console.error("Stripe webhook processing failed", error);
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+  }
 }
-
-

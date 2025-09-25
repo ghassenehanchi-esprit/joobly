@@ -14,6 +14,13 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   const userEmail = session?.user?.email || undefined;
 
+  if (!userEmail) {
+    return NextResponse.json(
+      { error: "User not authenticated" },
+      { status: 401 }
+    );
+  }
+
   const orderDoc = await PointsOrder.create({
     userEmail,
     title,
