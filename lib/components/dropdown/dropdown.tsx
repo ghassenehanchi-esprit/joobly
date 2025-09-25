@@ -27,13 +27,11 @@ const Dropdown: React.FC<DropdownProps> = ({
   useEffect(() => {
     setSelectedItem(defaultSelected);
   }, [defaultSelected]);
-
   const selectedLabel = useMemo(() => {
     const match = items.find((item) => item.id === selectedItem);
     if (!match) {
       return 'All';
     }
-
     return String(match.label);
   }, [items, selectedItem]);
 
@@ -46,6 +44,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     queryPushing && queryPushing(String(item.label));
 
     setIsBodyVisible(false);
+
   };
 
   const handleReset = () => {
