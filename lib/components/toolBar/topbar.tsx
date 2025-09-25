@@ -9,14 +9,8 @@ import { IoClose } from "react-icons/io5";
 
 import { optionItems } from "@/lib/types/componentTypes";
 
-type FilterDefinition = {
-        key: string;
-        defaultSelectedIds: string[];
-        queryKey: string;
-        items: optionItems[];
-        headerTitle: string;
-        icon: string;
-};
+import MobileFilterDrawer from "./mobile-filter-drawer";
+import type { FilterDefinition } from "./types";
 
 const cloneFilterState = (state: Record<string, string[]>) =>
         Object.fromEntries(
@@ -38,19 +32,20 @@ interface TopbarProps {
 }
 
 const Topbar: React.FC<TopbarProps> = ({
-	style,
-	locations,
-	languages,
-	educations,
-	workType,
-	jobCategories,
-	experienceLevel,
-	jobTime,
-	salary,
+        style,
+        locations,
+        languages,
+        educations,
+        workType,
+        jobCategories,
+        experienceLevel,
+        jobTime,
+        salary,
         defaultJobSearchValue,
         defaultSelections,
 }) => {
         const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+        const [isMobileView, setIsMobileView] = useState(false);
         const [searchValue, setSearchValue] = useState(() =>
                 defaultJobSearchValue ? String(defaultJobSearchValue) : "",
         );
@@ -175,6 +170,24 @@ const Topbar: React.FC<TopbarProps> = ({
                 setSearchValue(defaultJobSearchValue ? String(defaultJobSearchValue) : "");
         }, [defaultJobSearchValue]);
 
+        useEffect(() => {
+                if (typeof window === "undefined") {
+                        return;
+                }
+
+                const handleResize = () => {
+                        setIsMobileView(window.innerWidth < 768);
+                };
+
+                handleResize();
+
+                window.addEventListener("resize", handleResize);
+
+                return () => {
+                        window.removeEventListener("resize", handleResize);
+                };
+        }, []);
+
         const handleApplyFilters = useCallback(() => {
                 const params = new URLSearchParams(searchParams.toString());
                 const trimmedSearchValue = searchValue.trim();
@@ -206,6 +219,13 @@ const Topbar: React.FC<TopbarProps> = ({
                 setIsFilterModalOpen(false);
         }, [emptyFilterState, pathname, router]);
 
+        const handleClearFilterGroup = useCallback((key: string) => {
+                setFiltersState((prev) => ({
+                        ...prev,
+                        [key]: [],
+                }));
+        }, []);
+
         const handleFilterSelection = useCallback((key: string, value: string) => {
                 setFiltersState((prev) => {
                         const currentValues = prev[key] ?? [];
@@ -220,6 +240,130 @@ const Topbar: React.FC<TopbarProps> = ({
                         };
                 });
         }, []);
+
+        const renderFiltersModal = () => {
+                if (!isFilterModalOpen) {
+                        return null;
+                }
+
+                if (isMobileView) {
+                        return (
+                                <MobileFilterDrawer
+                                        filters={filters}
+                                        filtersState={filtersState}
+                                        isOpen={isFilterModalOpen}
+                                        onApply={handleApplyFilters}
+                                        onClearAll={handleClearAll}
+                                        onClearFilter={handleClearFilterGroup}
+                                        onClose={() => setIsFilterModalOpen(false)}
+                                        onReset={() =>
+                                                setFiltersState(
+                                                        cloneFilterState(initialFilterState),
+                                                )
+                                        }
+                                        onToggle={handleFilterSelection}
+                                />
+                        );
+                }
+
+                return (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+                                <div className="w-full max-w-3xl rounded-3xl bg-white p-6 shadow-2xl">
+                                        <div className="mb-6 flex items-center justify-between">
+                                                <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
+                                                <button
+                                                        type="button"
+                                                        onClick={() => setIsFilterModalOpen(false)}
+                                                        className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
+                                                        aria-label="Close filters"
+                                                >
+                                                        <IoClose className="h-6 w-6" />
+                                                </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                                {filters.map((filter) => (
+                                                        <div
+                                                                key={filter.key}
+                                                                className="flex flex-col gap-3 rounded-2xl border border-gray-200 p-4 shadow-sm"
+                                                        >
+                                                                <div className="flex items-center justify-between gap-3">
+                                                                        <span className="text-sm font-semibold text-gray-700">
+                                                                                {filter.headerTitle}
+                                                                        </span>
+                                                                        <button
+                                                                                type="button"
+                                                                                onClick={() => handleClearFilterGroup(filter.queryKey)}
+                                                                                className="text-xs font-medium text-gray-500 transition hover:text-gray-700"
+                                                                        >
+                                                                                Clear
+                                                                        </button>
+                                                                </div>
+
+                                                                <div className="flex max-h-48 flex-col gap-2 overflow-y-auto pr-1 text-sm text-gray-600">
+                                                                        {filter.items.map((item) => {
+                                                                                const label = String(item.label);
+                                                                                const checked = (filtersState[filter.queryKey] ?? []).includes(
+                                                                                        label,
+                                                                                );
+
+                                                                                return (
+                                                                                        <label
+                                                                                                key={item.id}
+                                                                                                className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 transition hover:bg-gray-100"
+                                                                                        >
+                                                                                                <input
+                                                                                                        type="checkbox"
+                                                                                                        checked={checked}
+                                                                                                        onChange={() =>
+                                                                                                                handleFilterSelection(
+                                                                                                                        filter.queryKey,
+                                                                                                                        label,
+                                                                                                                )
+                                                                                                        }
+                                                                                                        className="h-4 w-4 rounded border-gray-300 text-dark focus:ring-dark/40"
+                                                                                                />
+                                                                                                <span className="truncate text-sm text-gray-700">
+                                                                                                        {item.label}
+                                                                                                </span>
+                                                                                        </label>
+                                                                                );
+                                                                        })}
+                                                                        {!filter.items.length && (
+                                                                                <p className="text-xs text-gray-400">No options available</p>
+                                                                        )}
+                                                                </div>
+                                                        </div>
+                                                ))}
+                                        </div>
+
+                                        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+                                                <button
+                                                        type="button"
+                                                        onClick={() => setFiltersState(cloneFilterState(initialFilterState))}
+                                                        className="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800"
+                                                >
+                                                        Reset
+                                                </button>
+                                                <button
+                                                        type="button"
+                                                        onClick={handleApplyFilters}
+                                                        className="rounded-full bg-dark px-6 py-2 text-sm font-semibold text-white transition duration-200 hover:opacity-90"
+                                                >
+                                                        Apply filters
+                                                </button>
+                                                <button
+                                                        type="button"
+                                                        onClick={handleClearAll}
+                                                        className="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800"
+                                                >
+                                                        Clear all
+                                                </button>
+                                        </div>
+                                </div>
+                        </div>
+                );
+        };
 
         return (
                 <div className="w-full">
@@ -269,111 +413,9 @@ const Topbar: React.FC<TopbarProps> = ({
                                         </div>
                                 </div>
                         </div>
-                        {isFilterModalOpen && (
-                                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-                                        <div className="w-full max-w-3xl rounded-3xl bg-white p-6 shadow-2xl">
-                                                <div className="mb-6 flex items-center justify-between">
-                                                        <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
-                                                        <button
-                                                                type="button"
-                                                                onClick={() => setIsFilterModalOpen(false)}
-                                                                className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
-                                                                aria-label="Close filters"
-                                                        >
-                                                                <IoClose className="h-6 w-6" />
-                                                        </button>
-                                                </div>
-
-                                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                                        {filters.map((filter) => (
-                                                                <div
-                                                                        key={filter.key}
-                                                                        className="flex flex-col gap-3 rounded-2xl border border-gray-200 p-4 shadow-sm"
-                                                                >
-                                                                        <div className="flex items-center justify-between gap-3">
-                                                                                <span className="text-sm font-semibold text-gray-700">
-                                                                                        {filter.headerTitle}
-                                                                                </span>
-                                                                                <button
-                                                                                        type="button"
-                                                                                        onClick={() =>
-                                                                                                setFiltersState((prev) => ({
-                                                                                                        ...prev,
-                                                                                                        [filter.queryKey]: [],
-                                                                                                }))
-                                                                                        }
-                                                                                        className="text-xs font-medium text-gray-500 transition hover:text-gray-700"
-                                                                                >
-                                                                                        Clear
-                                                                                </button>
-                                                                        </div>
-
-                                                                        <div className="flex max-h-48 flex-col gap-2 overflow-y-auto pr-1 text-sm text-gray-600">
-                                                                                {filter.items.map((item) => {
-                                                                                        const label = String(item.label);
-                                                                                        const checked = (filtersState[filter.queryKey] ?? []).includes(
-                                                                                                label,
-                                                                                        );
-
-                                                                                        return (
-                                                                                                <label
-                                                                                                        key={item.id}
-                                                                                                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 transition hover:bg-gray-100"
-                                                                                                >
-                                                                                                        <input
-                                                                                                                type="checkbox"
-                                                                                                                checked={checked}
-                                                                                                                onChange={() =>
-                                                                                                                        handleFilterSelection(
-                                                                                                                                filter.queryKey,
-                                                                                                                                label,
-                                                                                                                        )
-                                                                                                                }
-                                                                                                                className="h-4 w-4 rounded border-gray-300 text-dark focus:ring-dark/40"
-                                                                                                        />
-                                                                                                        <span className="truncate text-sm text-gray-700">
-                                                                                                                {item.label}
-                                                                                                        </span>
-                                                                                                </label>
-                                                                                        );
-                                                                                })}
-                                                                                {!filter.items.length && (
-                                                                                        <p className="text-xs text-gray-400">No options available</p>
-                                                                                )}
-                                                                        </div>
-                                                                </div>
-                                                        ))}
-                                                </div>
-
-                                                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
-                                                        <button
-                                                                type="button"
-                                                                onClick={() => setFiltersState(cloneFilterState(initialFilterState))}
-                                                                className="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800"
-                                                        >
-                                                                Reset
-                                                        </button>
-                                                        <button
-                                                                type="button"
-                                                                onClick={handleApplyFilters}
-                                                                className="rounded-full bg-dark px-6 py-2 text-sm font-semibold text-white transition duration-200 hover:opacity-90"
-                                                        >
-                                                                Apply filters
-                                                        </button>
-                                                        <button
-                                                                type="button"
-                                                                onClick={handleClearAll}
-                                                                className="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800"
-                                                        >
-                                                                Clear all
-                                                        </button>
-                                                </div>
-                                        </div>
-                                </div>
-                        )}
+                        {renderFiltersModal()}
                 </div>
         );
-
 };
 
 export default Topbar;
