@@ -41,46 +41,64 @@ export async function POST(req: Request) {
 const escapeRegExp = (value: string) => value.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 
 export async function GET(req: Request) {
-  await mongoose.connect(process.env.MONGODB_URI as string);
-  const url = new URL(req.url);
-  const id = url.searchParams.get("id");
+    try {
+        const dbUri = process.env.MONGODB_URI;
 
-  if (id) {
-    const job = await Job.findById(id);
-    if (job) {
-      return Response.json(job);
-    } else {
-      return Response.json({ message: "Job not found" }, { status: 404 });
+        if (!dbUri) {
+                return Response.json(
+                        { error: "Database URI is not defined in environment variables" },
+                        { status: 500 },
+                );
+        }
+
+        await mongoose.connect(dbUri);
+
+        const url = new URL(req.url);
+        const id = url.searchParams.get("id");
+
+        if (id) {
+                const job = await Job.findById(id);
+                if (job) {
+                        return Response.json(job);
+                }
+
+                return Response.json({ message: "Job not found" }, { status: 404 });
+        }
+
+        const searchParams = url.searchParams;
+        const filter: Record<string, any> = {};
+
+        const uniqueKeys = Array.from(new Set(searchParams.keys()));
+
+        uniqueKeys.forEach((key) => {
+                const values = searchParams
+                        .getAll(key)
+                        .map((value) => value.trim())
+                        .filter(Boolean);
+
+                if (!values.length) {
+                        return;
+                }
+
+                if (values.length === 1) {
+                        const escapedValue = escapeRegExp(values[0]);
+                        filter[key] = { $regex: new RegExp(`.*${escapedValue}.*`, "i") };
+                        return;
+                }
+
+                filter[key] = {
+                        $in: values.map((value) => new RegExp(`.*${escapeRegExp(value)}.*`, "i")),
+                };
+        });
+
+        const jobs = await Job.find(filter);
+        return Response.json({ length: jobs.length, jobs });
+    } catch (error) {
+        console.error("Error fetching jobs:", error);
+        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+
+        return Response.json({ error: errorMessage }, { status: 500 });
     }
-  }
-  const searchParams = url.searchParams;
-  const filter: Record<string, any> = {};
-
-  const uniqueKeys = Array.from(new Set(searchParams.keys()));
-
-  uniqueKeys.forEach((key) => {
-    const values = searchParams
-      .getAll(key)
-      .map((value) => value.trim())
-      .filter(Boolean);
-
-    if (!values.length) {
-      return;
-    }
-
-    if (values.length === 1) {
-      const escapedValue = escapeRegExp(values[0]);
-      filter[key] = { $regex: new RegExp(`.*${escapedValue}.*`, "i") };
-      return;
-    }
-
-    filter[key] = {
-      $in: values.map((value) => new RegExp(`.*${escapeRegExp(value)}.*`, "i")),
-    };
-  });
-
-  const jobs = await Job.find(filter);
-  return Response.json({ length: jobs.length, jobs });
 }
 
 
