@@ -1,12 +1,17 @@
 import mongoose from "mongoose"
 
-const MONGODB_URI = process.env.MONGODB_URI
 
-if (!MONGODB_URI) {
+const connectionString = process.env.MONGODB_URI
+
+if (!connectionString) {
+
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env.local"
   )
 }
+
+
+const MONGODB_URI: string = connectionString
 
 type MongooseConnection = {
   conn: typeof mongoose | null
