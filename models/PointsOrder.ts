@@ -4,8 +4,8 @@ export type PointsOrderTypes = {
     _id?: FormDataEntryValue;
     userEmail: string;
     title: string;
-    price: string;
-    points: string;
+    price: number;
+    points: number;
     paymentType: string;
     paid: boolean;
     createdAt?: Date;

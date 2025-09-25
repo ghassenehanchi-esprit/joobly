@@ -1,15 +1,17 @@
+import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
+
 import bronze from "@/public/images/logos/bronzePlan.svg";
 import { BASIC_PLAN_PERMISSIONS } from "@/lib/constant/constants";
 
 export type ButtonProps = {
-	onClick?: () => void;
-	style?: React.CSSProperties;
-	className?: string;
-	disabled?: boolean;
-	type?: "button" | "submit" | "reset";
-	icon?: string;
-	children: any;
-	hoverIcon?: string;
+        onClick?: MouseEventHandler<HTMLButtonElement>;
+        style?: CSSProperties;
+        className?: string;
+        disabled?: boolean;
+        type?: "button" | "submit" | "reset";
+        icon?: string;
+        children: ReactNode;
+        hoverIcon?: string;
 };
 
 export interface optionItems {
@@ -84,12 +86,12 @@ export type PlanContainerDataType = {
 };
 
 export type ServicePlanType = {
-	title: string;
-	points: number;
-	percent: string;
-	value?: string;
-	active: boolean;
-	price?: number | string;
+        title: string;
+        points: number;
+        percent: string;
+        value?: string;
+        active: boolean;
+        price?: number;
 };
 export interface JobsPagePropsTypes {
         params?: { value: string | number };
