@@ -164,7 +164,9 @@ const Topbar: React.FC<TopbarProps> = ({
                 <div className="w-full">
                         <button
                                 onClick={() => setIsFilterActive((prev) => !prev)}
-                                className="mb-3 flex items-center gap-2 rounded-md bg-light py-1 px-4 text-gray-500 shadow-[0_4px_120px_rgba(151,159,183,0.15)] lg:hidden"
+                                className="mb-4 flex items-center gap-2 self-start rounded-full border border-gray-200 bg-light/90 py-1.5 px-4 text-sm font-medium text-gray-600 shadow-[0_10px_40px_rgba(151,159,183,0.15)] backdrop-blur lg:hidden"
+                                aria-expanded={isFilterActive}
+                                aria-controls="filters-panel"
                         >
                                 Filter
                                 {isFilterActive ? (
@@ -176,30 +178,31 @@ const Topbar: React.FC<TopbarProps> = ({
 
                         <div
                                 style={style}
-                                className={`w-full rounded-lg bg-light py-4 px-4 shadow-[0_4px_120px_rgba(151,159,183,0.15)] sm:px-6 ${
+                                id="filters-panel"
+                                className={`mx-auto w-full max-w-5xl rounded-3xl border border-gray-100 bg-white/70 py-5 px-4 shadow-[0_18px_80px_rgba(151,159,183,0.16)] backdrop-blur-sm sm:px-6 lg:px-8 ${
                                         isFilterActive ? "block" : "hidden"
                                 }`}
                         >
-                                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                        <div className="flex w-full items-center gap-3 rounded-md border border-gray-200 px-3 py-2">
+                                <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                                        <div className="flex w-full items-center gap-3 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
                                                 <CiSearch className="h-5 w-5 text-gray-500" />
                                                 <input
                                                         defaultValue={defaultJobSearchValue || ""}
                                                         onChange={(event) => handleQueryPush("jobTitle", event.target.value)}
                                                         type="text"
-                                                        className="w-full text-base placeholder-gray-500 placeholder-opacity-60"
+                                                        className="w-full bg-transparent text-base placeholder-gray-500 placeholder-opacity-60 focus:outline-none"
                                                         placeholder="Search job name"
                                                 />
                                         </div>
                                         <Link
-                                                className="duration-200 self-start rounded-md border border-gray-200 bg-light py-2 px-4 text-gray-500 hover:border-gray-300 hover:text-gray-700 sm:self-auto"
+                                                className="self-start rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 transition duration-200 hover:border-gray-300 hover:text-gray-800 sm:self-auto"
                                                 href="/jobs"
                                         >
                                                 Clear
                                         </Link>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                                         {filters.map((filter) => (
                                                 <div key={filter.key} className="w-full">
                                                         <Dropdown
