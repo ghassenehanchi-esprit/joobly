@@ -116,11 +116,11 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 	<>
 		<HeaderBackground />
                 <section className="mt-16 mb-20 px-4 sm:px-6">
-                        <div className="container mx-auto flex flex-col gap-10 lg:flex-row lg:items-start">
-				<Topbar
-					defaultJobSearchValue={searchParams?.jobTitle}
-					defaultLocation={defaultLocation?.id}
-					defaultLanguage={defaultLanguage?.id}
+                        <div className="container mx-auto flex flex-col gap-10">
+                                <Topbar
+                                        defaultJobSearchValue={searchParams?.jobTitle}
+                                        defaultLocation={defaultLocation?.id}
+                                        defaultLanguage={defaultLanguage?.id}
 					defaultEducation={defaultEducation?.id}
 					defaultWorkType={defaultWorkType?.id}
 					defaultJobCategory={defaultJobCategory?.id}
@@ -136,7 +136,7 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
 					experienceLevel={experienceLevels}
 					salary={salaryLabels}
 				/>
-                                <div className="px-0 md:px-2 mdl:px-6 flex-grow">
+                                <div className="px-0 md:px-2 mdl:px-6">
                                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6 py-2">
                                                 <p className="text-xl text-gray-600">
                                                         {jobs?.length || "No"} {jobs?.length > 1 ? "jobs" : "job"} found
