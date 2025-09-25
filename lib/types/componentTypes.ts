@@ -92,19 +92,19 @@ export type ServicePlanType = {
 	price?: number | string;
 };
 export interface JobsPagePropsTypes {
-	params?: { value: string | number };
-	searchParams?: {
-		jobTitle: string | undefined;
-		workType: string | undefined;
-		jobTime: string | undefined;
-		jobCategory: string | undefined;
-		language: string | undefined;
-		location: string | undefined;
-		education: string | undefined;
-		experienceLevel: string | undefined;
-		salary: string | undefined;
-		salaryLabel: string | undefined;
-	};
+        params?: { value: string | number };
+        searchParams?: {
+                jobTitle: string | string[] | undefined;
+                workType: string | string[] | undefined;
+                jobTime: string | string[] | undefined;
+                jobCategory: string | string[] | undefined;
+                language: string | string[] | undefined;
+                location: string | string[] | undefined;
+                education: string | string[] | undefined;
+                experienceLevel: string | string[] | undefined;
+                salary: string | string[] | undefined;
+                salaryLabel: string | string[] | undefined;
+        };
 }
 export type PackageType = {
 	title: string;

@@ -38,6 +38,8 @@ export async function POST(req: Request) {
 }
 
 
+const escapeRegExp = (value: string) => value.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+
 export async function GET(req: Request) {
   await mongoose.connect(process.env.MONGODB_URI as string);
   const url = new URL(req.url);
@@ -51,15 +53,31 @@ export async function GET(req: Request) {
       return Response.json({ message: "Job not found" }, { status: 404 });
     }
   }
+  const searchParams = url.searchParams;
+  const filter: Record<string, any> = {};
 
-  const query = Object.fromEntries(url.searchParams.entries());
-  const filter: Record<string, any> = {}; 
+  const uniqueKeys = Array.from(new Set(searchParams.keys()));
 
-  for (const key in query) {
-    if (query[key]) {
-      filter[key] = { $regex: new RegExp(`.*${query[key]}.*`, "i") };
+  uniqueKeys.forEach((key) => {
+    const values = searchParams
+      .getAll(key)
+      .map((value) => value.trim())
+      .filter(Boolean);
+
+    if (!values.length) {
+      return;
     }
-  }
+
+    if (values.length === 1) {
+      const escapedValue = escapeRegExp(values[0]);
+      filter[key] = { $regex: new RegExp(`.*${escapedValue}.*`, "i") };
+      return;
+    }
+
+    filter[key] = {
+      $in: values.map((value) => new RegExp(`.*${escapeRegExp(value)}.*`, "i")),
+    };
+  });
 
   const jobs = await Job.find(filter);
   return Response.json({ length: jobs.length, jobs });
