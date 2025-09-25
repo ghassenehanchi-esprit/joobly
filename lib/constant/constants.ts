@@ -559,15 +559,28 @@ export const COMPANY_SIZE = [
 	"less than 500 Employees"
 ];
 
-const rawBackendUrl = process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_BACKEND_URL;
+const stripTrailingSlash = (url: string) => url.replace(/\/$/, "");
 
-if (!rawBackendUrl) {
-        throw new Error(
-                "Missing BACKEND_URL environment variable. Set BACKEND_URL (preferred) or NEXT_PUBLIC_BACKEND_URL to the fully qualified API base URL.",
-        );
-}
+const fallbackFrontendUrl = (() => {
+        if (process.env.NEXT_PUBLIC_SITE_URL) {
+                return stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL);
+        }
 
-export const BACKEND_URL = rawBackendUrl.replace(/\/$/, "");
+        if (process.env.NEXTAUTH_URL) {
+                return stripTrailingSlash(process.env.NEXTAUTH_URL);
+        }
+
+        if (process.env.VERCEL_URL) {
+                return stripTrailingSlash(`https://${process.env.VERCEL_URL}`);
+        }
+
+        return "http://localhost:3000";
+})();
+
+const rawBackendUrl =
+        process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_BACKEND_URL ?? `${fallbackFrontendUrl}/api`;
+
+export const BACKEND_URL = stripTrailingSlash(rawBackendUrl);
 
 // REGEXPS
 export const emailValidationRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
