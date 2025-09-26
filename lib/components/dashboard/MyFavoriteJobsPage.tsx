@@ -1,5 +1,5 @@
 "use client"
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
@@ -68,11 +68,9 @@ const MyFavoriteJobsPage = () => {
         </div>
 
         <div className="space-y-4">
-          <Suspense fallback={<div>Loading...</div>}>
-            {visibleJobs?.map((result: any) => (
-              <FavoriteJobPostItem data={result} key={result._id} />
-            ))}
-          </Suspense>
+          {visibleJobs?.map((result: any) => (
+            <FavoriteJobPostItem data={result} key={result._id} />
+          ))}
 
           {/* Show more button */}
           {!showAll && jobs?.length > 5 && (

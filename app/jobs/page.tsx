@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Topbar from "../../lib/components/toolBar/topbar";
 import JobItem from "../../lib/components/jobItem/jobItem";
 import { JobData, JobsPagePropsTypes, optionItems } from "@/lib/types/componentTypes";
@@ -194,11 +193,9 @@ const Jobs = async ({ searchParams }: JobsPagePropsTypes) => {
                                         </div>
 
                                         <div className="space-y-4">
-                                                <Suspense fallback={<div>Loading...</div>}>
-                                                        {jobResults.map((result: any) => (
-                                                                <JobItem data={result} key={result._id} />
-                                                        ))}
-                                                </Suspense>
+                                                {jobResults.map((result: any) => (
+                                                        <JobItem data={result} key={result._id} />
+                                                ))}
                                         </div>
 
                                         <div
