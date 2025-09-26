@@ -1,5 +1,5 @@
 "use client"
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import {redirect, useRouter} from "next/navigation";
 import toast from "react-hot-toast";
@@ -123,11 +123,9 @@ const DashboardPage = () => {
 
           <div className="space-y-4">
             {/*your job posts*/}
-              <Suspense fallback={<div>Loading...</div>}>
-                  {(showAllJobs ? jobs : jobs.slice(0, 5)).map((result: any) => (
-                    <MyJobPostItem data={result} key={result._id} />
-                  ))}
-              </Suspense>
+              {(showAllJobs ? jobs : jobs.slice(0, 5)).map((result: any) => (
+                <MyJobPostItem data={result} key={result._id} />
+              ))}
                 {jobs.length > 5 && !showAllJobs && (
                   <div className="flex justify-center mt-4">
                     <Button

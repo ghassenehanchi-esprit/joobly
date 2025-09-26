@@ -50,10 +50,8 @@ interface Inputs {
 	
 }
 const TextEditor = dynamic(() => import("@/lib/components/textEditor/TextEditor"), {
-	ssr: false,
-	loading: () => {
-		return <div className='font-semibold text-primary'>Loading...</div>;
-	},
+        ssr: false,
+        loading: () => null,
 });
 const PostJob = () => {
 	const [showCompanyDetails, setShowCompanyDetails] = useState<boolean>(false);
