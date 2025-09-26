@@ -47,10 +47,16 @@ const PaymentContainer = ({ props }: PaymentContainerProps) => {
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(packageDetails),
+        body: JSON.stringify({ title: packageDetails.title }),
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          toast.error("Please sign in before purchasing a package.");
+          router.push("/login?callbackUrl=/packages");
+          return;
+        }
+
         throw new Error("Unable to start Stripe checkout session");
       }
 
