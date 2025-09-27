@@ -79,7 +79,9 @@ export async function POST(req: Request) {
       line_items: stripeLineItems,
       mode: "payment",
       customer_email: userEmail,
-      success_url: resolveAbsoluteUrl("/success"),
+      success_url: resolveAbsoluteUrl(
+        "/success?session_id={CHECKOUT_SESSION_ID}"
+      ),
       cancel_url: resolveAbsoluteUrl("/error"),
       metadata: {
         orderId: orderDoc._id.toString(),
@@ -89,6 +91,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ url: stripeSession.url });
   } catch (error: unknown) {
+    console.error("Stripe checkout session creation failed", error);
     return NextResponse.json(
       { error, message: "Could not create checkout session" },
       { status: 500 }
