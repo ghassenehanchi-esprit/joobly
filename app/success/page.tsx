@@ -1,5 +1,6 @@
 "use client";
 
+
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -20,6 +21,7 @@ const SuccessContent = () => {
       return;
     }
 
+
     const verifyPayment = async () => {
       try {
         const response = await fetch("/api/checkout/confirm", {
@@ -27,6 +29,7 @@ const SuccessContent = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sessionId }),
         });
+
 
         const payload = await response.json();
 
@@ -85,6 +88,8 @@ const SuccessPage = () => {
       <SuccessContent />
     </Suspense>
   );
+
+
 };
 
 export default SuccessPage;

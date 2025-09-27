@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+
 import { PointsOrder } from "@/models/PointsOrder";
 import { User } from "@/models/User";
 import { getStripeClient } from "@/lib/stripe";
 
 import Stripe from "stripe";
+
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,6 +22,7 @@ export async function POST(req: Request) {
   }
 
   try {
+
     const stripe = getStripeClient();
 
     const session = await stripe.checkout.sessions.retrieve(sessionId);
