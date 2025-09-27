@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const SuccessPage = () => {
+const SuccessContent = () => {
+
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -77,6 +79,16 @@ const SuccessPage = () => {
       </div>
     </section>
   );
+
+};
+
+const SuccessPage = () => {
+  return (
+    <Suspense fallback={<section className="px-4 py-16">Loading…</section>}>
+      <SuccessContent />
+    </Suspense>
+  );
+
 };
 
 export default SuccessPage;
