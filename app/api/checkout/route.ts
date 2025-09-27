@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-
 import { authOptions } from "@/lib/authOptions";
 import { PACKAGES } from "@/lib/constant/constants";
 import { PointsOrder } from "@/models/PointsOrder";
+import { getStripeClient } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import Stripe from "stripe";
 
 const resolveAbsoluteUrl = (path: string) => {
   const configuredBaseUrl =
@@ -24,7 +23,19 @@ const resolveAbsoluteUrl = (path: string) => {
 };
 
 export async function POST(req: Request) {
-  await mongoose.connect(process.env.MONGODB_URI as string);
+  let stripe: Stripe;
+
+  try {
+    stripe = getStripeClient();
+  } catch (error) {
+    console.error("Stripe configuration error", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Stripe could not be initialised";
+
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 
   const { title } = await req.json();
 
@@ -54,15 +65,6 @@ export async function POST(req: Request) {
     );
   }
 
-  const orderDoc = await PointsOrder.create({
-    userEmail,
-    title: packageDetails.title,
-    price: packageDetails.price,
-    points: packageDetails.points,
-    paymentType: "stripe",
-    paid: false, // Default to unpaid
-  });
-
   const stripeLineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
     {
       quantity: 1,
@@ -75,11 +77,24 @@ export async function POST(req: Request) {
   ];
 
   try {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+
+    const orderDoc = await PointsOrder.create({
+      userEmail,
+      title: packageDetails.title,
+      price: packageDetails.price,
+      points: packageDetails.points,
+      paymentType: "stripe",
+      paid: false, // Default to unpaid
+    });
+
     const stripeSession = await stripe.checkout.sessions.create({
       line_items: stripeLineItems,
       mode: "payment",
       customer_email: userEmail,
-      success_url: resolveAbsoluteUrl("/success"),
+      success_url: resolveAbsoluteUrl(
+        "/success?session_id={CHECKOUT_SESSION_ID}"
+      ),
       cancel_url: resolveAbsoluteUrl("/error"),
       metadata: {
         orderId: orderDoc._id.toString(),
@@ -87,11 +102,18 @@ export async function POST(req: Request) {
       },
     });
 
+    if (!stripeSession.url) {
+      throw new Error("Stripe did not return a checkout URL");
+    }
+
     return NextResponse.json({ url: stripeSession.url });
   } catch (error: unknown) {
-    return NextResponse.json(
-      { error, message: "Could not create checkout session" },
-      { status: 500 }
-    );
+    console.error("Stripe checkout session creation failed", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Could not create checkout session";
+
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

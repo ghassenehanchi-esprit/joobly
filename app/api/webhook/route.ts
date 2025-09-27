@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-
 import { PointsOrder } from "@/models/PointsOrder";
 import { User } from "@/models/User";
+import { getStripeClient } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import Stripe from "stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -36,6 +35,8 @@ export async function POST(req: Request) {
   let event: Stripe.Event;
 
   try {
+    const stripe = getStripeClient();
+
     event = stripe.webhooks.constructEvent(
       body,
       signature,
