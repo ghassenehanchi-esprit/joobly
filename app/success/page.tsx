@@ -1,10 +1,12 @@
 "use client";
 
+
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const SuccessContent = () => {
+
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -77,6 +79,7 @@ const SuccessContent = () => {
       </div>
     </section>
   );
+
 };
 
 const SuccessPage = () => {
@@ -85,6 +88,7 @@ const SuccessPage = () => {
       <SuccessContent />
     </Suspense>
   );
+
 };
 
 export default SuccessPage;
