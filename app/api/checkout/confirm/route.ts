@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 
 import { PointsOrder } from "@/models/PointsOrder";
 import { User } from "@/models/User";
+import { getStripeClient } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import Stripe from "stripe";
+
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,6 +22,9 @@ export async function POST(req: Request) {
   }
 
   try {
+
+    const stripe = getStripeClient();
+
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     if (!session) {

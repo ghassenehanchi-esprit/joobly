@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ButtonProps } from '@/lib/types/componentTypes';
 import './botton.scss';
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, style, className, disabled, type, icon, hoverIcon }) => {
+const Button: React.FC<ButtonProps> = ({ children, onClick, style, className, disabled, type = 'button', icon, hoverIcon }) => {
     const [showIcon, setShowIcon] = useState(icon);
 
     return (

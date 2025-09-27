@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const SuccessContent = () => {
-
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -22,6 +21,7 @@ const SuccessContent = () => {
       return;
     }
 
+
     const verifyPayment = async () => {
       try {
         const response = await fetch("/api/checkout/confirm", {
@@ -29,6 +29,7 @@ const SuccessContent = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sessionId }),
         });
+
 
         const payload = await response.json();
 
@@ -79,7 +80,6 @@ const SuccessContent = () => {
       </div>
     </section>
   );
-
 };
 
 const SuccessPage = () => {
@@ -88,6 +88,7 @@ const SuccessPage = () => {
       <SuccessContent />
     </Suspense>
   );
+
 
 };
 

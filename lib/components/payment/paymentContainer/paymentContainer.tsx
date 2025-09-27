@@ -48,28 +48,41 @@ const PaymentContainer = ({ props }: PaymentContainerProps) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: packageDetails.title }),
+        credentials: "include",
       });
 
+      const payload = await response.json().catch(() => ({}));
+
       if (!response.ok) {
+        const errorMessage =
+          payload?.error ||
+          payload?.message ||
+          "Unable to start Stripe checkout session";
+
         if (response.status === 401) {
           toast.error("Please sign in before purchasing a package.");
           router.push("/login?callbackUrl=/packages");
           return;
         }
 
-        throw new Error("Unable to start Stripe checkout session");
+        throw new Error(errorMessage);
       }
 
-      const { url } = await response.json();
+      const { url } = payload as { url?: string };
 
       if (url) {
-        window.location.href = url;
+        window.location.assign(url);
       } else {
         throw new Error("Stripe session URL not found");
       }
     } catch (error) {
       console.error("Stripe checkout error", error);
-      toast.error("We couldn't start the Stripe checkout. Please try again.");
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "We couldn't start the Stripe checkout. Please try again.";
+
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
