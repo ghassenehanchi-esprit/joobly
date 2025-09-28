@@ -10,7 +10,9 @@ export const getStripeClient = () => {
   }
 
   if (!stripeClient) {
-    stripeClient = new Stripe(secretKey);
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: "2024-12-18.acacia",
+    });
   }
 
   return stripeClient;
