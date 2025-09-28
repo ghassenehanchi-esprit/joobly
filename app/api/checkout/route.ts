@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "@/lib/authOptions";
 import { PACKAGES } from "@/lib/constant/constants";
 import { PointsOrder } from "@/models/PointsOrder";
 import { getStripeClient } from "@/lib/stripe";
+import dbConnect from "@/database/dbConnect";
 
 import Stripe from "stripe";
 
@@ -22,6 +22,9 @@ const resolveAbsoluteUrl = (path: string) => {
   return new URL(path, normalisedBaseUrl).toString();
 };
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   let stripe: Stripe;
 
@@ -37,9 +40,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 
-  const { title } = await req.json();
+  let payload: unknown;
 
-  if (!title) {
+  try {
+    payload = await req.json();
+  } catch (error) {
+    console.error("Failed to parse checkout request body", error);
+    return NextResponse.json(
+      { error: "Invalid request body" },
+      { status: 400 }
+    );
+  }
+
+  const { title } = (payload as { title?: unknown }) ?? {};
+
+  if (!title || typeof title !== "string") {
     return NextResponse.json(
       { error: "Missing package title" },
       { status: 400 }
@@ -51,6 +66,13 @@ export async function POST(req: Request) {
   if (!packageDetails || typeof packageDetails.price !== "number") {
     return NextResponse.json(
       { error: "Selected package is not available" },
+      { status: 400 }
+    );
+  }
+
+  if (!Number.isFinite(packageDetails.price) || packageDetails.price <= 0) {
+    return NextResponse.json(
+      { error: "Selected package has an invalid price" },
       { status: 400 }
     );
   }
@@ -76,8 +98,10 @@ export async function POST(req: Request) {
     },
   ];
 
+  let orderId: string | null = null;
+
   try {
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await dbConnect();
 
     const orderDoc = await PointsOrder.create({
       userEmail,
@@ -87,6 +111,8 @@ export async function POST(req: Request) {
       paymentType: "stripe",
       paid: false, // Default to unpaid
     });
+
+    orderId = orderDoc._id.toString();
 
     const stripeSession = await stripe.checkout.sessions.create({
       line_items: stripeLineItems,
@@ -109,6 +135,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: stripeSession.url });
   } catch (error: unknown) {
     console.error("Stripe checkout session creation failed", error);
+
+    if (orderId) {
+      try {
+        await PointsOrder.findByIdAndDelete(orderId);
+      } catch (cleanupError) {
+        console.error("Failed to roll back pending order", cleanupError);
+      }
+    }
+
+    if (error instanceof Stripe.errors.StripeError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.statusCode ?? 500 }
+      );
+    }
+
+    if (error instanceof Error && error.message === "Stripe did not return a checkout URL") {
+      return NextResponse.json({ error: error.message }, { status: 502 });
+    }
 
     const message =
       error instanceof Error
